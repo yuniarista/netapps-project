@@ -16,8 +16,8 @@ export const UseCustomerState = (initialData = []) => {
     pageLimit: 10
   });
 
-  const { globalCtx } = useContext(GlobalContext);
-  const socket = globalCtx.socket;
+  // const { globalCtx } = useContext(GlobalContext);
+  // const socket = globalCtx.socket;
 
    const [nameFilter, setNameFilter] = useState("");
   const [sortDataBy, setSortDataBy] = useState("");
@@ -37,7 +37,7 @@ export const UseCustomerState = (initialData = []) => {
 
   return {
     form,
-    socket,
+    // socket,
     reset,
     setForm,
     openModal,

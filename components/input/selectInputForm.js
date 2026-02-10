@@ -6,7 +6,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui-p/form";
+} from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import {
   Select,
@@ -14,7 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui-p/select";
+} from "@/components/ui/select";
 // import IconifyIcon from "../icon";
 
 export default function SelectInputForm({

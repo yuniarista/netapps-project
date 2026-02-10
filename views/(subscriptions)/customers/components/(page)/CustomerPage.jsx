@@ -5,8 +5,8 @@ import CustomersForm from "../(form)/AddCustomersForm";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
 import { UseCustomerState } from "../../hooks/useCustomerHook";
-import CustomerDataTable from "../../(table)/CustomerDataTable";
-import CustomerDataColumn from "../../(table)/CustomerDataColumn";
+import CustomerDataTable from "../(table)/CustomerDataTable";
+import CustomerDataColumn from "../(table)/CustomerDataColumn";
 
 export default function CustomersPage() {
 const state = UseCustomerState([]);
