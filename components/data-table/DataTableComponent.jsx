@@ -60,8 +60,8 @@ export default function DataTableComponent({
     ? presentedData
     : // handle 0 / "0" / null / undefined sebagai empty
     presentedData === 0 || presentedData === "0" || !presentedData
-    ? []
-    : // kalau object tunggal, kamu bisa pilih mau [] atau [object]
+      ? []
+      : // kalau object tunggal, kamu bisa pilih mau [] atau [object]
       // di sini kita kosongkan biar konsisten
       [];
 
@@ -77,7 +77,7 @@ export default function DataTableComponent({
       )
     },
     getCoreRowModel: getCoreRowModel(),
-    onRowSelectionChange: () => {},
+    onRowSelectionChange: () => { },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
@@ -152,13 +152,13 @@ export default function DataTableComponent({
       </form>
 
       {/* Table */}
-      <div className="relative w-full mt-8">
+      <div className="relative w-full">
         {!!loading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/30 backdrop-blur-sm rounded-md">
             <LoadingCircle color="--color-primary" thickness={4} />
           </div>
         )}
-        <div className="rounded-md border border-border/15 overflow-x-auto">
+        <div className="rounded-[10px] border overflow-x-auto">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -219,7 +219,7 @@ export default function DataTableComponent({
           row(s) selected.
         </div>
 
-        <div
+        {/* <div
           className={cn(
             "text-muted-foreground text-sm flex items-center gap-x-2 mr-8",
             withoutRowsFilter ? "hidden" : ""
@@ -246,7 +246,7 @@ export default function DataTableComponent({
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
 
         <div
           className={cn(
@@ -254,7 +254,7 @@ export default function DataTableComponent({
             withoutPagination ? "hidden" : ""
           )}
         >
-          <span className="text-sm text-muted-foreground">
+          {/* <span className="text-sm text-muted-foreground">
             Page {table.getState().pagination.pageIndex + 1} of {totalPage}
           </span>
           {paginationButtons.map(({ icon, onClick, disabled }, i) => (
@@ -267,7 +267,15 @@ export default function DataTableComponent({
             >
               <Icon icon={icon} color="black" />
             </Button>
-          ))}
+          ))} */}
+          <Button
+            variant="outline"
+            size="sm"
+            // onClick={onClick}
+            // disabled={disabled}
+          >
+            Next
+          </Button>
         </div>
       </div>
     </div>

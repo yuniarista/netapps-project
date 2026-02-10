@@ -52,7 +52,7 @@ export default function DataTableComponent({
   return (
     <div className="">
       <div className="relative w-full">
-        <div className="rounded-md border border-[#E2E8F0] overflow-x-auto">
+        <div className="rounded-md border border-gray-300 overflow-x-auto">
           <Table>
             <TableHeader className="bg-[#F1F5F980]">
               {table.getHeaderGroups()?.map((headerGroup) => (
