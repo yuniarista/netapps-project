@@ -1,20 +1,15 @@
 "use client";
 
 import CustomButton from "@/components/button/customButton";
-import DataTableComponent from "@/components/data-table-p/DataTableComponent";
+import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
 import PageHeader from "@/components/layout/PageHeader";
-import { Badge } from "@/components/ui-p/badge";
-import { Button } from "@/components/ui-p/button";
-import { Checkbox } from "@/components/ui-p/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronDown, Plus, Search, Settings2, X } from "lucide-react";
-import { check } from "zod";
-import { id } from "zod/v4/locales";
+import { Plus, Search, Settings2, X } from "lucide-react";
 
-export default function CustomerDataTable({ columns, handleModalOpen }) {
+export default function WhatsAppDataTable({ columns, handleModalOpen }) {
   const dummyData = [
     {
       name: "SAI",

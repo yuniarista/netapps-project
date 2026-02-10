@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   primary:
-    "bg-[#6332CE] text-white hover:bg-[#6332CECC] focus-visible:outline-[#A1A1AA] disabled:bg-[#6332CEE6] disabled:text-[#FFF1F2]",
+    "bg-[#2563EB] text-white hover:bg-[#6332CECC] focus-visible:outline-[#A1A1AA] disabled:bg-[#6332CEE6] disabled:text-[#FFF1F2]",
   secondary:
-    "bg-[#F4F4F5] text-[#18181B] hover:bg-[#F4F4F5CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#F4F4F5E6] disabled:text-[#18181B]",
+    "bg-[#F1F5F9] text-[#18181B] hover:bg-[#F4F4F5CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#F4F4F5E6] disabled:text-[#18181B]",
   destructive:
     "bg-[#EF4444] text-white hover:bg-[#EF4444CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#EF4444E6] disabled:text-[#FFF1F2]",
   outline:
@@ -18,7 +18,7 @@ const variants = {
 
 const sizes = {
   sm: "py-[6px] px-[12px] text-sm",
-  md: "py-[8px] px-[16px] text-sm",
+  md: "py-[8px] px-[12px] text-sm",
   lg: "py-[12px] px-[32px] text-sm"
 };
 
@@ -33,7 +33,7 @@ export default function CustomButton({
   return (
     <Button
       className={cn(
-        "rounded-[10px] font-medium",
+        "rounded-[5px] font-medium",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4",
         "focus-visible:ring-0 focus-visible:ring-offset-0",
         variants[variant],

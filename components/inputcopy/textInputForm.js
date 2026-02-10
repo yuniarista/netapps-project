@@ -72,7 +72,7 @@ export default function TextInputForm({
                     }
                     onChange={handleChange}
                     endAdornment={endAdornment}
-                    variant={!!errors[name] && "destructive"}
+                    // variant={!!errors[name] && "destructive"}
                     showLabel={false}
                     readOnly={readOnly}
                   />

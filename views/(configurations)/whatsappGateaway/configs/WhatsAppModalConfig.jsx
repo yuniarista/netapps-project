@@ -1,8 +1,6 @@
-// import AddInvoiceForm from "../components/(form)/AddInvoiceForm";
+import AddWhatsAppForm from "../components/(form)/AddWhatsAppForm";
 
-import AddForm from "../components/(form)/AddForm";
-
-export const InvoiceModalConfig = ({
+export const WhatsAppModalConfig = ({
   loading,
   response,
   setResponse,
@@ -12,9 +10,9 @@ export const InvoiceModalConfig = ({
 
   return {
     add: {
-      title: "Create Invoice Template",
+      title: "Create Customer",
       content: (
-        <AddForm
+        <AddWhatsAppForm
           loading={loading}
           response={response}
           setResponse={setResponse}

@@ -1,27 +1,23 @@
 "use client";
-
-import CustomDialog from "@/components/basicDialog";
-import CustomersForm from "../(form)/AddCustomersForm";
 import { getModalConfig } from "@/utils/getModalConfig";
-import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
-import { UseCustomerState } from "../../hooks/useCustomerHook";
-import CustomerDataTable from "../../(table)/CustomerDataTable";
-import CustomerDataColumn from "../../(table)/CustomerDataColumn";
 import {
   Sidebar,
   SidebarContent,
+  SidebarGroup,
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { SidebarGroup } from "@/components/ui-p/sidebar";
-import PageHeader from "@/components/layout/PageHeader";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { UseWhatsAppState } from "../../hooks/useWhatsAppState";
+import { WhatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
+import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
+import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
 
-export default function CustomersPage() {
-  const state = UseCustomerState([]);
+export default function WhatsAppPage() {
+  const state = UseWhatsAppState([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, CustomerModalConfig(state));
+  const modalConfig = getModalConfig(modalType, WhatsAppModalConfig(state));
   return (
     <>
       <Sidebar>
@@ -34,12 +30,12 @@ export default function CustomersPage() {
 
       <SidebarInset>
         <div>
-          <CustomerDataTable
-            columns={CustomerDataColumn}
+          <WhatsAppDataTable
+            columns={WhatsAppDataColumn}
             handleModalOpen={handleModalOpen}
           />
           <Sheet open={openModal} onOpenChange={handleModalClose} modal={false}>
-            <SheetContent side="left" className="sm:max-w-md z-40 overflow-y-auto">
+            <SheetContent side="left" className="sm:max-w-md overflow-y-auto">
               <SheetHeader>
                 <SheetTitle className="text-xl px-3">
                   {modalConfig.title}

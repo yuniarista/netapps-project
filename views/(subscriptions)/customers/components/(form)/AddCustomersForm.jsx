@@ -8,11 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui-p/card";
-import { Form } from "@/components/ui-p/form";
 import { useForm } from "react-hook-form";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui-p/button";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { SwitchToggleInput } from "@/components/form-p/switchToggleInput";
 
 export default function AddCustomersForm() {

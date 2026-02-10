@@ -52,7 +52,7 @@ export default function DataTableComponent({
   return (
     <div className="">
       <div className="relative w-full">
-        <div className="rounded-md border border-[#E2E8F0] overflow-x-auto">
+        <div className="rounded-[5px] border border-[#E2E8F0] overflow-x-auto">
           <Table>
             <TableHeader className="bg-[#F1F5F980]">
               {table.getHeaderGroups()?.map((headerGroup) => (
@@ -115,9 +115,9 @@ export default function DataTableComponent({
           </div>
         </div>
         <div className="flex gap-4">
-          <Button variant="outline" size="sm" disabled>
+          {/* <Button variant="outline" size="sm" disabled>
             Back
-          </Button>
+          </Button> */}
           <Button variant="outline" size="sm" disabled>
             Next
           </Button>
