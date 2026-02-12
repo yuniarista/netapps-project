@@ -34,6 +34,7 @@ export default function InvoicePage() {
         title={modalConfig.title}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>

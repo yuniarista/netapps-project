@@ -3,11 +3,12 @@
 import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import PageHeader from "@/components/pageHeader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronDown, PanelRight, Plus, Search, Settings2 } from "lucide-react";
+import { ChevronDown, PanelRight, Plus, Search, Settings2, Trash2 } from "lucide-react";
 
 export default function InvoiceDataTable({ columns, handleModalOpen }) {
   const dummyData = [
@@ -35,6 +36,46 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
       lastUpdate: "03 Feb 2025",
       status: "Inactive",
     },
+  ];
+
+  const filterSections = [
+    {
+      label: "Area",
+      items: [
+        { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
+        { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
+        { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
+      ]
+    },
+    {
+      label: "Category",
+      items: [
+        { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
+        { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
+        { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
+      ]
+    }
+  ];
+
+  const bulkActionSections = [
+    {
+      label: "Change Status",
+      items: [
+        { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
+        { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
+      ]
+    },
+    {
+      items: [
+        {
+          label: "Delete",
+          value: "delete",
+          icon: Trash2,
+          variant: "destructive",
+          onClick: () => confirm("Are you sure?")
+        },
+      ]
+    }
   ];
 
   const hasData = dummyData.length > 0;
@@ -67,7 +108,7 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
               </div>
 
               <div className="flex items-center space-x-2">
-                <Select>
+                {/* <Select>
                   {/* value={sortDataBy}
               // onValueChange={async (val) => {
               //   setSortDataBy(val);
@@ -89,11 +130,11 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
               //   });
               //   setData(result);
               // }} */}
-                  <SelectTrigger className="w-40" icon={Settings2} iconPosition="left" iconClassName="text-primary">
+                {/* <SelectTrigger className="w-40" icon={Settings2} iconPosition="left" iconClassName="text-primary">
                     <SelectValue placeholder="Filter By" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {/* {sortableFieldList.map((item) => (
+                  <SelectContent> */}
+                {/* {sortableFieldList.map((item) => (
                   <SelectItem
                     key={item.label}
                     value={`${item.value.sortDataBy}-${item.value.sortType}`}
@@ -101,17 +142,29 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
                     {item.label}
                   </SelectItem>
                 ))} */}
-                  </SelectContent>
-                </Select>
+                {/* </SelectContent>
+                </Select> */}
 
-                <Select>
+                {/* <Select>
                   <SelectTrigger className="w-40" iconClassName="text-primary">
                     <SelectValue placeholder="Bulk Delete" />
                   </SelectTrigger>
                   <SelectContent>
                     {/* <SelectItem value="delete">Delete Selected</SelectItem> */}
-                  </SelectContent>
-                </Select>
+                {/* </SelectContent>
+                </Select> */}
+
+                <SelectDropdown
+                  triggerLabel="Filter By"
+                  icon={Settings2}
+                  iconPosition="left"
+                  className="w-40"
+                  sections={filterSections}
+                />
+                <SelectDropdown
+                  triggerLabel="Bulk Action"
+                  sections={bulkActionSections}
+                />
 
                 <CustomButton
                   variant="primary"

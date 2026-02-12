@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui-p/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";
@@ -12,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import IconifyIcon from "@/components/icon";
 
 const CustomerDataColumn = ({ actions }) => {
   return [
@@ -46,6 +46,25 @@ const CustomerDataColumn = ({ actions }) => {
     {
       accessorKey: "status",
       header: "Status",
+      cell: ({ row }) => {
+        const item = row.original;
+        const statusValue = item?.status;
+        const variantMap = {
+          "Active": "outlined-active",
+          "Inactive": "outlined-inactive"
+        };
+
+        const variant = variantMap[statusValue] || "outlined";
+
+        return (
+          <Badge
+            variant={variant}
+            className="flex items-center gap-2 capitalize"
+          >
+            {statusValue ?? " - "}
+          </Badge>
+        );
+      }
     },
     {
       id: "actions",

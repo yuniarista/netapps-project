@@ -34,13 +34,11 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
       handleCreate(data);
     }
   };
-
-
-
-  // const statusValues = [
-  //   { label: "Active", value: "active" },
-  //   { label: "Inactive", value: "inactive" },
-  // ];
+  
+  const statusValues = [
+    { label: "Active", value: "active" },
+    { label: "Inactive", value: "inactive" },
+  ];
 
   const isOptions = [
     { label: "NetApps", value: "netapps" },

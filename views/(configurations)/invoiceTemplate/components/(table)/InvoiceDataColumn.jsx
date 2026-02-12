@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
 const InvoiceDataColumn = ({ actions }) => {
   return [
@@ -59,8 +60,35 @@ const InvoiceDataColumn = ({ actions }) => {
       header: "Status",
       cell: ({ row }) => {
         const statusValue = row.original.status;
-        const variant = statusValue === "Active" ? "outlined-active" : "outlined-inactive";
-        return <Badge variant={variant}>{statusValue}</Badge>;
+        const rowId = row.original.id;
+
+        const statusActions = [
+          {
+            label: "Change Status",
+            items: [
+              {
+                label: "Mark as active",
+                value: "Active",
+                onClick: (v) => handleStatusUpdate(rowId, v)
+              },
+              {
+                label: "Mark as non active",
+                value: "Inactive",
+                onClick: (v) => handleStatusUpdate(rowId, v)
+              },
+            ]
+          }
+        ];
+
+        return (
+          <SelectDropdown
+            asBadge={true} 
+            triggerLabel={statusValue}
+            badgeVariant={statusValue === "Active" ? "outlined-active" : "outlined-inactive"}
+            iconClassName={statusValue === "Active" ? "text-emerald-500" : "text-slate-400"}
+            sections={statusActions}
+          />
+        );
       },
     },
     {
@@ -93,8 +121,9 @@ const InvoiceDataColumn = ({ actions }) => {
                       {item?.label}
                     </DropdownMenuItem>
                   </div>
-                );})}
-                  </DropdownMenuContent>
+                );
+              })}
+            </DropdownMenuContent>
           </DropdownMenu>
         );
       }
