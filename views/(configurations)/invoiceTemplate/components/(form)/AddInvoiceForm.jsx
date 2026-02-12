@@ -35,14 +35,7 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
       handleCreate(data);
     }
   };
-
-  const [openSections, setOpenSections] = useState({
-    register: true,
-    template: true,
-    description: true,
-    status: true,
-  });
-
+  
   const statusValues = [
     { label: "Active", value: "active" },
     { label: "Inactive", value: "inactive" },

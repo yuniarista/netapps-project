@@ -23,19 +23,24 @@ const CustomDialog = ({
   footer,
   headerAlignment = "center",
   titleClassname,
+  withHeaderBorder = false,
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
-        className={`max-w-2xl max-h-full  rounded-lg border border-zinc-200 shadow-xl top-10 left-1/2 -translate-x-1/2 translate-y-0 ${className}`}
+        className={cn("max-w-md max-h-full rounded-[10px] border border-zinc-200 shadow-xl top-10 left-1/2 -translate-x-1/2 translate-y-0 overflow-hidden",
+          className)}
         onInteractOutside={(e) => e.preventDefault()}
       >
-        <DialogHeader>
+        <DialogHeader className={cn(
+          withHeaderBorder && "border-b border-slate-200 bg-white",
+          headerAlignment === "center" ? "text-center" : "text-left"
+        )}>
           <DialogTitle
             className={cn(
               "w-full text-base font-semibold text-zinc-900 leading-5 ",
-              `text-${headerAlignment}`,
+              // `text-${headerAlignment}`,
               titleClassname,
             )}
           >
@@ -47,7 +52,7 @@ const CustomDialog = ({
             </DialogDescription>
           )}
         </DialogHeader>
-        <div>{children}</div>
+        <div className={cn(withHeaderBorder ? "p-0" : "mt-4")}>{children}</div>
         {footer && <DialogFooter className="mt-6">{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
