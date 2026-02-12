@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
-import { Controller } from "react-hook-form";
-import { FormLabel } from "../ui/form";
+import { 
+  FormControl, 
+  FormField, // Menggunakan FormField agar konsisten dengan TextInputForm
+  FormItem, 
+  FormLabel, 
+  FormMessage 
+} from "@/components/ui/form";
 
 export default function InputFileForm({
   name,
@@ -15,22 +19,18 @@ export default function InputFileForm({
   helperText,
   required = false,
   disabled = false,
-  error,
 }) {
-  const [fileName, setFileName] = useState("No file chosen");
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (e, onChange) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setFileName(selectedFile.name);
       onChange(selectedFile);
     }
   };
 
   const handleRemove = (e, onChange) => {
     e.stopPropagation();
-    setFileName("No file chosen");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -38,17 +38,25 @@ export default function InputFileForm({
   };
 
   return (
-    <div className="w-full flex flex-col gap-1.5">
-    {label && <FormLabel>{label}</FormLabel>}
-      <Controller
-        name={name}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <div className="flex flex-col gap-1.5">
+    <FormField
+      control={control}
+      name={name}
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
+        <FormItem className="w-full">
+          {/* Label disamakan persis logikanya dengan TextInputForm */}
+          {label && (
+            <FormLabel className="flex items-center gap-0">
+              <span>{String(label).trim()}</span>
+              {required && <span className="text-red-500">*</span>}
+            </FormLabel>
+          )}
+
+          <FormControl>
             <div
               onClick={() => !disabled && fileInputRef.current?.click()}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 border rounded-[8px] bg-white transition-all cursor-pointer",
+                // h-10 ditambahkan agar tinggi box sama dengan InputText standar
+                "flex items-center h-9 gap-3 px-3 border rounded-[8px] bg-white transition-all cursor-pointer",
                 error
                   ? "border-red-500"
                   : "border-slate-200 shadow-sm hover:border-slate-300",
@@ -59,8 +67,8 @@ export default function InputFileForm({
                 {value ? "Change file" : "Choose file"}
               </span>
 
-              <span className="text-[14px] truncate flex-1">
-                {value ? value.name : fileName}
+              <span className="text-[14px] truncate flex-1 text-slate-600">
+                {value ? value.name : "No file chosen"}
               </span>
 
               {value && (
@@ -83,21 +91,15 @@ export default function InputFileForm({
                 onChange={(e) => handleFileSelect(e, onChange)}
               />
             </div>
+          </FormControl>
 
-            {helperText && !error && (
-              <p className="text-[13px] text-slate-400 font-normal">
-                {helperText}
-              </p>
-            )}
-
-            {error && (
-              <p className="text-[13px] text-red-600 font-medium mt-0.5">
-                {error}
-              </p>
-            )}
-          </div>
-        )}
-      />
-    </div>
+          {/* Helper Text & Error Message */}
+          {helperText && !error && (
+            <p className="text-[12px] text-slate-500 mt-1">{helperText}</p>
+          )}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 }

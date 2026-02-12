@@ -253,3 +253,14 @@ input[type="number"]::-webkit-outer-spin-button {
     @apply bg-background text-foreground;
   }
 }
+
+.scrollbar-hidden-y {
+  /* Untuk Chrome, Safari, dan Edge berbasis Chromium */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Untuk Firefox */
+  -ms-overflow-style: none;  /* IE and Edge (older) */
+  scrollbar-width: none;  /* Firefox */
+}
+

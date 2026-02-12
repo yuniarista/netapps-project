@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui-p/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";
@@ -9,62 +10,54 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import IconifyIcon from "@/components/icon";
 
-const CustomerDataColumn = ({ actions }) => {
+const WhatsAppDataColumn = ({ actions }) => {
   return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       accessorKey: "name",
       header: "ISP Name",
     },
     {
-      accessorKey: "legalName",
-      header: "Legal Name",
+      accessorKey: "number",
+      header: "WhatsApp Number",
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: "messageQuota",
+      header: "Message Quota",
     },
     {
-      accessorKey: "phone",
-      header: "Phone",
-    },
-    {
-      accessorKey: "invoiceNumber",
-      header: "Contact Person",
-    },
-    {
-      accessorKey: "province",
-      header: "Province",
-    },
-    {
-      accessorKey: "city",
-      header: "City",
+      accessorKey: "ussage",
+      header: "Ussage Today",
     },
     {
       accessorKey: "status",
-      header: "Status",
+      header: "Connection Status",
       cell: ({ row }) => {
-        const item = row.original;
-        const statusValue = item?.status;
-        const variantMap = {
-          "Active": "outlined-active",
-          "Inactive": "outlined-inactive"
-        };
-
-        const variant = variantMap[statusValue] || "outlined";
-
-        return (
-          <Badge
-            variant={variant}
-            className="flex items-center gap-2 capitalize"
-          >
-            {statusValue ?? " - "}
-          </Badge>
-        );
-      }
+        const statusValue = row.original.status;
+        const variant = statusValue === "Active" ? "outlined-active" : "outlined-inactive";
+        return <Badge variant={variant}>{statusValue}</Badge>;  
+      },
     },
     {
       id: "actions",
@@ -80,13 +73,10 @@ const CustomerDataColumn = ({ actions }) => {
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="border border-muted rounded-[8px]"
-            >
+            <DropdownMenuContent align="end" className="border border-muted rounded-[8px]">
               {actions?.map((item, index) => {
                 const IconComponent = item?.icon;
-                const isDelete = item.label === "Delete";
+                const isDelete = item.label === "Delete"
                 return (
                   <div key={index}>
                     {isDelete && index !== 0 && <DropdownMenuSeparator />}
@@ -95,20 +85,17 @@ const CustomerDataColumn = ({ actions }) => {
                       onClick={() => item?.onClick(rowData)}
                       className={item?.className}
                     >
-                      {IconComponent && (
-                        <IconComponent className="mr-2 h-4 w-4" />
-                      )}
+                      {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
                       {item?.label}
                     </DropdownMenuItem>
                   </div>
-                );
-              })}
-            </DropdownMenuContent>
+                );})}
+                  </DropdownMenuContent>
           </DropdownMenu>
         );
-      },
-    },
+      }
+    }
   ].filter(Boolean);
 };
 
-export default CustomerDataColumn;
+export default WhatsAppDataColumn;

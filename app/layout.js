@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from 'next/font/google';
 // import AuthProvider from "@/components/AuthProvider"; // Sesuaikan path-nya
 import { GlobalProvider } from "@/context/globalContext";
+import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
 
 const inter = Inter({ subsets: ['latin'] });
 

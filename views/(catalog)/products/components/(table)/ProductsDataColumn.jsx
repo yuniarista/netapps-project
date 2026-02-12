@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui-p/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";
@@ -11,65 +12,41 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import IconifyIcon from "@/components/icon";
 
-const CustomerDataColumn = ({ actions }) => {
+const ProductDataColumn = ({ actions }) => {
   return [
     {
-      accessorKey: "name",
-      header: "ISP Name",
+      accessorKey: "productName",
+      header: "Product Name",
     },
     {
-      accessorKey: "legalName",
-      header: "Legal Name",
+      accessorKey: "price",
+      header: "Price",
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: "areaCategory",
+      header: "Area Category",
     },
     {
-      accessorKey: "phone",
-      header: "Phone",
+      accessorKey: "category",
+      header: "Category",
     },
     {
-      accessorKey: "invoiceNumber",
-      header: "Contact Person",
+      accessorKey: "subCategory",
+      header: "Sub Category",
     },
     {
-      accessorKey: "province",
-      header: "Province",
-    },
-    {
-      accessorKey: "city",
-      header: "City",
+      accessorKey: "promoPrice",
+      header: "Promo Price",
     },
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => {
-        const item = row.original;
-        const statusValue = item?.status;
-        const variantMap = {
-          "Active": "outlined-active",
-          "Inactive": "outlined-inactive"
-        };
-
-        const variant = variantMap[statusValue] || "outlined";
-
-        return (
-          <Badge
-            variant={variant}
-            className="flex items-center gap-2 capitalize"
-          >
-            {statusValue ?? " - "}
-          </Badge>
-        );
-      }
     },
     {
       id: "actions",
       enableHiding: false,
-      header: "",
+      header: "Action",
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (
@@ -111,4 +88,4 @@ const CustomerDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default CustomerDataColumn;
+export default ProductDataColumn;

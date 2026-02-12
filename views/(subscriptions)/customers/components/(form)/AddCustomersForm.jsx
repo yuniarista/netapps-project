@@ -1,6 +1,5 @@
 "use client";
 
-import TextInputForm from "@/components/form-p/textInputForm";
 import {
   Card,
   CardContent,
@@ -8,12 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui-p/card";
-import { Form } from "@/components/ui-p/form";
 import { useForm } from "react-hook-form";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui-p/button";
-import { SwitchToggleInput } from "@/components/form-p/switchToggleInput";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import TextInputForm from "@/components/inputcopy/textInputForm";
+import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
 
 export default function AddCustomersForm() {
   const form = useForm({ mode: "all" });

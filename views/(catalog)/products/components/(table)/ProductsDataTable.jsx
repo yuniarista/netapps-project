@@ -21,37 +21,26 @@ import {
   X,
 } from "lucide-react";
 
-export default function CustomerDataTable({ columns, handleModalOpen }) {
+export default function ProductDataTable({ columns, handleModalOpen }) {
   const dummyData = [
     {
-      name: "SAI",
-      legalName: "PT Semua Aplikasi Indonesia",
-      email: "sai@gmail.com",
-      phone: "021-12345678",
-      invoiceNumber: "INV-001",
-      province: "Bali",
-      city: "Badung",
-      status: "Active",
+        productName: "Internet Basic",
+        price: "$10/month",
+        areaCategory: "Urban",
+        areaCategory: "Urban",
+        category: "Residential",
+        subCategory: "Basic",
+        promoPrice: "$8/month",
+        status: "Active",
     },
     {
-      name: "PT Maju Mundur",
-      legalName: "PT Maju Mundur Sejahtera",
-      email: "info@maju-mundur.co.id",
-      phone: "021-87654321",
-      invoiceNumber: "INV-002",
-      province: "Jawa Barat",
-      city: "Bandung",
-      status: "Inactive",
-    },
-    {
-      name: "PT Sukses Selalu",
-      legalName: "PT Sukses Selalu Sejahteraaaaaaaaaaaaaaaaaa",
-      email: "info@sukses-selalu.co.id",
-      phone: "021-98765432",
-      invoiceNumber: "INV-003",
-      province: "Bali",
-      city: "Denpasar",
-      status: "Active",
+        productName: "Internet Pro",
+        price: "$20/month",
+        areaCategory: "Urban",
+        category: "Residential",
+        subCategory: "Pro",
+        promoPrice: "$15/month",
+        status: "Inactive",
     },
   ];
 
@@ -68,7 +57,7 @@ export default function CustomerDataTable({ columns, handleModalOpen }) {
         <>
           <div className="p-4 space-y-4">
             <div className="w-full">
-              <Label className="font-semibold text-md">Table Title</Label>
+              <Label className="font-semibold text-md">Catalog Product Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">

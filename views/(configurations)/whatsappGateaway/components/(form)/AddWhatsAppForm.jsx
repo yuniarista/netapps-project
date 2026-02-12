@@ -1,26 +1,17 @@
 " use client";
-import Loading from "@/app/(protected)/loading";
+
 import InputFileForm from "@/components/input/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
-import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
-import LoadingCircle from "@/components/loadingCircle";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
   CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Label } from "@radix-ui/react-label";
-import { X } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import AddAreaForm from "./AddAreaForm";
 import TextInputForm from "@/components/inputcopy/textInputForm";
+import AddAreaForm from "./AddAreaForm";
 
-export default function AddInvoiceForm({ handleModalClose, loading }) {
+export default function AddWhatsAppForm({ handleModalClose, loading }) {
   const form = useForm({ mode: "all" });
   const {
     control,
@@ -34,7 +25,7 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
       handleCreate(data);
     }
   };
-  
+
   const statusValues = [
     { label: "Active", value: "active" },
     { label: "Inactive", value: "inactive" },
@@ -46,6 +37,11 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
     { label: "BLiP", value: "blip" },
   ];
 
+  const timezoneOptions = [
+    { label: "GMT+7", value: "gmt+7" },
+    { label: "GMT+8", value: "gmt+8" },
+    { label: "GMT+9", value: "gmt+9" },
+  ];
 
   return (
     <Form {...form}>
@@ -71,32 +67,29 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
           // )}
           />
           <TextInputForm
-            name="template"
-            label="Template Name"
-            placeholder="Enter document template name here"
+            name="whatsappNumber"
+            label="WhatsApp Number"
+            placeholder="+812 3456 7890"
             errors={errors}
             control={control}
           />
           <SelectInputForm
-            name="template"
-            label="Document Type"
-            placeholder="Choose document template type"
+            name="timezone"
+            label="Timezone"
+            placeholder="Select preferredtimezone"
             errors={errors}
             control={control}
+            optionName="label"
+            options={timezoneOptions}
           />
-          <TextInputForm
-            name="description"
-            label="Description"
-            placeholder="Enter document template description here"
+          <SelectInputForm
+            name="status"
+            label="Status"
+            placeholder="Status"
             errors={errors}
             control={control}
-          />
-          <InputFileForm
-            name="invoice"
-            label="Invoice File"
-            errors={errors}
-            control={control}
-            helperText="Supports HTML with optional JS (sandboxed)"
+            optionName="label"
+            options={statusValues}
           />
         </CardContent>
 

@@ -2,26 +2,26 @@
 
 import CustomDialog from "@/components/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
-import { UseCustomerState } from "../../hooks/useCustomerHook";
-import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
-import CustomerActionConfig from "../../configs/CustomerActionConfig";
-import CustomerDataTable from "../(table)/CustomerDataTable";
-import CustomerDataColumn from "../(table)/CustomerDataColumn";
+import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
+import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
+import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
+import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
+import whatsAppActionConfig from "../../configs/invoiceActionConfig";
 
 
 export default function WhatsAppPage() {
-  const state = UseCustomerState([]);
+  const state = useWhatsAppHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, CustomerModalConfig(state));
-  const actions = CustomerActionConfig((type, item) => {
+  const modalConfig = getModalConfig(modalType, whatsAppModalConfig(state));
+  const actions = whatsAppActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
 
   return (
     <div>
-      <CustomerDataTable
-        columns={CustomerDataColumn ({
+      <WhatsAppDataTable
+        columns={WhatsAppDataColumn({
           actions
         })}
         handleModalOpen={handleModalOpen}
