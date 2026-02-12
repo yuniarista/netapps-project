@@ -1,9 +1,10 @@
 
-import PagesInvoice from "./(protected)/(configuration)/invoice-template/page";
-
+import Login from "@/views/login";
 
 export default function Home() {
-  return (
-      <PagesInvoice/>
+    return (
+    <div className="bg-[#ffffff]">
+      <Login />
+    </div>
   );
 }

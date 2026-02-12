@@ -7,9 +7,9 @@ import { UseInvoiceState } from "../../hooks/useInvoiceState";
 import CustomDialog from "@/components/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { Calendar, Calendar1Icon } from "lucide-react";
-import { invoiceModalConfig } from "../../configs/InvoiceModalConfig";
 import invoiceActionConfig from "../../configs/invoiceActionConfig";
 import { useInvoiceHooks } from "../../hooks/useInvoiceHooks";
+import { invoiceModalConfig } from "../../configs/invoiceModalConfig";
 
 export default function InvoicePage() {
   const state = useInvoiceHooks([]);
@@ -34,6 +34,7 @@ export default function InvoicePage() {
         title={modalConfig.title}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>
