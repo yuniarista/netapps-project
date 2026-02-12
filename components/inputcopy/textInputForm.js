@@ -23,6 +23,8 @@ export default function TextInputForm({
   defaultValue,
   placeholder,
   isHidden = false,
+  required = false,
+  helperText = "",
   errors,
   readOnly
 }) {
@@ -46,11 +48,12 @@ export default function TextInputForm({
           };
           return (
             <FormItem>
-              <FormLabel>{label}</FormLabel>
+              <FormLabel className="flex items-center gap-0"><span>{String(label).trim()}</span>{required && <span className="text-red-500">*</span>}</FormLabel>
               <FormControl>
                 {isTextarea ? (
                   <Textarea
                     rows={rows}
+                    className="rounded-[10px]"
                     placeholder={placeholder || `Input ${label}`}
                     disabled={disabled}
                     autoFocus={autoFocus}

@@ -1,8 +1,9 @@
-import Image from "next/image";
-import Page from "./(protected)/customers/page";
+
+import PagesInvoice from "./(protected)/(configuration)/invoice-template/page";
+
 
 export default function Home() {
   return (
-    <Page />
+      <PagesInvoice/>
   );
 }

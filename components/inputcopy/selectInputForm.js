@@ -12,10 +12,15 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
 import IconifyIcon from "../icon";
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import BaseModal from "./inputBaseModal";
+import { Button } from "../ui/button";
 
 export default function SelectInputForm({
   name,
@@ -29,8 +34,12 @@ export default function SelectInputForm({
   optionName,
   isMultiple = false,
   multipleData = [],
-  errors
+  errors,
+  onAddNew,
+  renderModalContent,
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={cn("w-full", isHidden && "hidden")}>
       <FormField
@@ -65,22 +74,39 @@ export default function SelectInputForm({
                   </SelectTrigger>
                   <SelectContent>
                     {options.map((option) => {
+                      const valueStr = (option.value || option.id).toString();
+                      const isSelected = field.value?.toString() === valueStr;
+
                       return (
                         <SelectItem
-                          key={option.value || option.id}
-                          value={option.value || option.id}
+                          key={valueStr}
+                          value={valueStr}
                           className={cn(
-                            "capitalize",
-                            isMultiple &&
-                              multipleData?.includes(option.value || option.id)
-                              ? "bg-gray-200"
-                              : ""
+                            "flex items-center justify-between py-2 px-3 rounded-[5px] transition-colors",
+                            isSelected ? "bg-muted text-slate-900" : "hover:bg-slate-50"
                           )}
                         >
                           {option[optionName]}
                         </SelectItem>
                       );
                     })}
+
+                    {(onAddNew || renderModalContent) && (
+                      <>
+                        <div
+                          onClick={(e) => {
+                            if (renderModalContent) {
+                              setIsModalOpen(true); // Buka modal internal
+                            }
+                            if (onAddNew) onAddNew(); // Jalankan fungsi external jika ada
+                          }}
+                          className="flex items-center gap-2 px-2 py-2 text-sm text-primary font-medium cursor-pointer hover:bg-blue-50 rounded-md transition-all"
+                        >
+                        <Plus className="w-4 h-4" />
+                          Add new {label?.toLowerCase() || "item"}
+                        </div>
+                      </>
+                    )}
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -89,6 +115,34 @@ export default function SelectInputForm({
           );
         }}
       />
+
+      {renderModalContent && (
+        <BaseModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          title={`Add ${label}`}
+          footer={
+            <>
+              <Button
+                variant="secondary"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </Button>
+
+              <Button
+                type="submit"
+                form="add-select-form"
+              >
+                Add
+              </Button>
+            </>
+          }
+        >
+          {renderModalContent(() => setIsModalOpen(false))}
+        </BaseModal>
+      )}
+
     </div>
   );
 }

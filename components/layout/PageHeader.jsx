@@ -37,8 +37,8 @@ export default function PageHeader({
           </button>
         )}
 
-        <Label className="text-sm text-[#64748B] **whitespace-nowrap**">ISP Companies
-          {/* {title} */}
+        <Label className="text-sm text-[#64748B] **whitespace-nowrap**">
+          {title}
         </Label>
 
         {search && (

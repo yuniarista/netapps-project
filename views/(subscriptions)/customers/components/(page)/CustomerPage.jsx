@@ -1,68 +1,40 @@
 "use client";
 
 import CustomDialog from "@/components/basicDialog";
-import CustomersForm from "../(form)/AddCustomersForm";
 import { getModalConfig } from "@/utils/getModalConfig";
-import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
 import { UseCustomerState } from "../../hooks/useCustomerHook";
-import CustomerDataTable from "../../(table)/CustomerDataTable";
-import CustomerDataColumn from "../../(table)/CustomerDataColumn";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarInset,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { SidebarGroup } from "@/components/ui-p/sidebar";
-import PageHeader from "@/components/layout/PageHeader";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
+import CustomerActionConfig from "../../configs/CustomerActionConfig";
+import CustomerDataTable from "../(table)/CustomerDataTable";
+import CustomerDataColumn from "../(table)/CustomerDataColumn";
 
-export default function CustomersPage() {
+
+export default function WhatsAppPage() {
   const state = UseCustomerState([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
   const modalConfig = getModalConfig(modalType, CustomerModalConfig(state));
+  const actions = CustomerActionConfig((type, item) => {
+    handleModalOpen(type, item);
+  }, ["update", "delete"]);
+
   return (
-    <>
-      <Sidebar>
-        <SidebarContent>
-          <SidebarGroup>
-            <div className="text-sm font-medium text-center">Menu Sidebar</div>
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-
-      <SidebarInset>
-        <div>
-          <CustomerDataTable
-            columns={CustomerDataColumn}
-            handleModalOpen={handleModalOpen}
-          />
-          <Sheet open={openModal} onOpenChange={handleModalClose} modal={false}>
-            <SheetContent side="left" className="sm:max-w-md z-40 overflow-y-auto">
-              <SheetHeader>
-                <SheetTitle className="text-xl px-3">
-                  {modalConfig.title}
-                </SheetTitle>
-                <div>
-                  {modalConfig.content}
-                </div>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-
-          {/* <CustomDialog
-            className="overflow-scroll"
-            open={openModal}
-            onOpenChange={handleModalClose}
-            title={modalConfig.title}
-            headerAlignment="start"
-            titleClassname="text-xl p-3"
-          >
-            {modalConfig.content}
-          </CustomDialog> */}
-        </div>
-      </SidebarInset>
-    </>
+    <div>
+      <CustomerDataTable
+        columns={CustomerDataColumn ({
+          actions
+        })}
+        handleModalOpen={handleModalOpen}
+      />
+      <CustomDialog
+        open={openModal}
+        onOpenChange={handleModalClose}
+        title={modalConfig.title}
+        headerAlignment="start"
+        titleClassname="text-xl p-3"
+      >
+        {modalConfig.content}
+      </CustomDialog>
+    </div>
   );
 }

@@ -130,7 +130,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
     /* TEXT (converted to HSL) */
     --text-foreground: 222 84% 5%; /* #020617 */
-    --text-muted-foreground: 215 16% 47%; /* #64748b */
+    --text-muted-foreground: 215 16% 47%; /* #64748B */
     --text-muted: 240 5% 96%; /* #f4f4f5 */
     --text-primary: 258 79% 49%; /* #6332ce */
     --text-primary-foreground: 353 100% 97%; /* #fff1f2 */
@@ -253,3 +253,14 @@ input[type="number"]::-webkit-outer-spin-button {
     @apply bg-background text-foreground;
   }
 }
+
+.scrollbar-hidden-y {
+  /* Untuk Chrome, Safari, dan Edge berbasis Chromium */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Untuk Firefox */
+  -ms-overflow-style: none;  /* IE and Edge (older) */
+  scrollbar-width: none;  /* Firefox */
+}
+

@@ -1,163 +1,117 @@
-// "use client";
+" use client";
+import Loading from "@/app/(protected)/loading";
+import InputFileForm from "@/components/input/inputFileForm";
+import SelectInputForm from "@/components/inputcopy/selectInputForm";
+import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
+import LoadingCircle from "@/components/loadingCircle";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
+import { Label } from "@radix-ui/react-label";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import AddAreaForm from "./AddAreaForm";
+import TextInputForm from "@/components/inputcopy/textInputForm";
 
-// import { SwitchToggleInput } from "@/components/form-p/switchToggleInput";
-// import InputInvoiceForm from "@/components/input/invoiceInputForm";
-// import SelectInputForm from "@/components/input/selectInputForm";
-// import { Button } from "@/components/ui-p/button";
-// import {
-//   Card,
-//   CardContent,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui-p/card";
-// import { Form } from "@/components/ui-p/form";
-// import { Label } from "@radix-ui/react-label";
-// import { X } from "lucide-react";
-// import { useState } from "react";
-// import { useForm } from "react-hook-form";
+export default function AddInvoiceForm({ handleModalClose, loading }) {
+  const form = useForm({ mode: "all" });
+  const {
+    control,
+    formState: { errors },
+  } = form;
 
-// export default function AddInvoiceForm() {
-//   const form = useForm({ mode: "all" });
-//   const {
-//     control,
-//     formState: { errors },
-//   } = form;
+  const onSubmit = (data) => {
+    console.log("Data Form:", data);
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // Handle form submission logic here
-//   };
+    if (handleCreate) {
+      handleCreate(data);
+    }
+  };
 
-//   const [openSections, setOpenSections] = useState({
-//     register: true,
-//     template: true,
-//     description: true,
-//     status: true,
-//   });
 
-//   const statusValues = [
-//     { label: "Active", value: "active" },
-//     { label: "Inactive", value: "inactive" },
-//   ];
 
-//   const isOptions = [
-//     { label: "NetApps", value: "netapps" },
-//     { label: "SAI", value: "sai" },
-//     { label: "BLiP", value: "blip" },
-//   ];
+  // const statusValues = [
+  //   { label: "Active", value: "active" },
+  //   { label: "Inactive", value: "inactive" },
+  // ];
 
-//   const templateOptions = [
-//     { label: "SAI", value: "sai" },
-//     { label: "Invoice A", value: "invoice_a" },
-//     { label: "Invoice B", value: "invoice_b" },
-//   ];
+  const isOptions = [
+    { label: "NetApps", value: "netapps" },
+    { label: "SAI", value: "sai" },
+    { label: "BLiP", value: "blip" },
+  ];
 
-//   const descriptionOptions = [
-//     { label: "Instalation Fee", value: "instalatioinFee" },
-//     { label: "Basic Template", value: "basic" },
-//     { label: "Premium Template", value: "premium" },
-//   ];
 
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={handleSubmit}>
-//         <CardContent>
-//           <section>
-//             {openSections.register && (
-//               <div className="flex flex-col gap-4 py-2">
-//                 <div className="space-y-4">
-//                   <SelectInputForm
-//                     name="ispName"
-//                     label="ISP Name"
-//                     placeholder="Choose registered ISP"
-//                     errors={errors}
-//                     control={control}
-//                     optionName="label"
-//                     options={isOptions}
-//                   />
-//                 </div>
-//               </div>
-//             )}
-//           </section>
-//           <section>
-//             {openSections.template && (
-//               <div className="flex flex-col gap-4">
-//                 <div className="space-y-4">
-//                   <SelectInputForm
-//                     name="template"
-//                     label="Template Name"
-//                     placeholder="Enter invoice template name here"
-//                     errors={errors}
-//                     control={control}
-//                     options={templateOptions}
-//                     optionName="label"
-//                   />
-//                 </div>
-//               </div>
-//             )}
-//           </section>
-//           <section>
-//             {openSections.description && (
-//               <div className="flex flex-col gap-4 py-2">
-//                 <div className="space-y-4">
-//                   <SelectInputForm
-//                     name="description"
-//                     label="Description"
-//                     placeholder="Enter invoice template description here"
-//                     errors={errors}
-//                     control={control}
-//                     options={descriptionOptions}
-//                     optionName="label"
-//                   />
-//                 </div>
-//               </div>
-//             )}
-//           </section>
-//           <section>
-//             <div className="flex flex-col gap-4 py-2">
-//               <div className="space-y-4">
-//                 <InputInvoiceForm
-//                   name="invoice"
-//                   label="Invoice File"
-//                   errors={errors}
-//                   control={control}
-//                 />
-//                 <div className="flex flex-col">
-//                   <Label className="gap-2 mt-4">Default (Yes/No)</Label>
-//                   <SwitchToggleInput control={control} name={"default"} />
-//                 </div>
-//               </div>
-//             </div>
-//           </section>
-//           <section>
-//             {openSections.status && (
-//               <div className="flex flex-col">
-//                 <div>
-//                   <SelectInputForm
-//                     name="status"
-//                     label="Status"
-//                     placeholder="Status"
-//                     errors={errors}
-//                     control={control}
-//                     options={statusValues}
-//                     optionName="label"
-//                   />
-//                 </div>
-//               </div>
-//             )}
-//           </section>
-//         </CardContent>
-//         <CardFooter className="gap-4 py-3">
-//           <Button type="reset" variant="secondary">
-//             Cancel
-//           </Button>
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <CardContent>
+          <SelectInputForm
+            name="ispName"
+            label="ISP Name"
+            placeholder="Choose registered ISP"
+            errors={errors}
+            control={control}
+            optionName="label"
+            options={isOptions}
+          // renderModalContent={(closeModal) => (
+          //   <AddAreaForm
+          //     onCancel={closeModal}
+          //     onSuccess={(data) => {
+          //       console.log("Data area baru:", data);
+          //       // Tambahkan logic API di sini jika perlu
+          //       closeModal(); // Tutup modal setelah sukses
+          //     }}
+          //   />
+          // )}
+          />
+          <TextInputForm
+            name="template"
+            label="Template Name"
+            placeholder="Enter document template name here"
+            errors={errors}
+            control={control}
+          />
+          <SelectInputForm
+            name="template"
+            label="Document Type"
+            placeholder="Choose document template type"
+            errors={errors}
+            control={control}
+          />
+          <TextInputForm
+            name="description"
+            label="Description"
+            placeholder="Enter document template description here"
+            errors={errors}
+            control={control}
+          />
+          <InputFileForm
+            name="invoice"
+            label="Invoice File"
+            errors={errors}
+            control={control}
+            helperText="Supports HTML with optional JS (sandboxed)"
+          />
+        </CardContent>
 
-//           <Button type="submit" variant="primary">
-//             Create
-//           </Button>
-//         </CardFooter>
-//       </form>
-//     </Form>
-//   );
-// }
+        <div className="w-full flex items-center justify-end space-x-4 p-4">
+          <Button type="reset" variant="secondary" onClick={handleModalClose}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </Button>
+        </div>
+      </form>
+    </Form >
+  );
+}
+

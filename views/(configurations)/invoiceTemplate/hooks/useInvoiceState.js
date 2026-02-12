@@ -16,9 +16,6 @@ export const UseInvoiceState = (initialData = []) => {
     pageLimit: 10
   });
 
-  const { globalCtx } = useContext(GlobalContext);
-  const socket = globalCtx.socket;
-
    const [nameFilter, setNameFilter] = useState("");
   const [sortDataBy, setSortDataBy] = useState("");
 
@@ -37,7 +34,6 @@ export const UseInvoiceState = (initialData = []) => {
 
   return {
     form,
-    socket,
     reset,
     setForm,
     openModal,

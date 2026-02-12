@@ -6,19 +6,26 @@ import InvoiceDataTable from "../(table)/InvoiceDataTable";
 import { UseInvoiceState } from "../../hooks/useInvoiceState";
 import CustomDialog from "@/components/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
-import { InvoiceModalConfig } from "../../configs/InvoiceModalConfig";
 import { Calendar, Calendar1Icon } from "lucide-react";
+import invoiceActionConfig from "../../configs/invoiceActionConfig";
+import { useInvoiceHooks } from "../../hooks/useInvoiceHooks";
+import { invoiceModalConfig } from "../../configs/invoiceModalConfig";
 
 export default function InvoicePage() {
-  const state = UseInvoiceState([]);
+  const state = useInvoiceHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, InvoiceModalConfig(state));
+  const modalConfig = getModalConfig(modalType, invoiceModalConfig(state));
+  const actions = invoiceActionConfig((type, item) => {
+    handleModalOpen(type, item);
+  }, ["update", "delete"]);
 
   return (
-    <div className="space-y-4">
+    <div>
       <InvoiceDataTable
-        columns={InvoiceDataColumn}
+        columns={InvoiceDataColumn({
+          actions
+        })}
         handleModalOpen={handleModalOpen}
       />
       <CustomDialog
