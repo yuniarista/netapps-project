@@ -21,16 +21,25 @@ const CustomDialog = ({
   children,
   className,
   footer,
-  headerAlignment = "center"
+  headerAlignment = "center",
+  modalType,
 }) => {
+  // Tentukan posisi berdasarkan modalType
+  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create";
+  const isDelete = modalType === "delete";
+  const positionClass = isEditOrCreate
+    ? "fixed left-[230px] top-10 max-h-[calc(100vh-40px)] overflow-y-auto"
+    : "fixed left-1/2 top-10 -translate-x-1/2 translate-y-0";
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
-        className={`max-w-3xl max-h-[80dvh]  rounded-lg border border-zinc-200 shadow-xl top-10 left-1/2 -translate-x-1/2 translate-y-0 ${className}`}
+        positionClass={positionClass}
+        className={`max-w-xl max-h-full rounded-[10px] border border-zinc-200 shadow-md ${isDelete ? "p-0" : ""} ${className}`}
         onInteractOutside={(e) => e.preventDefault()}
       >
-        <DialogHeader>
+        <DialogHeader className={isDelete ? "border-b border-slate-200 bg-white px-6 py-4" : ""}>
           <DialogTitle
             className={cn(
               "w-full text-base font-semibold text-zinc-900 leading-5 ",
@@ -45,8 +54,8 @@ const CustomDialog = ({
             </DialogDescription>
           )}
         </DialogHeader>
-        <div>{children}</div>
-        {footer && <DialogFooter className="mt-6">{footer}</DialogFooter>}
+        <div className={isDelete ? "px-6" : ""}>{children}</div>
+        {footer && <DialogFooter className={isDelete ? "border-t border-slate-200 bg-white px-6 py-4 mt-0" : "mt-6"}>{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

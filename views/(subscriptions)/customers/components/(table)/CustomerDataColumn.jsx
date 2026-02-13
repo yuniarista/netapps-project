@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui-p/badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";

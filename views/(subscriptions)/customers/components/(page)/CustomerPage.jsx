@@ -1,6 +1,6 @@
 "use client";
 
-import CustomDialog from "@/components/basicDialog";
+import CustomDialog from "@/components/dialog/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { UseCustomerState } from "../../hooks/useCustomerHook";
 import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
@@ -30,11 +30,13 @@ export default function WhatsAppPage() {
         open={openModal}
         onOpenChange={handleModalClose}
         title={modalConfig.title}
+        modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>
-    </div>
+  </div>
   );
 }

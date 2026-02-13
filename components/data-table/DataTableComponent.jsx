@@ -158,7 +158,7 @@ export default function DataTableComponent({
             <LoadingCircle color="--color-primary" thickness={4} />
           </div>
         )}
-        <div className="rounded-[10px] border overflow-x-auto">
+        <div className="rounded-[8px] border overflow-x-auto">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -268,6 +268,14 @@ export default function DataTableComponent({
               <Icon icon={icon} color="black" />
             </Button>
           ))} */}
+          <Button
+            variant="outline"
+            size="sm"
+            // onClick={onClick}
+            // disabled={disabled}
+          >
+            Previous
+          </Button>
           <Button
             variant="outline"
             size="sm"

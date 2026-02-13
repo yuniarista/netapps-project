@@ -1,18 +1,18 @@
 // "use client";
 
-// import { SwitchToggleInput } from "@/components/form-p/switchToggleInput";
+// import { SwitchToggleInput } from "@/components/form/switchToggleInput";
 // import InputInvoiceForm from "@/components/input/invoiceInputForm";
 // import SelectForm from "@/components/input/selectForm";
 // import SelectInputForm from "@/components/input/selectInputForm";
-// import { Button } from "@/components/ui-p/button";
+// import { Button } from "@/components/ui/button";
 // import {
 //   Card,
 //   CardContent,
 //   CardFooter,
 //   CardHeader,
 //   CardTitle,
-// } from "@/components/ui-p/card";
-// import { Form } from "@/components/ui-p/form";
+// } from "@/components/ui/card";
+// import { Form } from "@/components/ui/form";
 // import { Label } from "@radix-ui/react-label";
 // import { X } from "lucide-react";
 // import { useState } from "react";

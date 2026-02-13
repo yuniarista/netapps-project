@@ -5,7 +5,7 @@ const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "border border-[#E4E4E7] rounded-xl shadow-sm bg-card text-card-foreground",
+      "border border-[#E4E4E7] rounded-[8px] shadow-sm bg-card text-card-foreground",
       className
     )}
     {...props}
@@ -46,7 +46,7 @@ CardDescription.displayName = "CardDescription";
 const CardContent = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("space-y-4 p-6 pt-0", className)} // ✅ sesuai custom kamu (space-y-4)
+    className={cn("space-y-4 pt-0", className)} // ✅ sesuai custom kamu (space-y-4)
     {...props}
   />
 ));

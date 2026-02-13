@@ -14,12 +14,9 @@ const SelectTrigger = React.forwardRef(
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex py-[10px] px-[12px] w-full items-center justify-between rounded-[5px] border border-[#E4E4E7] bg-white text-sm text-[#18181B] shadow-sm transition-all duration-200 outline-none",
-
-        "data-[state=open]:border-blue-600 data-[state=open]:ring-2 data-[state=open]:ring-blue-600",
-        "data-[state=open]:scale-[1] ",
-        // "data-[state=open]:border-blue-600 data-[state=open]:ring-2 data-[state=open]:ring-blue-600/20",
-        // "data-[state=open]:scale-[1] data-[state=open]:py-4",
+        "flex h-9 w-full items-center justify-between rounded-[5px] border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 transition-all outline-none placeholder:text-slate-400 focus-visible:ring-slate-900",
+        "data-[state=open]:ring-2 data-[state=open]:ring-blue-500 data-[state=open]:ring-offset-2",
+        
         className,
       )}
       {...props}
@@ -33,31 +30,6 @@ const SelectTrigger = React.forwardRef(
 );
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
-// const SelectContent = React.forwardRef(
-//   ({ className, children, ...props }, ref) => (
-//     <SelectPrimitive.Portal>
-//       <SelectPrimitive.Content
-//         ref={ref}
-//         className={cn(
-//           "z-50 min-w-[8rem] overflow-hidden rounded-md border border-[#E4E4E7] bg-white text-[#18181B] shadow-md animate-in fade-in-80",
-//           className
-//         )}
-//         {...props}
-//       >
-//         <SelectPrimitive.ScrollUpButton className="flex items-center justify-center py-1">
-//           <ChevronUp className="h-4 w-4" />
-//         </SelectPrimitive.ScrollUpButton>
-//         <SelectPrimitive.Viewport className="p-1">
-//           {children}
-//         </SelectPrimitive.Viewport>
-//         <SelectPrimitive.ScrollDownButton className="flex items-center justify-center py-1">
-//           <ChevronDown className="h-4 w-4" />
-//         </SelectPrimitive.ScrollDownButton>
-//       </SelectPrimitive.Content>
-//     </SelectPrimitive.Portal>
-//   )
-// );
-// SelectContent.displayName = SelectPrimitive.Content.displayName;
 const SelectContent = React.forwardRef(
   ({ className, children, onActionClick, ...props }, ref) => (
     <SelectPrimitive.Portal>
@@ -66,7 +38,7 @@ const SelectContent = React.forwardRef(
         ref={ref}
         position="popper"
         align="center"
-        sideOffset={-38}
+        sideOffset={-35}
         className={cn(
           "z-50 overflow-hidden rounded-[5px] border-2 border-[#E4E4E7] bg-white text-[#18181B] shadow-lg animate-in fade-in-80",
           "w-[var(--radix-select-trigger-width)] min-w-[var(--radix-select-trigger-width)]",
