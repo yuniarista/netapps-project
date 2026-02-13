@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui-p/badge";
+import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
+import { size } from "zod";
 
 const WhatsAppDataColumn = ({ actions }) => {
   return [
@@ -33,6 +34,7 @@ const WhatsAppDataColumn = ({ actions }) => {
       ),
       enableSorting: false,
       enableHiding: false,
+      size: 10,
     },
     {
       accessorKey: "name",
@@ -63,6 +65,7 @@ const WhatsAppDataColumn = ({ actions }) => {
       id: "actions",
       enableHiding: false,
       header: "",
+      size: 10, 
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (

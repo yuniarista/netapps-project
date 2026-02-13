@@ -17,7 +17,7 @@ export default function PageHeader({
   const { toggleSidebar, open } = useSidebar();
 
   return (
-    <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="px-3 mt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div className="flex items-center gap-4">
         <button 
           onClick={toggleSidebar} 

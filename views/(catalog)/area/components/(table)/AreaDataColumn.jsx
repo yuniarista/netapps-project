@@ -11,8 +11,9 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { size } from "zod";
 
-const ProductDataColumn = ({ actions }) => {
+const AreaDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -35,32 +36,14 @@ const ProductDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "productName",
-      header: "Product Name",
-    },
-    {
-      accessorKey: "price",
-      header: "Price",
-    },
-    {
-      accessorKey: "areaCategory",
-      header: "Area Category",
-    },
-    {
-      accessorKey: "category",
-      header: "Category",
-    },
-    {
-      accessorKey: "subCategory",
-      header: "Sub Category",
-    },
-    {
-      accessorKey: "promoPrice",
-      header: "Promo Price",
+      accessorKey: "areaName",
+      header: "Area",
+      size: 600,
     },
     {
       accessorKey: "status",
       header: "Status",
+      size: 50,
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const rowId = row.original.id;
@@ -102,6 +85,7 @@ const ProductDataColumn = ({ actions }) => {
       id: "actions",
       enableHiding: false,
       header: "Action",
+      size: 50,
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (
@@ -143,4 +127,4 @@ const ProductDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default ProductDataColumn;
+export default AreaDataColumn;

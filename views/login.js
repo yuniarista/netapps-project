@@ -7,8 +7,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 // imgs
-import bg from "/public/login-bg.jpg";
+import bg from "/public/illustration.png";
 import logo from "/public/logo.png";
+import panel from "/public/panel.png";
 
 // ** Components
 import LoadingCircle from "@/components/loadingCircle";
@@ -41,18 +42,18 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = form;
 
-//   const userSession = async () => {
-//     const session = await getSession();
+  //   const userSession = async () => {
+  //     const session = await getSession();
 
-//     if (session) {
-//       return session?.user;
-//     } else {
-//       return null;
-//     }
-//   };
+  //     if (session) {
+  //       return session?.user;
+  //     } else {
+  //       return null;
+  //     }
+  //   };
 
   const submitLogin = async (event) => {
     setLoading(true);
@@ -62,7 +63,7 @@ export default function Login() {
       const res = await signIn("credentials", {
         redirect: false,
         email: event.email,
-        password: event.password
+        password: event.password,
       });
 
       if (res.ok) {
@@ -80,34 +81,56 @@ export default function Login() {
 
   return (
     <div className="flex flex-row w-full mx-auto h-screen justify-center items-center ">
-      <div className="relative w-1/2 h-screen">
-        <Image src={bg} alt="background" fill className="object-cover z-0" />
-        <div className="absolute inset-0 bg-[#18181B] bg-opacity-40 z-10" />
-        <div className="relative z-20 p-10 flex flex-col justify-between items-start h-screen text-[#ffffff]">
-          <Image src={logo} alt="logo" width={100} height={50} className="" />
-          <div className="flex flex-col gap-3">
-            <h2 className="text-2xl text-black">
-              Smart Billing for ISP Operations
-            </h2>
-            <p className="text-sm">Manage invoices, payments, and customer billing across multiple ISPs in one platform.</p>
+      <div className="relative w-full h-screen p-6">
+        <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-100">
+          <Image
+            src={panel}
+            alt="Background Texture"
+            fill
+            style={{ opacity: 0.1 }}
+            className="object-cover"
+            priority
+          />
+
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-full h-full">
+              <Image
+                src={bg}
+                alt="Dashboard Preview"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+
+          <div className="relative z-20 p-6 flex flex-col justify-between h-full">
+            <div className="flex">
+              <Image src={logo} alt="logo" width={130} height={40} />
+            </div>
+
+            <div className="flex flex-col gap-1 max-w-sm">
+              <h1 className="text-3xl font-bold text-[#0F172A] leading-tight">
+                Smart Billing for ISP Operations
+              </h1>
+              <p className="text-[#64748B] text-[10px]">
+                Manage invoices, payments, and customer billing across multiple
+                ISPs in one platform.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="w-1/2 h-screen flex items-center justify-center bg-white relative">
-        <div className="w-full max-w-sm bg-white px-6">
+      <div className="w-full h-screen flex items-center justify-center bg-white relative p-6">
+        <div className="w-1/2 max-w-sm bg-white">
           <Form {...form}>
             <form onSubmit={handleSubmit(submitLogin)} className="space-y-4">
               <div className="text-center space-y-6 mb-4">
-                <div className="flex justify-center">
-                  <Image
-                    src={logo}
-                    alt="logo"
-                    priority
-                  />
+                <div className="flex justify-center p-3">
+                  <Image src={logo} alt="logo" priority />
                 </div>
 
-                <p className="text-sm text-foreground font-semibold">
+                <p className="text-sm text-foreground font-semibold mt-6">
                   Sign in to NetApps
                 </p>
               </div>
@@ -142,7 +165,7 @@ export default function Login() {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="keep-logged-in"
-                    className="border-blue-400 data-[state=checked]:bg-[#2563EB] data-[state=checked]:border-[#2563EB]"
+                    className="data-[state=checked]:border-[#2563EB]"
                   />
                   <Label
                     htmlFor="keep-logged-in"
@@ -155,7 +178,7 @@ export default function Login() {
                 <Button
                   variant="link"
                   type="button"
-                  className="text-sm font-medium p-0 h-auto"
+                  className="text-sm font-medium p-0 h-auto text-primary"
                 >
                   Forgot Password?
                 </Button>
@@ -173,8 +196,7 @@ export default function Login() {
                   "Sign In"
                 )}
               </Button>
-
-              <div className="absolute bottom-8 inset-x-0 text-center">
+              <div className="absolute bottom-10 inset-x-0 text-center">
                 <p className="text-muted-foreground text-sm">
                   © 2026 NetApps. All rights reserved.
                 </p>

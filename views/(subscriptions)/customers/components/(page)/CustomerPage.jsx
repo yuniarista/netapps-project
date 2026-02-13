@@ -1,12 +1,12 @@
 "use client";
 
-import CustomDialog from "@/components/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { UseCustomerState } from "../../hooks/useCustomerHook";
 import { CustomerModalConfig } from "../../configs/CustomerModalConfig";
 import CustomerActionConfig from "../../configs/CustomerActionConfig";
 import CustomerDataTable from "../(table)/CustomerDataTable";
 import CustomerDataColumn from "../(table)/CustomerDataColumn";
+import CustomDialog from "@/components/dialog/basicDialog";
 
 
 export default function WhatsAppPage() {

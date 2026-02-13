@@ -1,5 +1,5 @@
 import { Rows } from "lucide-react";
-import { FormField } from "../ui-p/form";
+import { FormField } from "../ui/form";
 
 export default function TextInputForm({
   name,

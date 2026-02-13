@@ -1,12 +1,12 @@
 "use client";
 
-import CustomDialog from "@/components/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { useProductHooks } from "../../hooks/useProductHooks";
 import { productsModalConfig } from "../../configs/productsModalConfig";
 import productActionConfig from "../../configs/productsActionConfig";
 import ProductDataTable from "../(table)/ProductsDataTable";
 import ProductDataColumn from "../(table)/ProductsDataColumn";
+import CustomDialog from "@/components/dialog/basicDialog";
 
 
 export default function ProductPage() {

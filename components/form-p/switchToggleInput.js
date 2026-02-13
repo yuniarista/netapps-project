@@ -1,5 +1,5 @@
-import { FormControl, FormField, FormItem, FormLabel } from "../ui-p/form";
-import { Switch } from "../ui-p/switch";
+import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Switch } from "../ui/switch";
 
 export const SwitchToggleInput = ({
   control,

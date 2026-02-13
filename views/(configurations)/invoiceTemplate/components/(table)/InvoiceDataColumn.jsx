@@ -1,9 +1,7 @@
 "use client";
 
-import { Badge } from "@/components/ui-p/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
@@ -13,6 +11,7 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { size } from "zod";
 
 const InvoiceDataColumn = ({ actions }) => {
   return [
@@ -34,6 +33,7 @@ const InvoiceDataColumn = ({ actions }) => {
       ),
       enableSorting: false,
       enableHiding: false,
+      size: 10,
     },
     {
       accessorKey: "name",

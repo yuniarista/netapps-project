@@ -8,9 +8,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select/CustomSelect";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../select/CustomSelect";
 import { Plus } from "lucide-react";
-import BaseModal from "../inputcopy/inputBaseModal";
+import BaseModal from "./inputBaseModal";
 import { Button } from "../ui/button";
 import { useState } from "react";
 // import {
@@ -22,7 +28,7 @@ import { useState } from "react";
 // } from "@/components/ui/select";
 // import IconifyIcon from "../icon";
 
-export default function SelectInput({
+export default function SelectInputCustom({
   name,
   label,
   control,
@@ -48,10 +54,16 @@ export default function SelectInput({
         control={control}
         name={name}
         defaultValue={defaultValue}
-        render={({ field }) => {const [isModalOpen, setIsModalOpen] = useState(false);
+        render={({ field }) => {
+          const [isModalOpen, setIsModalOpen] = useState(false);
           return (
             <FormItem>
-              {label && <FormLabel className="flex items-center gap-0"><span>{String(label).trim()}</span>{required && <span className="text-red-500">*</span>}</FormLabel>}
+              {label && (
+                <FormLabel className="flex items-center gap-0">
+                  <span>{String(label).trim()}</span>
+                  {required && <span className="text-red-500">*</span>}
+                </FormLabel>
+              )}
               <FormControl>
                 <Select
                   value={field.value}
@@ -104,7 +116,7 @@ export default function SelectInput({
                           }}
                           className="flex items-center gap-2 px-2 py-2 text-sm text-primary font-medium cursor-pointer hover:bg-blue-50 rounded-md transition-all"
                         >
-                        <Plus className="w-4 h-4" />
+                          <Plus className="w-4 h-4" />
                           Add new {label?.toLowerCase() || "item"}
                         </div>
                       </>
@@ -118,31 +130,25 @@ export default function SelectInput({
         }}
       />
       {renderModalContent && (
-              <BaseModal
-                open={isModalOpen}
-                onOpenChange={setIsModalOpen}
-                title={`Add ${label}`}
-                footer={
-                  <>
-                    <Button
-                      variant="secondary"
-                      onClick={() => setIsModalOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-      
-                    <Button
-                      type="submit"
-                      form="add-select-form"
-                    >
-                      Add
-                    </Button>
-                  </>
-                }
-              >
-                {renderModalContent(() => setIsModalOpen(false))}
-              </BaseModal>
-            )}
+        <BaseModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          title={`Add ${label}`}
+          footer={
+            <>
+              <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+                Cancel
+              </Button>
+
+              <Button type="submit" form="add-select-form">
+                Add
+              </Button>
+            </>
+          }
+        >
+          {renderModalContent(() => setIsModalOpen(false))}
+        </BaseModal>
+      )}
     </div>
   );
 }

@@ -14,8 +14,7 @@ export const SwitchToggleInput = ({
       name={name}
       defaultValue={defaultValue ?? false}
       render={({ field }) => (
-        <FormItem className="w-full flex flex-row rounded-lg shadow-none space-y-0 gap-4 items-center">
-          {label && <FormLabel>{label}</FormLabel>}
+        <FormItem className="w-full flex flex-row rounded-lg shadow-none space-y-0 gap-2 items-center">
           <FormControl>
             <Switch
               checked={field.value}
@@ -23,6 +22,7 @@ export const SwitchToggleInput = ({
               disabled={disabled}
             />
           </FormControl>
+          {label && <FormLabel>{label}</FormLabel>}
         </FormItem>
       )}
     />

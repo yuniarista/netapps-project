@@ -17,7 +17,7 @@ const buttonVariants = cva(
           "bg-[#EF4444] text-white hover:bg-[#EF4444CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#EF4444E6] disabled:text-[#FFF1F2]",
         outline:
           "bg-white text-[#18181B] border border-[#E4E4E7] hover:bg-[#F4F4F5CC] focus-visible:outline-[#A1A1AAE6] disabled:text-[#18181B]",
-        link: "bg-white text-[#18181B] hover:text-[#18181B] hover:underline hover:bg-white focus-visible:outline-[#A1A1AAE6] disabled:text-[#18181B] disabled:cursor-not-allowed"
+        link: "bg-white text-primary hover:text-[#18181B] underline hover:bg-white focus-visible:outline-[#A1A1AAE6] disabled:text-[#18181B] disabled:cursor-not-allowed"
       },
       size: {
         sm: "py-[6px] px-[12px] text-sm",

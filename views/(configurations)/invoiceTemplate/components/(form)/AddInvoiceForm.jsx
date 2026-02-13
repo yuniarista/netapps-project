@@ -1,6 +1,6 @@
 " use client";
 import Loading from "@/app/(protected)/loading";
-import InputFileForm from "@/components/input/inputFileForm";
+import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
 import LoadingCircle from "@/components/loadingCircle";
@@ -13,11 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Label } from "@radix-ui/react-label";
-import { X } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import AddAreaForm from "./AddAreaForm";
 import TextInputForm from "@/components/inputcopy/textInputForm";
 
 export default function AddInvoiceForm({ handleModalClose, loading }) {

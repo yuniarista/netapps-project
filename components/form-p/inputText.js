@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui-p/input";
-import { Label } from "@/components/ui-p/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 export default function InputText({

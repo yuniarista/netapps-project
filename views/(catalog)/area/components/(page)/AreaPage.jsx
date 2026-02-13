@@ -1,27 +1,27 @@
 "use client";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
-import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
-import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
-import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
-import whatsAppActionConfig from "../../configs/invoiceActionConfig";
+import { useAreaHooks} from "../../hooks/useAreaHooks";
+import { areaModalConfig } from "../../configs/areaModalConfig";
+import areaActionConfig from "../../configs/areaActionConfig";
+import AreaDataTable from "../(table)/AreaDataTable";
+import AreaDataColumn from "../(table)/AreaDataColumn";
 import CustomDialog from "@/components/dialog/basicDialog";
 
 
-export default function WhatsAppPage() {
-  const state = useWhatsAppHooks([]);
+export default function AreaPage() {
+  const state = useAreaHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, whatsAppModalConfig(state));
-  const actions = whatsAppActionConfig((type, item) => {
+  const modalConfig = getModalConfig(modalType, areaModalConfig(state));
+  const actions = areaActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
 
   return (
     <div>
-      <WhatsAppDataTable
-        columns={WhatsAppDataColumn({
+      <AreaDataTable
+        columns={AreaDataColumn({
           actions
         })}
         handleModalOpen={handleModalOpen}

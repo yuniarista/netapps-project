@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui-p/card";
+} from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export default function AddCustomersForm() {
         <CardContent>
           <section>
             <div
-              className="flex items-center justify-between mt-4 cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleSection("general")}
             >
               <h3 className="text-lg font-semibold">GENERAL</h3>
@@ -71,7 +71,7 @@ export default function AddCustomersForm() {
                       name="companyName"
                       placeholder="Company name"
                       label="ISP Company Name"
-                      required
+                      
                     />
                   </div>
                   <div className="flex-1">
@@ -80,7 +80,6 @@ export default function AddCustomersForm() {
                       name="LegalCompanyName"
                       placeholder="Legal company name"
                       label="Legal Company Name"
-                      required
                     />
                   </div>
                 </div>
@@ -90,7 +89,6 @@ export default function AddCustomersForm() {
                     name="CompanyEmail"
                     placeholder="Company Email"
                     label="Company Email"
-                    required
                   />
 
                   <TextInputForm
@@ -105,7 +103,6 @@ export default function AddCustomersForm() {
                     name="contactPerson"
                     placeholder="Contact person"
                     label="Contact Person"
-                    required
                   />
                 </div>
               </div>
@@ -133,7 +130,6 @@ export default function AddCustomersForm() {
                     name="billingEmail"
                     placeholder="Billing email"
                     label="Billing Email"
-                    required
                   />
 
                   <div className="py-2">
@@ -151,7 +147,6 @@ export default function AddCustomersForm() {
                     placeholder="Billing address"
                     label="Billing Address"
                     rows={4}
-                    required
                   />
                 </div>
               </div>
@@ -179,21 +174,21 @@ export default function AddCustomersForm() {
                     name="state"
                     placeholder="State"
                     label="State"
-                    required
+                  
                   />
                   <TextInputForm
                     id="province"
                     name="province"
                     placeholder="Province"
                     label="Province"
-                    required
+                
                   />
                   <TextInputForm
                     id="city"
                     name="city"
                     placeholder="City"
                     label="City"
-                    required
+                    
                   />
                   <TextInputForm
                     id="addressDetails"
@@ -201,7 +196,7 @@ export default function AddCustomersForm() {
                     placeholder="Address details"
                     label="Address Details"
                     rows={4}
-                    required
+                    
                   />
                 </div>
               </div>

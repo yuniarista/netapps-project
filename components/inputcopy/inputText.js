@@ -53,7 +53,7 @@ export default function InputText({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className={cn(
-            "rounded-[8px] border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+            "rounded-[5px] border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
             disabled && "bg-slate-100 text-slate-400",
             readOnly && "bg-slate-50 text-slate-900 cursor-not-allowed",
             isDestructive && "border-red-500 focus-visible:ring-red-500",

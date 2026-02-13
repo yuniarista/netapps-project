@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Badge } from "../ui-p/badge";
+import { Badge } from "../ui/badge";
 
 export default function SelectDropdown({
     triggerLabel,

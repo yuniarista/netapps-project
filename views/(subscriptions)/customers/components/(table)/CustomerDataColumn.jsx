@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui-p/badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { MoreHorizontal } from "lucide-react";
@@ -18,34 +18,56 @@ const CustomerDataColumn = ({ actions }) => {
     {
       accessorKey: "name",
       header: "ISP Name",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("name")}</div>
+      )
     },
     {
       accessorKey: "legalName",
       header: "Legal Name",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("legalName")}</div>
+      )
     },
     {
       accessorKey: "email",
       header: "Email",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("email")}</div>
+      )
     },
     {
       accessorKey: "phone",
       header: "Phone",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("phone")}</div>
+      )
     },
     {
       accessorKey: "invoiceNumber",
       header: "Contact Person",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("invoiceNumber")}</div>
+      )
     },
     {
       accessorKey: "province",
       header: "Province",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("province")}</div>
+      )
     },
     {
       accessorKey: "city",
       header: "City",
+      cell: ({ row }) => (
+        <div className="w-20 truncate">{row.getValue("city")}</div>
+      )
     },
     {
       accessorKey: "status",
       header: "Status",
+      size: 20,
       cell: ({ row }) => {
         const item = row.original;
         const statusValue = item?.status;

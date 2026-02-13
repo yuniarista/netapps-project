@@ -27,7 +27,7 @@ const CustomDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
-        className={`max-w-3xl max-h-[80dvh]  rounded-lg border border-zinc-200 shadow-xl top-10 left-1/2 -translate-x-1/2 translate-y-0 ${className}`}
+        className={`max-w-xl max-h-full rounded-[10px] top-10 border border-zinc-200 shadow-xl top-10 left-1/2 -translate-x-1/2 translate-y-0 overflow-y-auto scrollbar-hidden-y ${className}`}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader>
