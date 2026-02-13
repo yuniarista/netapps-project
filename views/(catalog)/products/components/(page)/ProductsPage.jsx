@@ -1,5 +1,6 @@
 "use client";
 
+
 import { getModalConfig } from "@/utils/getModalConfig";
 import { useProductHooks } from "../../hooks/useProductHooks";
 import { productsModalConfig } from "../../configs/productsModalConfig";
@@ -30,8 +31,10 @@ export default function ProductPage() {
         open={openModal}
         onOpenChange={handleModalClose}
         title={modalConfig.title}
+        modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>

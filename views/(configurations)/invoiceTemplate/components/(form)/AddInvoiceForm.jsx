@@ -1,8 +1,5 @@
 " use client";
-import Loading from "@/app/(protected)/loading";
-import InputFileForm from "@/components/inputcopy/inputFileForm";
-import SelectInputForm from "@/components/inputcopy/selectInputForm";
-import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
+import InputFileForm from "@/components/inputcopy/inputFileForm";;
 import LoadingCircle from "@/components/loadingCircle";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +12,9 @@ import {
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import TextInputForm from "@/components/inputcopy/textInputForm";
+import SelectInput from "@/components/inputcopy/selectInputCustom";
+import SelectInputForm from "@/components/inputcopy/selectInputForm";
+
 
 export default function AddInvoiceForm({ handleModalClose, loading }) {
   const form = useForm({ mode: "all" });
@@ -30,7 +30,7 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
       handleCreate(data);
     }
   };
-  
+
   const statusValues = [
     { label: "Active", value: "active" },
     { label: "Inactive", value: "inactive" },
@@ -47,7 +47,7 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <CardContent>
-          <SelectInputForm
+          {/* <SelectInputForm
             name="ispName"
             label="ISP Name"
             placeholder="Choose registered ISP"
@@ -65,6 +65,15 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
           //     }}
           //   />
           // )}
+          /> */}
+          <SelectInput
+            name="ispName"
+            label="ISP Name"
+            placeholder="Choose registered ISP"
+            errors={errors}
+            control={control}
+            optionName="label"
+            options={isOptions}
           />
           <TextInputForm
             name="template"
@@ -73,12 +82,13 @@ export default function AddInvoiceForm({ handleModalClose, loading }) {
             errors={errors}
             control={control}
           />
-          <SelectInputForm
+          <SelectInput
             name="template"
             label="Document Type"
             placeholder="Choose document template type"
             errors={errors}
             control={control}
+            options={isOptions}
           />
           <TextInputForm
             name="description"

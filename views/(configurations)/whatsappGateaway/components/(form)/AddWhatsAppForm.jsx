@@ -1,6 +1,6 @@
 " use client";
 
-import InputFileForm from "@/components/input/inputFileForm";
+import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +9,6 @@ import {
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import TextInputForm from "@/components/inputcopy/textInputForm";
-import AddAreaForm from "./AddAreaForm";
 
 export default function AddWhatsAppForm({ handleModalClose, loading }) {
   const form = useForm({ mode: "all" });

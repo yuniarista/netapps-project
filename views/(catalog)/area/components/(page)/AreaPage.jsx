@@ -30,8 +30,10 @@ export default function AreaPage() {
         open={openModal}
         onOpenChange={handleModalClose}
         title={modalConfig.title}
+        modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>

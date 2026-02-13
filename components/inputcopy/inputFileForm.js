@@ -56,7 +56,7 @@ export default function InputFileForm({
               onClick={() => !disabled && fileInputRef.current?.click()}
               className={cn(
                 // h-10 ditambahkan agar tinggi box sama dengan InputText standar
-                "flex items-center h-9 gap-3 px-3 border rounded-[8px] bg-white transition-all cursor-pointer",
+                "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer",
                 error
                   ? "border-red-500"
                   : "border-slate-200 shadow-sm hover:border-slate-300",

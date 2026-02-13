@@ -41,7 +41,6 @@ export function SidebarNavigation({ menu = [], session }) {
 
   return (
     <Sidebar className="border-r bg-[#F9F9F9]">
-      {/* ===== HEADER ===== */}
       <SidebarHeader className="px-2">
         <div className="flex items-center gap-2 my-2">
           <div className="size-8 rounded border border-primary bg-primary/10 flex items-center justify-center">
@@ -73,11 +72,9 @@ export function SidebarNavigation({ menu = [], session }) {
 
       <SidebarSeparator />
 
-      {/* ===== MENU ===== */}
       <SidebarContent className="my-2">
         <SidebarMenu>
           {menu.map((item) => {
-            // ===== GROUP =====
             if (item.features?.length) {
               const isOpen = openGroups.includes(item.groupName);
 
@@ -134,7 +131,6 @@ export function SidebarNavigation({ menu = [], session }) {
               );
             }
 
-            // ===== SINGLE =====
             return (
               <SidebarMenuItem key={item.url}>
                 <Link href={item.url} passHref legacyBehavior>
@@ -161,7 +157,6 @@ export function SidebarNavigation({ menu = [], session }) {
 
       <SidebarSeparator />
 
-      {/* ===== FOOTER ===== */}
       <SidebarFooter>
         <SidebarMenuButton className="flex items-center gap-2">
           <IconifyIcon icon="material-symbols:dark-mode-outline" />

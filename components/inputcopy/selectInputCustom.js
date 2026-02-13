@@ -93,7 +93,7 @@ export default function SelectInputCustom({
                           key={option.value || option.id}
                           value={option.value || option.id}
                           className={cn(
-                            "capitalize",
+                            "capitalize text-sm",
                             isMultiple &&
                               multipleData?.includes(option.value || option.id)
                               ? "bg-gray-200"
@@ -136,11 +136,17 @@ export default function SelectInputCustom({
           title={`Add ${label}`}
           footer={
             <>
-              <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+              <Button
+                variant="secondary"
+                onClick={() => setIsModalOpen(false)}
+              >
                 Cancel
               </Button>
 
-              <Button type="submit" form="add-select-form">
+              <Button
+                type="submit"
+                form="add-select-form"
+              >
                 Add
               </Button>
             </>

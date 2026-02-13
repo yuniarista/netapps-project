@@ -17,84 +17,47 @@ import { size } from "zod";
 const WhatsAppDataColumn = ({ actions }) => {
   return [
     {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-      size: 10,
-    },
-    {
       accessorKey: "name",
-      header: "ISP Name",
+      header: "Template Features",
     },
     {
       accessorKey: "number",
-      header: "WhatsApp Number",
-    },
-    {
-      accessorKey: "messageQuota",
-      header: "Message Quota",
-    },
-    {
-      accessorKey: "ussage",
-      header: "Ussage Today",
+      header: "Message",
     },
     {
       accessorKey: "status",
-      header: "Connection Status",
+      header: "Status",
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const variant = statusValue === "Active" ? "outlined-active" : "outlined-inactive";
-        return <Badge variant={variant}>{statusValue}</Badge>;  
+        return <Badge variant={variant}>{statusValue}</Badge>;
       },
     },
     {
       id: "actions",
       enableHiding: false,
-      header: "",
-      size: 10, 
-      cell: ({ row, index }) => {
+      header: "", 
+      cell: ({ row }) => {
         const rowData = row.original;
+
+        const editAction = actions?.find(action => action.label === "Edit");
+
+        if (!editAction) return null;
+
+        const IconComponent = editAction.icon;
+
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 ms-auto">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="border border-muted rounded-[8px]">
-              {actions?.map((item, index) => {
-                const IconComponent = item?.icon;
-                const isDelete = item.label === "Delete"
-                return (
-                  <div key={index}>
-                    {isDelete && index !== 0 && <DropdownMenuSeparator />}
-                    <DropdownMenuItem
-                      key={index}
-                      onClick={() => item?.onClick(rowData)}
-                      className={item?.className}
-                    >
-                      {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
-                      {item?.label}
-                    </DropdownMenuItem>
-                  </div>
-                );})}
-                  </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex justify-end"> 
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hover:bg-blue-50 flex items-center gap-1.5 font-medium"
+              onClick={() => editAction.onClick(rowData)}
+            >
+              {IconComponent && <IconComponent className="h-4 w-4" />}
+              <span>Edit</span>
+            </Button>
+          </div>
         );
       }
     }

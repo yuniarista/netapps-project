@@ -57,7 +57,7 @@ export default function InputText({
             disabled && "bg-slate-100 text-slate-400",
             readOnly && "bg-slate-50 text-slate-900 cursor-not-allowed",
             isDestructive && "border-red-500 focus-visible:ring-red-500",
-            !isDestructive && "border-slate-300 focus-visible:ring-slate-900"
+            !isDestructive && "border-slate-300 focus-visible:ring-primary"
           )}
           type={type ?? "text"}
           readOnly={readOnly}
