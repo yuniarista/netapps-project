@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui-p/card";
+} from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -14,7 +14,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import TextInputForm from "@/components/inputcopy/textInputForm";
 import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
-import SelectInput from "@/components/input/selectInput";
+import SelectInput from "@/components/inputcopy/selectInputCustom";
 import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import AddAreaForm from "./AddAreaForm";
@@ -192,7 +192,7 @@ export default function AddProductsForm() {
                     label="Price"
                     control={control}
                     errors={errors}
-                    
+
                   />
 
                   <TextInputForm

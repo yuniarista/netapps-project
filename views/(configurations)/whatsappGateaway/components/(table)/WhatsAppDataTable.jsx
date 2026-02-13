@@ -43,16 +43,11 @@ export default function WhatsAppDataTable({ columns, handleModalOpen }) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <PageHeader
-        icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="WhatsApp Gateway"
-      />
-
       {hasData ? (
         <>
           <div className="p-4 space-y-4">
             <div className="w-full">
-              <Label className="font-semibold text-md">WhatsApp Gateway</Label>
+              <Label className="font-semibold text-md">Message Templates</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
@@ -67,64 +62,6 @@ export default function WhatsAppDataTable({ columns, handleModalOpen }) {
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
                 />
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Select>
-                  {/* value={sortDataBy}
-              // onValueChange={async (val) => {
-              //   setSortDataBy(val);
-              //   setFilterParams([
-              //     { key: "search", value: nameFilter },
-              //     {
-              //       key: !!val ? `order[${val.split("-")[0]}]` : "",
-              //       value: val.split("-")[1] ?? ""
-              //     }
-              //   ]);
-              //   const result = await FilterData({
-              //     uri,
-              //     setLoading,
-              //     paginationModel: {
-              //       pageIndex: paginationModel.pageIndex + 1,
-              //       pageLimit: paginationModel.pageLimit
-              //     },
-              //     filterParams: getFilterParams(nameFilter, val)
-              //   });
-              //   setData(result);
-              // }} */}
-                  <SelectTrigger className="w-40" icon={Settings2} iconPosition="left" iconClassName="text-primary">
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {/* {sortableFieldList.map((item) => (
-                  <SelectItem
-                    key={item.label}
-                    value={`${item.value.sortDataBy}-${item.value.sortType}`}
-                  >
-                    {item.label}
-                  </SelectItem>
-                ))} */}
-                  </SelectContent>
-                </Select>
-
-                <Select>
-                  <SelectTrigger className="w-40" iconClassName="text-primary">
-                    <SelectValue placeholder="Bulk Delete" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {/* <SelectItem value="delete">Delete Selected</SelectItem> */}
-                  </SelectContent>
-                </Select>
-
-                <CustomButton
-                  variant="primary"
-                  type="button"
-                  size="md"
-                  onClick={() => handleModalOpen("add")}
-                >
-                  <IconifyIcon icon="lucide:plus" />
-                  Create
-                </CustomButton>
-              </div>
             </div>
 
             <div className="pt-2">
@@ -134,7 +71,10 @@ export default function WhatsAppDataTable({ columns, handleModalOpen }) {
                   data: dummyData,
                   totalData: dummyData.length
                 }}
-                pagination={{ pageIndex: 0, pageLimit: 10 }}
+                pagination={false}
+                withoutRowsSelected
+                selectedRows={{}}
+                setSelectedRows={() => { }}
               />
             </div>
           </div>

@@ -53,7 +53,7 @@ export default function TextInputForm({
                 {isTextarea ? (
                   <Textarea
                     rows={rows}
-                    className="rounded-[10px]"
+                    className="rounded-[5px]"
                     placeholder={placeholder || `Input ${label}`}
                     disabled={disabled}
                     autoFocus={autoFocus}

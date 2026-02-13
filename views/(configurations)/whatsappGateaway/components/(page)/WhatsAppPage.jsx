@@ -1,12 +1,17 @@
 "use client";
 
-import CustomDialog from "@/components/basicDialog";
+import CustomDialog from "@/components/dialog/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
 import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
 import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
 import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
 import whatsAppActionConfig from "../../configs/invoiceActionConfig";
+import WhatsAppBasicInfo from "../(components)/WhatsAppBasicInfo";
+import PageHeader from "@/components/pageHeader";
+import { PanelRight } from "lucide-react";
+import WhatsAppConnection from "../(components)/WhatsAppConnection";
+import WhatsAppFeatures from "../(components)/WhatsAppFeatures";
 
 
 export default function WhatsAppPage() {
@@ -20,6 +25,19 @@ export default function WhatsAppPage() {
 
   return (
     <div>
+      <PageHeader
+        icon={<PanelRight className="w-4 h-4 text-gray-600" />}
+        title="WhatsApp Gateway"
+      />
+
+      <div className="p-4">
+        <div className="grid grid-cols-3 gap-4">
+          <WhatsAppBasicInfo />
+          <WhatsAppConnection />
+          <WhatsAppFeatures />
+        </div>
+      </div>
+
       <WhatsAppDataTable
         columns={WhatsAppDataColumn({
           actions

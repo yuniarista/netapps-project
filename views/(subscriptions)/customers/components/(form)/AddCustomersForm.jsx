@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui-p/card";
+} from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";

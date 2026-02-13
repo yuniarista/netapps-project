@@ -1,6 +1,6 @@
 "use client";
 
-import CustomDialog from "@/components/basicDialog";
+import CustomDialog from "@/components/dialog/basicDialog";
 import { getModalConfig } from "@/utils/getModalConfig";
 import { useProductHooks } from "../../hooks/useProductHooks";
 import { productsModalConfig } from "../../configs/productsModalConfig";
