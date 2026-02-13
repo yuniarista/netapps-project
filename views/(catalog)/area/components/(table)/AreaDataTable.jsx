@@ -4,6 +4,7 @@ import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
 import PageHeader from "@/components/pageHeader";
+import CustomTabs from "@/components/tabs/CustomTabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -20,55 +21,47 @@ import {
   Settings2,
   X,
 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { AREA_TABS_CONFIG } from "../../configs/areaTabsConfig";
 
-export default function CustomerDataTable({ columns, handleModalOpen }) {
+export default function AreaDataTable({ columns, handleModalOpen }) {
   const dummyData = [
     {
-      name: "SAI",
-      legalName: "PT Semua Aplikasi Indonesia",
-      email: "sai@gmail.com",
-      phone: "021-12345678",
-      invoiceNumber: "INV-001",
-      province: "Bali",
-      city: "Badung",
-      status: "Active",
+        areaName: "Bali",
+        status: "Active",
     },
     {
-      name: "PT Maju Mundur",
-      legalName: "PT Maju Mundur Sejahtera",
-      email: "info@maju-mundur.co.id",
-      phone: "021-87654321",
-      invoiceNumber: "INV-002",
-      province: "Jawa Barat",
-      city: "Bandung",
-      status: "Inactive",
-    },
-    {
-      name: "PT Sukses Selalu",
-      legalName: "PT Sukses Selalu Sejahteraaaaaaaaaaaaaaaaaa",
-      email: "info@sukses-selalu.co.id",
-      phone: "021-98765432",
-      invoiceNumber: "INV-003",
-      province: "Bali",
-      city: "Denpasar",
-      status: "Active",
+        areaName: "Jakarta",
+        status: "Inactive",
     },
   ];
 
+  
   const hasData = dummyData.length > 0;
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="ISP Customers"
+        title="Product"
       />
 
       {hasData ? (
         <>
           <div className="p-4 space-y-4">
+            <CustomTabs 
+            tabs={AREA_TABS_CONFIG}
+            activeTab={pathname}
+            onChange={(tab) => {
+              router.push(tab.path);
+            }}
+            
+            />
             <div className="w-full">
-              <Label className="font-semibold text-md">Table Title</Label>
+              <Label className="font-semibold text-md">Area Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">

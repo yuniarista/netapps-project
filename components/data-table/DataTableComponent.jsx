@@ -164,7 +164,7 @@ export default function DataTableComponent({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} style={{ width: `${header.getSize()}px` }}>
                       {!header.isPlaceholder &&
                         flexRender(
                           header.column.columnDef.header,
@@ -183,7 +183,7 @@ export default function DataTableComponent({
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="h-14">
+                      <TableCell key={cell.id} className="h-14" style={{ width: `${cell.column.getSize()}px` }}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()

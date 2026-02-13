@@ -69,7 +69,7 @@ const dummyMenu = [
     icon: "lucide:package",
     features: [
       { name: "Product", url: "/products" },
-      { name: "Area", url: "/areas" },
+      { name: "Area", url: "/area" },
       { name: "Product Category", url: "/product-categories" },
     ],
   },

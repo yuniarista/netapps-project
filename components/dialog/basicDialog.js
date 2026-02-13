@@ -36,7 +36,7 @@ const CustomDialog = ({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         positionClass={positionClass}
-        className={`max-w-xl max-h-full rounded-[10px] border border-zinc-200 shadow-md ${isDelete ? "p-0" : ""} ${className}`}
+        className={`max-w-xl max-h-full rounded-[10px] border border-zinc-200 shadow-md overflow-y-auto scrollbar-hidden-y ${isDelete ? "p-0" : ""} ${className}`}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className={isDelete ? "border-b border-slate-200 bg-white px-6 py-4" : ""}>

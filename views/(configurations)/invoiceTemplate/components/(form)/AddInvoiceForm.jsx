@@ -1,7 +1,5 @@
 " use client";
-import Loading from "@/app/(protected)/loading";
-import InputFileForm from "@/components/inputcopy/inputFileForm";
-import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
+import InputFileForm from "@/components/inputcopy/inputFileForm";;
 import LoadingCircle from "@/components/loadingCircle";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Label } from "@radix-ui/react-label";
-import { X } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import AddAreaForm from "./AddAreaForm";
 import TextInputForm from "@/components/inputcopy/textInputForm";
 import SelectInput from "@/components/inputcopy/selectInputCustom";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";

@@ -1,12 +1,13 @@
 "use client";
 
-import CustomDialog from "@/components/dialog/basicDialog";
+
 import { getModalConfig } from "@/utils/getModalConfig";
 import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
 import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
 import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
 import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
 import whatsAppActionConfig from "../../configs/invoiceActionConfig";
+import CustomDialog from "@/components/dialog/basicDialog";
 import WhatsAppBasicInfo from "../(components)/WhatsAppBasicInfo";
 import PageHeader from "@/components/pageHeader";
 import { PanelRight } from "lucide-react";

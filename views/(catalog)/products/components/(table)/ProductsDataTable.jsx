@@ -3,7 +3,8 @@
 import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
-import PageHeader from "@/components/layout/PageHeader";
+import PageHeader from "@/components/pageHeader";
+import CustomTabs from "@/components/tabs/CustomTabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
   PanelRight,
@@ -20,44 +22,78 @@ import {
   Settings2,
   X,
 } from "lucide-react";
+import { PRODUCT_TABS_CONFIG } from "../../configs/productTabsConfig";
+import { usePathname, useRouter } from "next/navigation";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
 export default function ProductDataTable({ columns, handleModalOpen }) {
   const dummyData = [
     {
-        productName: "Internet Basic",
-        price: "$10/month",
-        areaCategory: "Urban",
-        areaCategory: "Urban",
-        category: "Residential",
-        subCategory: "Basic",
-        promoPrice: "$8/month",
-        status: "Active",
+      productName: "Internet Basic",
+      price: "$10/month",
+      areaCategory: "Urban",
+      areaCategory: "Urban",
+      category: "Residential",
+      subCategory: "Basic",
+      promoPrice: "$8/month",
+      status: "Active",
     },
     {
-        productName: "Internet Pro",
-        price: "$20/month",
-        areaCategory: "Urban",
-        category: "Residential",
-        subCategory: "Pro",
-        promoPrice: "$15/month",
-        status: "Inactive",
+      productName: "Internet Pro",
+      price: "$20/month",
+      areaCategory: "Urban",
+      category: "Residential",
+      subCategory: "Pro",
+      promoPrice: "$15/month",
+      status: "Inactive",
     },
   ];
 
+  const filterSections = [
+    {
+      label: "Area",
+      items: [
+        { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
+        { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
+        { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
+      ]
+    },
+    {
+      label: "Category",
+      items: [
+        { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
+        { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
+        { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
+      ]
+    }
+  ];
+
   const hasData = dummyData.length > 0;
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="ISP Customers"
+        title="Product"
       />
 
       {hasData ? (
         <>
           <div className="p-4 space-y-4">
+            <CustomTabs
+              tabs={PRODUCT_TABS_CONFIG}
+              activeTab={pathname}
+              onChange={(tab) => {
+                router.push(tab.path);
+              }}
+            />
             <div className="w-full">
-              <Label className="font-semibold text-md">Catalog Product Data</Label>
+              <Label className="font-semibold text-md">
+                Catalog Product Data
+              </Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
@@ -94,14 +130,13 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                     //   });
                     //   setData(result);
                     // }} */}
-                  <SelectTrigger
-                    className="w-40"
+                  <SelectDropdown
+                    triggerLabel="Filter By"
                     icon={Settings2}
                     iconPosition="left"
-                    iconClassName="text-primary"
-                  >
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
+                    className="w-40"
+                    sections={filterSections}
+                  />
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
                         <SelectItem

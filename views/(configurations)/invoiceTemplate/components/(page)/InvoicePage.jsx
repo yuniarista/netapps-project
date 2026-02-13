@@ -6,7 +6,6 @@ import InvoiceDataTable from "../(table)/InvoiceDataTable";
 import { UseInvoiceState } from "../../hooks/useInvoiceState";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import { Calendar, Calendar1Icon } from "lucide-react";
 import invoiceActionConfig from "../../configs/invoiceActionConfig";
 import { useInvoiceHooks } from "../../hooks/useInvoiceHooks";
 import { invoiceModalConfig } from "../../configs/invoiceModalConfig";

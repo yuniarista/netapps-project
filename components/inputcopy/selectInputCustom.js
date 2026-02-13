@@ -8,7 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select/CustomSelect";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../select/CustomSelect";
 import { Plus } from "lucide-react";
 import BaseModal from "./inputBaseModal";
 import { Button } from "../ui/button";
@@ -52,7 +58,12 @@ export default function SelectInputCustom({
           const [isModalOpen, setIsModalOpen] = useState(false);
           return (
             <FormItem>
-              {label && <FormLabel className="flex items-center gap-0"><span>{String(label).trim()}</span>{required && <span className="text-red-500">*</span>}</FormLabel>}
+              {label && (
+                <FormLabel className="flex items-center gap-0">
+                  <span>{String(label).trim()}</span>
+                  {required && <span className="text-red-500">*</span>}
+                </FormLabel>
+              )}
               <FormControl>
                 <Select
                   value={field.value}

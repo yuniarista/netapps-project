@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
+import { size } from "zod";
 
 const WhatsAppDataColumn = ({ actions }) => {
   return [
@@ -50,7 +51,7 @@ const WhatsAppDataColumn = ({ actions }) => {
             <Button
               variant="ghost"
               size="sm"
-              className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 flex items-center gap-1.5 font-medium"
+              className="hover:bg-blue-50 flex items-center gap-1.5 font-medium"
               onClick={() => editAction.onClick(rowData)}
             >
               {IconComponent && <IconComponent className="h-4 w-4" />}

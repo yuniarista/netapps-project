@@ -19,7 +19,7 @@ import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import AddAreaForm from "./AddAreaForm";
 
-export default function AddProductsForm() {
+export default function AddAreasForm() {
   const form = useForm({ mode: "all" });
   const {
     control,
