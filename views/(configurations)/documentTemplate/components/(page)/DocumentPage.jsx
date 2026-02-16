@@ -1,30 +1,28 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import InvoiceDataColumn from "../(table)/InvoiceDataColumn";
-import InvoiceDataTable from "../(table)/InvoiceDataTable";
-import { UseInvoiceState } from "../../hooks/useInvoiceState";
-
 import { getModalConfig } from "@/utils/getModalConfig";
-import invoiceActionConfig from "../../configs/invoiceActionConfig";
-import { useInvoiceHooks } from "../../hooks/useInvoiceHooks";
-import { invoiceModalConfig } from "../../configs/invoiceModalConfig";
+import { useDocumentHooks} from "../../hooks/useDocumentHooks";
+import { documentModalConfig } from "../../configs/documentModalConfig";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CustomDialog from "@/components/dialog/basicDialog";
+import documentActionConfig from "../../configs/documentActionConfig";
+import DocumentDataColumn from "../(table)/DocumentDataColumn";
+import DocumentDataTable from "../(table)/DocumentDataTable";
 
-export default function InvoicePage() {
-  const state = useInvoiceHooks([]);
+export default function DocumentPage() {
+  const state = useDocumentHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, invoiceModalConfig(state));
-  const actions = invoiceActionConfig((type, item) => {
+  const modalConfig = getModalConfig(modalType, documentModalConfig(state));
+  const actions = documentActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
 
   return (
     <div>
-      <InvoiceDataTable
-        columns={InvoiceDataColumn({
+      <DocumentDataTable
+        columns={DocumentDataColumn({
           actions
         })}
         handleModalOpen={handleModalOpen}

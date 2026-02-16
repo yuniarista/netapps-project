@@ -1,6 +1,6 @@
 import { PencilLine, Trash2 } from "lucide-react";
 
-const invoiceActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
+const usersActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
   const actionList = [
     dashboardAccessPermissions.includes("update") && {
       label: "Edit",
@@ -17,4 +17,4 @@ const invoiceActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
   return actionList;
 };
 
-export default invoiceActionConfig;
+export default usersActionConfig;
