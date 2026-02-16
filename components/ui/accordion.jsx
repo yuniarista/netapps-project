@@ -9,7 +9,7 @@ const Accordion = AccordionPrimitive.Root;
 const AccordionItem = React.forwardRef(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn("border border-gray-200 rounded-lg ", className)}
+    className={cn(" ", className)}
     {...props}
   />
 ));
@@ -26,7 +26,7 @@ const AccordionTrigger = React.forwardRef(
         )}
         {...props}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
           {/* Checkbox external bisa disisipkan di children */}
           {children}
         </div>

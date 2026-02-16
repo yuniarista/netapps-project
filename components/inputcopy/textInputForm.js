@@ -5,7 +5,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
@@ -24,9 +24,9 @@ export default function TextInputForm({
   placeholder,
   isHidden = false,
   required = false,
-  helperText = "",
+  helperText,
   errors,
-  readOnly
+  readOnly,
 }) {
   const isTextarea = !!rows;
   return (
@@ -35,7 +35,7 @@ export default function TextInputForm({
         control={control}
         name={name}
         defaultValue={defaultValue ?? ""}
-        render={({ field }) => {
+        render={({ field, fieldState: { error } }) => {
           const handleChange = (event) => {
             let inputValue = event.target.value;
             if (type === "number") {
@@ -48,7 +48,10 @@ export default function TextInputForm({
           };
           return (
             <FormItem>
-              <FormLabel className="flex items-center gap-0"><span>{String(label).trim()}</span>{required && <span className="text-red-500">*</span>}</FormLabel>
+              <FormLabel className="flex items-center gap-0">
+                <span>{String(label).trim()}</span>
+                {required && <span className="text-red-500">*</span>}
+              </FormLabel>
               <FormControl>
                 {isTextarea ? (
                   <Textarea
@@ -81,6 +84,10 @@ export default function TextInputForm({
                   />
                 )}
               </FormControl>
+              {/* Helper Text & Error Message */}
+              {helperText && !error && (
+                <p className="text-xs text-slate-500">{helperText}</p>
+              )}
               <FormMessage />
             </FormItem>
           );
