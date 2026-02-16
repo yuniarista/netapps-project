@@ -14,7 +14,6 @@ import { PanelRight } from "lucide-react";
 import WhatsAppConnection from "../(components)/WhatsAppConnection";
 import WhatsAppFeatures from "../(components)/WhatsAppFeatures";
 
-
 export default function WhatsAppPage() {
   const state = useWhatsAppHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
@@ -33,7 +32,7 @@ export default function WhatsAppPage() {
 
       <div className="p-4">
         <div className="grid grid-cols-3 gap-4">
-          <WhatsAppBasicInfo />
+          <WhatsAppBasicInfo onEdit={() => handleModalOpen("update")} />
           <WhatsAppConnection />
           <WhatsAppFeatures />
         </div>
@@ -49,8 +48,10 @@ export default function WhatsAppPage() {
         open={openModal}
         onOpenChange={handleModalClose}
         title={modalConfig.title}
+        modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}
       </CustomDialog>

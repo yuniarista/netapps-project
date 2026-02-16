@@ -19,8 +19,8 @@ const dummyMenu = [
   },
 
   {
-    name: "Invoice Template",
-    url: "/invoice-template",
+    name: "Document Template",
+    url: "/documentTemplate",
     icon: "lucide:scroll-text",
   },
   {

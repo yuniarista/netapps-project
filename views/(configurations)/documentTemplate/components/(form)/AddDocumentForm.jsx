@@ -16,7 +16,7 @@ import SelectInput from "@/components/inputcopy/selectInputCustom";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 
 
-export default function AddInvoiceForm({ handleModalClose, loading }) {
+export default function AddDocumentForm({ handleModalClose, loading }) {
   const form = useForm({ mode: "all" });
   const {
     control,

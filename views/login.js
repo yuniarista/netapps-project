@@ -104,9 +104,9 @@ export default function Login() {
           </div>
 
           <div className="relative z-20 p-6 flex flex-col justify-between h-full">
-            <div className="flex">
-              <Image src={logo} alt="logo" width={130} height={40} />
-            </div>
+            <div className="flex justify-center p-3">
+                  <Image src={logo} alt="logo" priority />
+                </div>
 
             <div className="flex flex-col gap-1 max-w-sm">
               <h1 className="text-3xl font-bold text-[#0F172A] leading-tight">
@@ -196,13 +196,13 @@ export default function Login() {
                   "Sign In"
                 )}
               </Button>
-              <div className="absolute bottom-10 inset-x-0 text-center">
-                <p className="text-muted-foreground text-sm">
-                  © 2026 NetApps. All rights reserved.
-                </p>
-              </div>
             </form>
           </Form>
+          <div className="absolute bottom-10 inset-x-0 text-center">
+            <p className="text-muted-foreground text-sm">
+              © 2026 NetApps. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </div>

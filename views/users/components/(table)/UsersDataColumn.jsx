@@ -14,7 +14,7 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { size } from "zod";
 
-const InvoiceDataColumn = ({ actions }) => {
+const UsersDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -37,60 +37,16 @@ const InvoiceDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "name",
-      header: "ISP Name",
+      accessorKey:"email",
+      header: "Email",
     },
     {
-      accessorKey: "templateName",
-      header: "Template Name",
+      accessorKey: "roleId",
+      header: "Role",
     },
-    {
-      accessorKey: "description",
-      header: "Description",
-    },
-    {
-      accessorKey: "default",
-      header: "Default",
-    },
-    {
-      accessorKey: "lastUpdate",
-      header: "Last Update",
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ row }) => {
-        const statusValue = row.original.status;
-        const rowId = row.original.id;
-
-        const statusActions = [
-          {
-            label: "Change Status",
-            items: [
-              {
-                label: "Mark as active",
-                value: "Active",
-                onClick: (v) => handleStatusUpdate(rowId, v)
-              },
-              {
-                label: "Mark as non active",
-                value: "Inactive",
-                onClick: (v) => handleStatusUpdate(rowId, v)
-              },
-            ]
-          }
-        ];
-
-        return (
-          <SelectDropdown
-            asBadge={true} 
-            triggerLabel={statusValue}
-            badgeVariant={statusValue === "Active" ? "outlined-active" : "outlined-inactive"}
-            iconClassName={statusValue === "Active" ? "text-emerald-500" : "text-slate-400"}
-            sections={statusActions}
-          />
-        );
-      },
+        {
+      accessorKey: "ispId",
+      header: "ISP",
     },
     {
       id: "actions",
@@ -132,4 +88,4 @@ const InvoiceDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default InvoiceDataColumn;
+export default UsersDataColumn;

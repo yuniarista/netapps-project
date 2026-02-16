@@ -24,8 +24,7 @@ const CustomDialog = ({
   headerAlignment = "center",
   modalType,
 }) => {
-  // Tentukan posisi berdasarkan modalType
-  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create";
+  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update";
   const isDelete = modalType === "delete";
   const positionClass = isEditOrCreate
     ? "fixed left-[230px] top-10 max-h-[calc(100vh-40px)] overflow-y-auto"
