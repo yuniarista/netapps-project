@@ -1,8 +1,8 @@
 import { TriangleAlert } from "lucide-react";
-import AddInvoiceForm from "../components/(form)/AddInvoiceForm";
-import DeleteInvoiceForm from "../components/(form)/DeleteInvoiceForm";
+import AddUsersForm from "../components/(form)/AddUsersForm";
+import DeleteDocumentForm from "@/views/(configurations)/documentTemplate/components/(form)/DeleteDocumentForm";
 
-export const invoiceModalConfig = ({
+export const usersModalConfig = ({
   form,
   loading,
   response,
@@ -11,18 +11,19 @@ export const invoiceModalConfig = ({
   setAlertOpen,
   handleCreate,
   handleUpdate,
-  handleDelete
+  handleDelete,
+  handleModalClose
 }) => {
   return {
     add: {
-      title: "Create Invoice Template",
+      title: "Create User",
       content: (
-        <AddInvoiceForm
+        <AddUsersForm
           loading={loading}
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
-          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
+          handleModalClose={handleModalClose}
         />
       )
     },
@@ -34,7 +35,7 @@ export const invoiceModalConfig = ({
         </div>
       ),
       content: (
-        <DeleteInvoiceForm
+        <DeleteDocumentForm
           formData={form}
           loading={loading}
           response={response}

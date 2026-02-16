@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 
-export const useInvoiceHooks = (initialData = []) => {
+export const useDocumentHooks = (initialData = []) => {
   const [form, setForm] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState(null);

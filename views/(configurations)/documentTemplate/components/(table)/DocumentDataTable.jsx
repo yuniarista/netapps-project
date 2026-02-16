@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronDown, PanelRight, Plus, Search, Settings2, Trash2 } from "lucide-react";
 
-export default function InvoiceDataTable({ columns, handleModalOpen }) {
+export default function DocumentDataTable({ columns, handleModalOpen }) {
   const dummyData = [
     {
       name: "NetApps",
@@ -38,40 +38,34 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
     },
   ];
 
-  const filterSections = [
-    {
-      label: "Area",
-      items: [
-        { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
-      ]
-    },
-    {
-      label: "Category",
-      items: [
-        { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
-      ]
-    }
-  ];
+const filterSections = [
+  {
+    label: "Area",
+    type: "checkbox",
+    items: [
+      { label: "Bali", value: "bali", checked: true, onClick: (v) => console.log("Toggle area:", v) },
+      { label: "Jawa", value: "jawa", checked: false, onClick: (v) => console.log("Toggle area:", v) },
+      { label: "Sumatera", value: "sumatera", checked: false, onClick: (v) => console.log("Toggle area:", v) },
+    ]
+  },
+  {
+    label: "Category",
+    type: "checkbox",
+    items: [
+      { label: "Business", value: "biz", onClick: (v) => console.log("Selected cat:", v) },
+      { label: "Professional", value: "prof", onClick: (v) => console.log("Selected cat:", v) },
+      { label: "Home", value: "home", onClick: (v) => console.log("Selected cat:", v) },
+    ]
+  }
+];
 
   const bulkActionSections = [
-    {
-      label: "Change Status",
-      items: [
-        { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
-        { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
-      ]
-    },
     {
       items: [
         {
           label: "Delete",
           value: "delete",
           icon: Trash2,
-          variant: "destructive",
           onClick: () => confirm("Are you sure?")
         },
       ]
@@ -84,14 +78,14 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
     <div className="flex flex-col min-h-screen">
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="Invoice Template"
+        title="Document Template"
       />
 
       {hasData ? (
         <>
           <div className="p-4 space-y-4">
             <div className="w-full">
-              <Label className="font-semibold text-md">Invoice Template</Label>
+              <Label className="font-semibold text-md">Document Template</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
@@ -164,6 +158,8 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
+                  showSectionLabelSeparator={false}
+                  showSectionSeparator={false}
                 />
 
                 <CustomButton
@@ -193,9 +189,9 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
       ) : (
         <div className="flex-1 flex  flex-col items-center justify-center text-center p-6">
           <div className="space-y-4 max-w-sm">
-            <h2 className="text-xl font-semibold text-slate-900">No Invoice Template</h2>
+            <h2 className="text-xl font-semibold text-slate-900">No Document Template</h2>
             <p className="text-slate-500 max-w-sm">
-              You haven't created any invoice template yet. <br />
+              You haven't created any document template yet. <br />
               Go ahead and create your first one.
             </p>
             <CustomButton
@@ -205,7 +201,7 @@ export default function InvoiceDataTable({ columns, handleModalOpen }) {
               className="mt-4"
             >
               <Plus className="w-4 h-4" />
-              Create invoice template
+              Create Document template
             </CustomButton>
           </div>
         </div>

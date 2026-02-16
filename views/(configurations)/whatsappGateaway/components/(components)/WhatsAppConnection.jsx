@@ -5,6 +5,22 @@ import { Badge } from "@/components/ui/badge";
 import { Pencil, Building2, Phone, Globe, Clock, RefreshCcw } from "lucide-react";
 
 const WhatsAppConnection = () => {
+  const connectionData = {
+    status: "Connected",
+    sessionExpiry: "05-02-2026 16:28",
+    lastReconnect: "05-02-2026 16:28",
+  };
+
+  const getStatusVariant = (status) => {
+    switch (status.toLowerCase()) {
+      case "connected":
+        return "outlined-active"; 
+      case "disconnected":
+        return "destructive";
+      default:
+        return "outline";
+    }
+  };
 
   return (
     <Card className="h-full flex flex-col shadow-sm">
@@ -14,19 +30,23 @@ const WhatsAppConnection = () => {
       <CardContent className="p-4 space-y-4 flex-1">
        <div>
           <p className="text-xs text-muted-foreground mb-1.5 font-medium">Status</p>
-          <Badge variant="outlined-active">
-            Connected
+          <Badge variant={getStatusVariant(connectionData.status)}>
+            {connectionData.status}
           </Badge>
         </div>
 
         <div>
           <p className="text-xs text-muted-foreground mb-1 font-medium">Session Expiry</p>
-          <p className="text-sm font-semibold text-slate-700">05-02-2026 16:28</p>
+          <p className="text-sm font-bold text-slate-800">
+            {connectionData.sessionExpiry}
+          </p>
         </div>
 
         <div>
           <p className="text-xs text-muted-foreground mb-1 font-medium">Last Reconnect</p>
-          <p className="text-sm font-semibold text-slate-700">05-02-2026 16:28</p>
+          <p className="text-sm font-bold text-slate-800">
+            {connectionData.lastReconnect}
+          </p>
         </div>
       </CardContent>
 

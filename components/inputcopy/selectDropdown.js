@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
+import { Checkbox } from "../ui/checkbox";
 
 export default function SelectDropdown({
     triggerLabel,
@@ -24,6 +25,8 @@ export default function SelectDropdown({
     triggerVariant = "outline",
     asBadge = false,
     badgeVariant = "outlined-active",
+    showSectionLabelSeparator = true, 
+    showSectionSeparator = true,
 }) {
     return (
         <DropdownMenu>
@@ -63,34 +66,49 @@ export default function SelectDropdown({
                 )}
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="start" className="w-52 p-0 py-1 shadow-xl border-slate-200 rounded-[8px]">
+              <DropdownMenuContent align="start" className="w-52 p-0 py-1 shadow-xl border-slate-200 rounded-[8px]">
                 {sections.map((section, sIdx) => (
                     <React.Fragment key={sIdx}>
                         {section.label && (
-                            <DropdownMenuLabel className="px-3 py-2 text-[13px] font-bold text-[#1e293b] bg-white">
-                                {section.label}
-                            </DropdownMenuLabel>
+                            <>
+                                <DropdownMenuLabel className="px-3 py-2 text-[13px] font-bold text-[#1e293b]">
+                                    {section.label}
+                                </DropdownMenuLabel>
+                                {showSectionLabelSeparator && <DropdownMenuSeparator className="bg-slate-200 m-0" />}
+                            </>
                         )}
-
-                        <DropdownMenuSeparator className="bg-slate-200 m-0" />
 
                         {section.items.map((item, iIdx) => (
                             <DropdownMenuItem
                                 key={iIdx}
+                                onSelect={(e) => section.type === "checkbox" && e.preventDefault()}
                                 onClick={() => item.onClick && item.onClick(item.value)}
-                                className={cn(
-                                    "px-3 py-2 cursor-pointer transition-colors focus:bg-slate-50 focus:text-slate-900",
-                                    item.variant === "destructive" ? "text-red-600 focus:bg-red-50 focus:text-red-700" : "")}
+                                className="px-3 py-2 cursor-pointer flex items-center gap-2"
                             >
-                                {item.icon && <item.icon className="w-4 h-4 mr-2" />}
-                                <span className="text-[14px]">{item.label}</span>
+                                {section.type === "checkbox" ? (
+                                    <>
+                                        <label className="text-[14px] cursor-pointer flex-1">{item.label}</label>
+                                        <Checkbox
+                                            id={`${section.label}-${item.value}`}
+                                            checked={item.checked}
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        {item.icon && <item.icon className="w-4 h-4" />}
+                                        <span className="text-[14px]">{item.label}</span>
+                                    </>
+                                )}
                             </DropdownMenuItem>
                         ))}
 
-                        {sIdx < sections.length - 1 && <DropdownMenuSeparator className="bg-slate-200 m-0" />}
+                        {showSectionSeparator && sIdx < sections.length - 1 && (
+                            <DropdownMenuSeparator className="bg-slate-200 m-0" />
+                        )}
                     </React.Fragment>
                 ))}
             </DropdownMenuContent>
         </DropdownMenu>
     );
 }
+
