@@ -7,8 +7,21 @@ import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import PageHeader from "@/components/pageHeader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChevronDown, PanelRight, Plus, Search, Settings2, Trash2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  ChevronDown,
+  PanelRight,
+  Plus,
+  Search,
+  Settings2,
+  Trash2,
+} from "lucide-react";
 
 export default function RoleDataTable({ columns, handleModalOpen }) {
   const dummyData = [
@@ -17,48 +30,62 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
       parentRole: "Admin",
       isp: "SAI ISP",
     },
-
-    
   ];
 
   const filterSections = [
     {
-      label: "Area",
+      label: "ISP Name",
+      type: "checkbox",
       items: [
-        { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
-      ]
+        {
+          label: "ISP 1",
+          value: "bali",
+          checked: true,
+          onClick: (v) => console.log("Toggle area:", v),
+        },
+        {
+          label: "ISP 2",
+          value: "jawa",
+          checked: false,
+          onClick: (v) => console.log("Toggle area:", v),
+        },
+        {
+          label: "ISP 3",
+          value: "sumatera",
+          checked: false,
+          onClick: (v) => console.log("Toggle area:", v),
+        },
+      ],
     },
     {
-      label: "Category",
+      label: "Role",
+      type: "checkbox",
       items: [
-        { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
-      ]
-    }
+        {
+          label: "Super Admin",
+          value: "biz",
+          onClick: (v) => console.log("Selected cat:", v),
+        },
+        {
+          label: "Tenant Admin",
+          value: "prof",
+          onClick: (v) => console.log("Selected cat:", v),
+        },
+      ],
+    },
   ];
 
   const bulkActionSections = [
-    {
-      label: "Change Status",
-      items: [
-        { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
-        { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
-      ]
-    },
     {
       items: [
         {
           label: "Delete",
           value: "delete",
           icon: Trash2,
-          variant: "destructive",
-          onClick: () => confirm("Are you sure?")
+          onClick: () => confirm("Are you sure?"),
         },
-      ]
-    }
+      ],
+    },
   ];
 
   const hasData = dummyData.length > 0;
@@ -82,12 +109,10 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
                 <Input
                   placeholder="Search"
                   className="pr-10"
-                // value={nameFilter}
-                // onChange={(e) => setNameFilter(e.target.value)}
+                  // value={nameFilter}
+                  // onChange={(e) => setNameFilter(e.target.value)}
                 />
-                <Search
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
-                />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
               </div>
 
               <div className="flex items-center space-x-2">
@@ -147,6 +172,8 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
+                  showSectionLabelSeparator={false}
+                  showSectionSeparator={false}
                 />
 
                 <CustomButton
@@ -166,7 +193,7 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
                 columns={columns}
                 data={{
                   data: dummyData,
-                  totalData: dummyData.length
+                  totalData: dummyData.length,
                 }}
                 pagination={{ pageIndex: 0, pageLimit: 10 }}
               />
@@ -176,7 +203,9 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
       ) : (
         <div className="flex-1 flex  flex-col items-center justify-center text-center p-6">
           <div className="space-y-4 max-w-sm">
-            <h2 className="text-xl font-semibold text-slate-900">No Invoice Template</h2>
+            <h2 className="text-xl font-semibold text-slate-900">
+              No Invoice Template
+            </h2>
             <p className="text-slate-500 max-w-sm">
               You haven't created any invoice template yet. <br />
               Go ahead and create your first one.
