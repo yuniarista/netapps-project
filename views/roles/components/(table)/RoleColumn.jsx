@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -10,11 +9,12 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { size } from "zod";
 
-const ProductDataColumn = ({ actions }) => {
+const RoleDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -37,74 +37,25 @@ const ProductDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "productName",
-      header: "Product Name",
-      size: 300,
+      accessorKey: "name",
+      header: "Role Name",
+      size: 150,
     },
     {
-      accessorKey: "price",
-      header: "Price",
+      accessorKey: "parentRole",
+      header: "Parent Role",
+      size: 150,
     },
     {
-      accessorKey: "areaCategory",
-      header: "Area Category",
-    },
-    {
-      accessorKey: "category",
-      header: "Category",
-    },
-    {
-      accessorKey: "subCategory",
-      header: "Sub Category",
-    },
-    {
-      accessorKey: "promoPrice",
-      header: "Promo Price",
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ row }) => {
-        const statusValue = row.original.status;
-        const rowId = row.original.id;
-
-        const statusActions = [ 
-          {
-            label: "Change Status",
-            items: [
-              {
-                label: "Mark as active",
-                value: "Active",
-                onClick: (v) => handleStatusUpdate(rowId, v),
-              },
-              {
-                label: "Mark as non active",
-                value: "Inactive",
-                onClick: (v) => handleStatusUpdate(rowId, v),
-              },
-            ],
-          },
-        ];
-
-        return (
-          <SelectDropdown
-            asBadge={true}
-            triggerLabel={statusValue}
-            badgeVariant={
-              statusValue === "Active" ? "outlined-active" : "outlined-inactive"
-            }
-            iconClassName={
-              statusValue === "Active" ? "text-emerald-500" : "text-slate-400"
-            }
-            sections={statusActions}
-          />
-        );
-      },
+      accessorKey: "isp",
+      header: "ISP",
+      size: 150,
     },
     {
       id: "actions",
       enableHiding: false,
-      header: "Action",
+      header: "",
+      size: 10,
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (
@@ -115,13 +66,10 @@ const ProductDataColumn = ({ actions }) => {
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="border border-muted rounded-[8px]"
-            >
+            <DropdownMenuContent align="end" className="border border-muted rounded-[8px]">
               {actions?.map((item, index) => {
                 const IconComponent = item?.icon;
-                const isDelete = item.label === "Delete";
+                const isDelete = item.label === "Delete"
                 return (
                   <div key={index}>
                     {isDelete && index !== 0 && <DropdownMenuSeparator />}
@@ -130,9 +78,7 @@ const ProductDataColumn = ({ actions }) => {
                       onClick={() => item?.onClick(rowData)}
                       className={item?.className}
                     >
-                      {IconComponent && (
-                        <IconComponent className="mr-2 h-4 w-4" />
-                      )}
+                      {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
                       {item?.label}
                     </DropdownMenuItem>
                   </div>
@@ -141,9 +87,9 @@ const ProductDataColumn = ({ actions }) => {
             </DropdownMenuContent>
           </DropdownMenu>
         );
-      },
-    },
+      }
+    }
   ].filter(Boolean);
 };
 
-export default ProductDataColumn;
+export default RoleDataColumn;

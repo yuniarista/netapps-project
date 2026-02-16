@@ -23,20 +23,57 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { AREA_TABS_CONFIG } from "../../configs/areaTabsConfig";
+import { useState } from "react";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
 export default function AreaDataTable({ columns, handleModalOpen }) {
+  const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
-        areaName: "Bali",
-        status: "Active",
+      areaName: "Bali",
+      status: "Active",
     },
     {
-        areaName: "Jakarta",
-        status: "Inactive",
+      areaName: "Jakarta",
+      status: "Inactive",
     },
   ];
 
-  
+  const handleAddFilter = (label, value) => {
+    if (!activeFilters.find((f) => f.value === value)) {
+      setActiveFilters([...activeFilters, { label, value }]);
+    }
+  };
+
+  const handleRemoveFilter = (value) => {
+    setActiveFilters(activeFilters.filter((f) => f.value !== value));
+  };
+  const filterSections = [
+    {
+      label: "Area",
+      items: [
+        {
+          label: "Bali",
+          value: "bali",
+          onClick: () => handleAddFilter("Bali", "bali"),
+        },
+        {
+          label: "Jawa",
+          value: "jawa",
+          onClick: () => handleAddFilter("Jawa", "jawa"),
+        },
+        {
+          label: "Sumatera",
+          value: "sumatera",
+          onClick: () => handleAddFilter("Sumatera", "sumatera"),
+        },
+        // { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
+        // { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
+        // { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
+      ],
+    },
+  ];
+
   const hasData = dummyData.length > 0;
 
   const router = useRouter();
@@ -46,19 +83,18 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
     <div className="flex flex-col min-h-screen">
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="Product"
+        title="Area"
       />
 
       {hasData ? (
         <>
           <div className="p-4 space-y-4">
-            <CustomTabs 
-            tabs={AREA_TABS_CONFIG}
-            activeTab={pathname}
-            onChange={(tab) => {
-              router.push(tab.path);
-            }}
-            
+            <CustomTabs
+              tabs={AREA_TABS_CONFIG}
+              activeTab={pathname}
+              onChange={(tab) => {
+                router.push(tab.path);
+              }}
             />
             <div className="w-full">
               <Label className="font-semibold text-md">Area Data</Label>
@@ -98,14 +134,13 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
                     //   });
                     //   setData(result);
                     // }} */}
-                  <SelectTrigger
-                    className="w-40"
+                  <SelectDropdown
+                    triggerLabel="Filter By"
                     icon={Settings2}
                     iconPosition="left"
-                    iconClassName="text-primary"
-                  >
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
+                    className="w-40"
+                    sections={filterSections}
+                  />
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
                         <SelectItem
@@ -118,31 +153,19 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
                   </SelectContent>
                 </Select>
 
-                <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-2"
-
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Home
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
-                <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-2"
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Active
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
+                {activeFilters.map((filter) => (
+                  <CustomButton
+                    key={filter.value}
+                    variant="secondary"
+                    type="button"
+                    size="sm"
+                    className="mt-1"
+                    onClick={() => handleRemoveFilter(filter.value)}
+                  >
+                    {filter.label}
+                    <X className="h-4 w-4 text-primary" />
+                  </CustomButton>
+                ))}
 
                 <CustomButton
                   variant="primary"

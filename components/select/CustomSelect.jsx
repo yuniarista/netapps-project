@@ -38,7 +38,7 @@ const SelectContent = React.forwardRef(
         ref={ref}
         position="popper"
         align="center"
-        sideOffset={-35}
+        sideOffset={-36}
         className={cn(
           "z-50 overflow-hidden rounded-[5px] border-2 border-[#E4E4E7] bg-white text-[#18181B] shadow-lg animate-in fade-in-80",
           "w-[var(--radix-select-trigger-width)] min-w-[var(--radix-select-trigger-width)]",

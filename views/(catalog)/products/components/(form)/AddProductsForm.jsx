@@ -18,6 +18,7 @@ import SelectInput from "@/components/inputcopy/selectInputCustom";
 import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import AddAreaForm from "./AddAreaForm";
+import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
 
 export default function AddProductsForm() {
   const form = useForm({ mode: "all" });
@@ -61,7 +62,7 @@ export default function AddProductsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="">
+      <form onSubmit={handleSubmit}>
         <CardContent>
           <section>
             <div
@@ -79,7 +80,7 @@ export default function AddProductsForm() {
             {openSections.clasification && (
               <div className="flex flex-col gap-4 py-3">
                 <div className="flex flex-row gap-4 justify-between">
-                  <SelectInput
+                  <SelectInputCustom
                     name="area"
                     label="Area"
                     control={control}
@@ -99,7 +100,7 @@ export default function AddProductsForm() {
                       />
                     )}
                   />
-                  <SelectInput
+                  <SelectInputCustom
                     name="category"
                     label="Category"
                     control={control}
@@ -118,7 +119,7 @@ export default function AddProductsForm() {
                       />
                     )}
                   />
-                  <SelectInput
+                  <SelectInputCustom
                     name="subCategory"
                     label="Sub Category"
                     control={control}
@@ -157,15 +158,27 @@ export default function AddProductsForm() {
 
             {openSections.product && (
               <div className="flex flex-col gap-4 py-3">
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4 justify-between">
                   <div className="flex-1">
                     <TextInputForm
                       id="productName"
                       name="productName"
-                      placeholder="Product name"
-                      label="Product Name"
+                      placeholder="e.g., Fiber Home Pro"
+                      label="Product name"
                       control={control}
                       errors={errors}
+                      helperText="Use a unique name that customers will see on their bill."
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <TextInputForm
+                      id="capacity"
+                      name="capacity"
+                      placeholder="e.g., 50 Mbps"
+                      label="Capacity"
+                      control={control}
+                      errors={errors}
+                      helperText="Enter the maximum download speed for this plan."
                     />
                   </div>
                   <div className="flex-1">
@@ -174,7 +187,7 @@ export default function AddProductsForm() {
                       label="Product Image"
                       errors={errors}
                       control={control}
-                      helperText="Used for catalog display in customer app."
+                      helperText="Recommended size: 1080×1350px. Max file size 2MB. JPG, PNG"
                     />
                   </div>
                 </div>

@@ -20,53 +20,128 @@ import {
   Plus,
   Search,
   Settings2,
+  Trash2,
   X,
 } from "lucide-react";
 import { PRODUCT_TABS_CONFIG } from "../../configs/productTabsConfig";
 import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { useState } from "react";
 
 export default function ProductDataTable({ columns, handleModalOpen }) {
+  const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
-      productName: "Internet Basic",
-      price: "$10/month",
+      productName: "Bisnis Soho 30 Mbps",
+      price: "120,000.00",
       areaCategory: "Urban",
       areaCategory: "Urban",
       category: "Residential",
       subCategory: "Basic",
-      promoPrice: "$8/month",
+      promoPrice: "100,000.00",
       status: "Active",
     },
     {
-      productName: "Internet Pro",
-      price: "$20/month",
+      productName: "Bisnis Soho 30 Mbps",
+      price: "120,000.00",
+      areaCategory: "Urban",
       areaCategory: "Urban",
       category: "Residential",
-      subCategory: "Pro",
-      promoPrice: "$15/month",
+      subCategory: "Basic",
+      promoPrice: "100,000.00",
       status: "Inactive",
     },
   ];
 
+  const handleAddFilter = (label, value) => {
+    if (!activeFilters.find((f) => f.value === value)) {
+      setActiveFilters([...activeFilters, { label, value }]);
+    }
+  };
+
+  const handleRemoveFilter = (value) => {
+    setActiveFilters(activeFilters.filter((f) => f.value !== value));
+  };
   const filterSections = [
     {
       label: "Area",
       items: [
-        { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
-      ]
+        {
+          label: "Bali",
+          value: "bali",
+          onClick: () => handleAddFilter("Bali", "bali"),
+        },
+        {
+          label: "Jawa",
+          value: "jawa",
+          onClick: () => handleAddFilter("Jawa", "jawa"),
+        },
+        {
+          label: "Sumatera",
+          value: "sumatera",
+          onClick: () => handleAddFilter("Sumatera", "sumatera"),
+        },
+        // { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
+        // { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
+        // { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
+      ],
     },
     {
       label: "Category",
       items: [
-        { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
-        { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
+        {
+          label: "Business",
+          value: "biz",
+          onClick: () => handleAddFilter("Business", "biz"),
+        },
+        {
+          label: "Professional",
+          value: "prof",
+          onClick: () => handleAddFilter("Professional", "prof"),
+        },
+        {
+          label: "Home",
+          value: "home",
+          onClick: () => handleAddFilter("Home", "home"),
+        },
+        // { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
+        // { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
+        // { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
+      ],
+    },
+  ];
+
+  const bulkActionSections = [
+    {
+      label: "Change Status",
+      items: [
+        {
+          label: "Mark as active",
+          value: "active",
+          onClick: () => handleAddFilter("Active", "active"),
+        },
+        {
+          label: "Mark as non active",
+          value: "inactive",
+          onClick: () => handleAddFilter("Inactive", "inactive"),
+        },
+        // { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
+        // { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
+      ]
+    },
+    {
+      items: [
+        {
+          label: "Delete",
+          value: "delete",
+          icon: Trash2,
+          variant: "destructive",
+          onClick: () => confirm("Are you sure?")
+        },
       ]
     }
   ];
+
 
   const hasData = dummyData.length > 0;
 
@@ -137,6 +212,7 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                     className="w-40"
                     sections={filterSections}
                   />
+                  
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
                         <SelectItem
@@ -149,11 +225,31 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                   </SelectContent>
                 </Select>
 
-                <CustomButton
+                {activeFilters.map((filter) => (
+                  <CustomButton
+                    key={filter.value}
+                    variant="secondary"
+                    type="button"
+                    size="sm"
+                    className="mt-1"
+                    onClick={() => handleRemoveFilter(filter.value)}
+                  >
+                    {filter.label}
+                    <X className="h-4 w-4 text-primary" />
+                  </CustomButton>
+                ))}
+
+                <SelectDropdown
+                  triggerLabel="Bulk Action"
+                  sections={bulkActionSections}
+                />
+                
+
+                {/* <CustomButton
                   variant="secondary"
                   type="button"
                   size="sm"
-                  className="mt-2"
+                  className="mt-1"
 
                   // onClick={() => {
                   //   handleModalOpen("bulk-delete");
@@ -166,14 +262,14 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                   variant="secondary"
                   type="button"
                   size="sm"
-                  className="mt-2"
+                  className="mt-1"
                   // onClick={() => {
                   //   handleModalOpen("bulk-delete");
                   // }}
                 >
                   Active
                   <X className="h-4 w-4 text-primary" />
-                </CustomButton>
+                </CustomButton> */}
 
                 <CustomButton
                   variant="primary"
