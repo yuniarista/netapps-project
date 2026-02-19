@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ChevronDown, ChevronUp, Eye, EyeClosed, EyeOff } from "lucide-react";
+import { ChevronDown, ChevronUp, Eye, EyeClosed, EyeOff, Phone } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
@@ -85,30 +85,57 @@ export default function EditBilingForm({ handleModalClose, loading }) {
                                             control={control}
                                         />
                                         <Button
-                                            type="button"                                       
-                                            onClick={togglePreview} 
+                                            type="button"
+                                            onClick={togglePreview}
                                             disabled={loading}
                                         >
                                             {isPreviewOpen ? (
-                                                <EyeOff className="h-4 w-4" /> 
+                                                <EyeOff className="h-4 w-4" />
                                             ) : (
-                                                <Eye className="h-4 w-4" />    
+                                                <Eye className="h-4 w-4" />
                                             )}
                                             Preview
                                         </Button>
                                     </div>
                                 </div>
-                                
+
                                 {/* contoh condisional rendering nanti diganti */}
                                 {isPreviewOpen && (
-                                    <div>
-                                       <h1 className="flex items-center text-sm font-medium pb-1"> Preview (with sample data) </h1>
-                                    <div className="p-4 border rounded-md bg-slate-50 animate-in slide-in-from-top-2 duration-300">
-                                        <p className="text-xs font-bold text-slate-500 uppercase mb-2">Message Preview:</p>
-                                        <div className="text-sm text-slate-700 whitespace-pre-wrap italic">
-                                            {form.watch("message") || "Belum ada pesan yang diketik..."}
+                                    <div className="mt-4 animate-in slide-in-from-top-2 duration-300">
+                                        <h1 className="flex items-center text-sm font-medium pb-2 text-slate-600">
+                                            Preview (with sample data)
+                                        </h1>
+
+                                        <div className="border w-96 rounded-sm bg-white shadow-sm overflow-hidden mt-2 mx-auto">
+                                            <div className="flex items-center gap-3 p-3 border-b bg-white">
+                                                <div
+                                                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                                                    style={{ backgroundColor: '#25D366' }}
+                                                >
+                                                    <Phone className="w-5 h-5 text-white" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[15px] font-bold text-slate-800 leading-tight">WhatsApp Business</h4>
+                                                    <p className="text-[12px] text-slate-500 leading-tight">Online</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="p-2 min-h-[200px] relative">
+                                                <div
+                                                    className="p-3 rounded-sm shadow-sm relative"
+                                                    style={{ backgroundColor: '#e7ffdb' }}
+                                                >
+                                                    <div className="text-[14px] text-slate-800 leading-relaxed whitespace-pre-wrap">
+                                                        {form.watch("message") || "Belum ada pesan yang diketik..."}
+                                                    </div>
+
+                                                    <div
+                                                        className="absolute top-0 -left-2 w-0 h-0 border-l-[10px] border-l-transparent"
+                                                        style={{ borderTop: '10px solid #e7ffdb' }}
+                                                    ></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 )}
                             </div>
