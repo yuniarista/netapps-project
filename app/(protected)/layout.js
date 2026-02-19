@@ -70,7 +70,8 @@ const dummyMenu = [
     features: [
       { name: "Product", url: "/products" },
       { name: "Area", url: "/area" },
-      { name: "Product Category", url: "/product-categories" },
+      { name: "Category", url: "/category" },
+      { name: "Sub Category", url: "/sub-category" },
     ],
   },
   {

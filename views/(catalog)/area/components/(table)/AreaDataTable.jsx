@@ -50,26 +50,18 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
   };
   const filterSections = [
     {
-      label: "Area",
+      label: "Status",
       items: [
         {
-          label: "Bali",
-          value: "bali",
-          onClick: () => handleAddFilter("Bali", "bali"),
+          label: "Active",
+          value: "active",
+          onClick: () => handleAddFilter("Active", "active"),
         },
         {
-          label: "Jawa",
-          value: "jawa",
-          onClick: () => handleAddFilter("Jawa", "jawa"),
+          label: "Inactive",
+          value: "inactive",
+          onClick: () => handleAddFilter("Inactive", "inactive"),
         },
-        {
-          label: "Sumatera",
-          value: "sumatera",
-          onClick: () => handleAddFilter("Sumatera", "sumatera"),
-        },
-        // { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
       ],
     },
   ];
@@ -88,7 +80,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
 
       {hasData ? (
         <>
-          <div className="p-4 space-y-4">
+          <div className="px-4 space-y-2">
             <CustomTabs
               tabs={AREA_TABS_CONFIG}
               activeTab={pathname}
@@ -97,7 +89,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
               }}
             />
             <div className="w-full">
-              <Label className="font-semibold text-md">Area Data</Label>
+              <Label className="font-semibold text-sm">Area Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
@@ -171,7 +163,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
                   variant="primary"
                   type="button"
                   size="md"
-                  onClick={() => handleModalOpen("add")}
+                  onClick={() => handleModalOpen("addModal")}
                 >
                   <IconifyIcon icon="lucide:plus" />
                   Create

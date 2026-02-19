@@ -13,43 +13,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChevronDown,
   PanelRight,
   Plus,
   Search,
   Settings2,
-  Trash2,
   X,
 } from "lucide-react";
-import { PRODUCT_TABS_CONFIG } from "../../configs/productTabsConfig";
 import { usePathname, useRouter } from "next/navigation";
-import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { CATEGORY_TABS_CONFIG } from "../../configs/categoryTabsConfig";
 
-export default function ProductDataTable({ columns, handleModalOpen }) {
+export default function CategoryDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
+      categoryName: "Business",
       status: "Active",
     },
     {
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
+      categoryName: "Professional",
+      status: "Active",
     },
   ];
 
@@ -64,84 +50,21 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
   };
   const filterSections = [
     {
-      label: "Area",
+      label: "Status",
       items: [
         {
-          label: "Bali",
-          value: "bali",
-          onClick: () => handleAddFilter("Bali", "bali"),
-        },
-        {
-          label: "Jawa",
-          value: "jawa",
-          onClick: () => handleAddFilter("Jawa", "jawa"),
-        },
-        {
-          label: "Sumatera",
-          value: "sumatera",
-          onClick: () => handleAddFilter("Sumatera", "sumatera"),
-        },
-        // { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
-      ],
-    },
-    {
-      label: "Category",
-      items: [
-        {
-          label: "Business",
-          value: "biz",
-          onClick: () => handleAddFilter("Business", "biz"),
-        },
-        {
-          label: "Professional",
-          value: "prof",
-          onClick: () => handleAddFilter("Professional", "prof"),
-        },
-        {
-          label: "Home",
-          value: "home",
-          onClick: () => handleAddFilter("Home", "home"),
-        },
-        // { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
-        // { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
-        // { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
-      ],
-    },
-  ];
-
-  const bulkActionSections = [
-    {
-      label: "Change Status",
-      items: [
-        {
-          label: "Mark as active",
+          label: "Active",
           value: "active",
           onClick: () => handleAddFilter("Active", "active"),
         },
         {
-          label: "Mark as non active",
+          label: "Inactive",
           value: "inactive",
           onClick: () => handleAddFilter("Inactive", "inactive"),
         },
-        // { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
-        // { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
-      ]
+      ],
     },
-    {
-      items: [
-        {
-          label: "Delete",
-          value: "delete",
-          icon: Trash2,
-          variant: "destructive",
-          onClick: () => confirm("Are you sure?")
-        },
-      ]
-    }
   ];
-
 
   const hasData = dummyData.length > 0;
 
@@ -152,23 +75,21 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
     <div className="flex flex-col min-h-screen">
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="Product"
+        title="Category"
       />
 
       {hasData ? (
         <>
           <div className="px-4 space-y-2">
             <CustomTabs
-              tabs={PRODUCT_TABS_CONFIG}
+              tabs={CATEGORY_TABS_CONFIG}
               activeTab={pathname}
               onChange={(tab) => {
                 router.push(tab.path);
               }}
             />
             <div className="w-full">
-              <Label className="font-semibold text-sm">
-                Catalog Product Data
-              </Label>
+              <Label className="font-semibold text-sm">Category Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
@@ -212,7 +133,6 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                     className="w-40"
                     sections={filterSections}
                   />
-                  
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
                         <SelectItem
@@ -239,43 +159,11 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                   </CustomButton>
                 ))}
 
-                <SelectDropdown
-                  triggerLabel="Bulk Action"
-                  sections={bulkActionSections}
-                />
-                
-
-                {/* <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-1"
-
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Home
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
-                <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-1"
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Active
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton> */}
-
                 <CustomButton
                   variant="primary"
                   type="button"
                   size="md"
-                  onClick={() => handleModalOpen("add")}
+                  onClick={() => handleModalOpen("addModal")}
                 >
                   <IconifyIcon icon="lucide:plus" />
                   Create

@@ -41,7 +41,7 @@ export default function SelectInputCustom({
   isMultiple = false,
   multipleData = [],
   required = false,
-  helperText = "",
+  helperText,
   errors,
   onAddNew,
   renderModalContent,
@@ -54,8 +54,7 @@ export default function SelectInputCustom({
         control={control}
         name={name}
         defaultValue={defaultValue}
-        render={({ field }) => {
-          const [isModalOpen, setIsModalOpen] = useState(false);
+        render={({ field, fieldState: { error } }) => {
           return (
             <FormItem>
               {label && (
@@ -124,6 +123,9 @@ export default function SelectInputCustom({
                   </SelectContent>
                 </Select>
               </FormControl>
+              {helperText && !error && (
+                <p className="text-[12px] text-slate-500 mt-1">{helperText}</p>
+              )}
               <FormMessage />
             </FormItem>
           );
@@ -136,17 +138,11 @@ export default function SelectInputCustom({
           title={`Add ${label}`}
           footer={
             <>
-              <Button
-                variant="secondary"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
                 Cancel
               </Button>
 
-              <Button
-                type="submit"
-                form="add-select-form"
-              >
+              <Button type="submit" form="add-select-form">
                 Add
               </Button>
             </>
