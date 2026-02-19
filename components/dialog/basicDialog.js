@@ -24,7 +24,7 @@ const CustomDialog = ({
   headerAlignment = "center",
   modalType,
 }) => {
-  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update";
+  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update" || modalType === "detail";
   const isDelete = modalType === "delete";
   const positionClass = isEditOrCreate
     ? "fixed left-[230px] top-10 max-h-[calc(100vh-40px)] overflow-y-auto"
@@ -35,13 +35,13 @@ const CustomDialog = ({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         positionClass={positionClass}
-        className={`max-w-xl max-h-full rounded-[10px] border border-zinc-200 shadow-md overflow-y-auto scrollbar-hidden-y ${isDelete ? "p-0" : ""} ${className}`}
+        className={`max-w-3xl max-h-full z-10 rounded-[10px] border border-zinc-200 shadow-md overflow-y-auto scrollbar-hidden-y ${isDelete ? "p-0" : ""} ${className}`}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className={isDelete ? "border-b border-slate-200 bg-white px-6 py-4" : ""}>
           <DialogTitle
             className={cn(
-              "w-full text-base font-semibold text-zinc-900 leading-5 ",
+              "w-full text-xl font-semibold text-zinc-900 leading-5 ",
               `text-${headerAlignment}`
             )}
           >

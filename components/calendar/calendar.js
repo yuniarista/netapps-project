@@ -10,20 +10,24 @@ export function BasicCalendar({ size = "md", ...props }) {
   return (
     <div
       className={cn(
-        "w-fit mx-auto rounded-xl border-[1px] border-[#E4E4E7] p-1 shadow-sm",
+        "w-fit mx-auto rounded-xl border-[1px] border-[#E4E4E7] p-1 shadow-sm bg-white",
         sizeClass
       )}
       style={{
-        "--primary": "263 60% 50%",
+        // "--primary": "263 60% 50%",
         "--primary-foreground": "0 0% 100%"
       }}
     >
       <ShadCalendar
         className={cn(
           "[&_[data-selected]]:rounded-md",
-          "[&_[data-selected]]:bg-[#6332CE]",
+          "[&_[data-selected]]:bg-[#2563EB]",
           "[&_[data-selected]]:text-white",
-          "[&_[data-selected]:hover]:bg-[#5124a3]"
+          "[&_[data-selected]:hover]:bg-[#2057cc]",
+          "[&_.rdp-vhidden]:hidden",
+          "[&_.rdp-caption_dropdowns]:flex [&_.rdp-caption_dropdowns]:gap-1",
+          "[&_.rdp-dropdown]:border [&_.rdp-dropdown]:rounded-md [&_.rdp-dropdown]:p-1 [&_.rdp-dropdown]:bg-white",
+          "[&_.rdp-caption_label]:hidden"
         )}
         {...props}
       />
