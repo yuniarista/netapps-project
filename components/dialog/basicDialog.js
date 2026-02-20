@@ -30,6 +30,15 @@ const CustomDialog = ({
 }) => {
   const isDelete = ["delete", "bulk-delete"].includes(modalType);
 
+  const sizeClasses = {
+    sm: "max-w-sm",      // ~384px
+    md: "max-w-md",      // ~448px
+    lg: "max-w-lg",      // ~512px
+    xl: "max-w-xl",      // ~576px
+    "600": "max-w-[600px]", 
+    "3xl": "max-w-[800px]",  
+  };
+
   const positionClass = isDelete
     ? "fixed left-1/2 top-20 -translate-x-1/2 translate-y-0"
     : "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0";
@@ -41,7 +50,7 @@ const CustomDialog = ({
           "transition-all duration-300",
           isDelete
             ? "max-w-sm gap-0 p-0 rounded-md border border-zinc-200"
-            : "rounded-md rounded-l-none border-l-0 gap-4 p-7",
+            : cn("rounded-md rounded-l-none border-l-0 gap-4 p-7", sizeClasses[size] || sizeClasses["3xl"]),
           className,
         )}
       >
