@@ -73,21 +73,10 @@ export default function SubCategoryDataTable({ columns, handleModalOpen }) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <PageHeader
-        icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="Sub Category"
-      />
 
       {hasData ? (
         <>
-          <div className="px-4 space-y-2">
-            <CustomTabs
-              tabs={SUB_CATEGORY_TABS_CONFIG}
-              activeTab={pathname}
-              onChange={(tab) => {
-                router.push(tab.path);
-              }}
-            />
+          <div className="px-4 space-y-2 py-2">
             <div className="w-full">
               <Label className="font-semibold text-sm">Sub Category Data</Label>
             </div>

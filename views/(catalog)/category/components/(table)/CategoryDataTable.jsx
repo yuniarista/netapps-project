@@ -73,21 +73,9 @@ export default function CategoryDataTable({ columns, handleModalOpen }) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <PageHeader
-        icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="Category"
-      />
-
       {hasData ? (
         <>
-          <div className="px-4 space-y-2">
-            <CustomTabs
-              tabs={CATEGORY_TABS_CONFIG}
-              activeTab={pathname}
-              onChange={(tab) => {
-                router.push(tab.path);
-              }}
-            />
+          <div className="px-4 space-y-2 py-2">
             <div className="w-full">
               <Label className="font-semibold text-sm">Category Data</Label>
             </div>
