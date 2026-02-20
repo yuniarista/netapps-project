@@ -59,7 +59,7 @@ export default function SelectInputCustom({
         control={control}
         name={name}
         defaultValue={defaultValue}
-        render={({ field, error }) => {
+        render={({ field, fieldState: { error } }) => {
           return (
             <FormItem>
               {label && (
@@ -144,7 +144,7 @@ export default function SelectInputCustom({
                 </Select>
               </FormControl>
               {helperText && !error && (
-                <p className="text-xs text-slate-500">{helperText}</p>
+                <p className="text-[12px] text-slate-500 mt-1">{helperText}</p>
               )}
               <FormMessage />
             </FormItem>

@@ -1,26 +1,27 @@
 "use client";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import { invoiceModalConfig, roleModalConfig } from "../../configs/roleModalConfig";
+import { useSubCategoryHooks} from "../../hooks/useSubCategoryHooks";
+import { subCategoryModalConfig } from "../../configs/subCategoryModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
-import { useRoleHooks } from "../../hooks/useRoleHooks";
-import roleActionConfig from "../../configs/roleActionConfig";
-import RoleDataTable from "../(table)/RoleDataTable";
-import RoleDataColumn from "../(table)/RoleColumn";
+import subCategoryActionConfig from "../../configs/subCategoryActionConfig";
+import SubCategoryDataTable from "../(table)/SubCategoryDataTable";
+import SubCategoryDataColumn from "../(table)/SubCategoryDataColumn";
 
-export default function RolePage() {
-  const state = useRoleHooks([]);
+
+export default function SubCategoryPage() {
+  const state = useSubCategoryHooks([]);
   const { openModal, modalType, handleModalOpen, handleModalClose } = state;
 
-  const modalConfig = getModalConfig(modalType, roleModalConfig(state));
-  const actions = roleActionConfig((type, item) => {
+  const modalConfig = getModalConfig(modalType, subCategoryModalConfig(state));
+  const actions = subCategoryActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
 
   return (
     <div>
-      <RoleDataTable
-        columns={RoleDataColumn({
+      <SubCategoryDataTable
+        columns={SubCategoryDataColumn({
           actions
         })}
         handleModalOpen={handleModalOpen}
@@ -33,7 +34,6 @@ export default function RolePage() {
         headerAlignment="start"
         titleClassname="text-xl p-3"
         withHeaderBorder={modalType === 'delete'}
-        size="lg"
       >
         {modalConfig.content}
       </CustomDialog>

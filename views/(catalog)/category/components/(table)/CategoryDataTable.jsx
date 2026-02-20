@@ -22,20 +22,20 @@ import {
   X,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { AREA_TABS_CONFIG } from "../../configs/areaTabsConfig";
 import { useState } from "react";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { CATEGORY_TABS_CONFIG } from "../../configs/categoryTabsConfig";
 
-export default function AreaDataTable({ columns, handleModalOpen }) {
+export default function CategoryDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
-      areaName: "Bali",
+      categoryName: "Business",
       status: "Active",
     },
     {
-      areaName: "Jakarta",
-      status: "Inactive",
+      categoryName: "Professional",
+      status: "Active",
     },
   ];
 
@@ -77,7 +77,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
         <>
           <div className="px-4 space-y-2 py-2">
             <div className="w-full">
-              <Label className="font-semibold text-sm">Area Data</Label>
+              <Label className="font-semibold text-sm">Category Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">

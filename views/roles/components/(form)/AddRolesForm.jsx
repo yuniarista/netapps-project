@@ -33,7 +33,6 @@ export default function AddRoleForm({
     setValue,
   } = form;
 
-  // State untuk dummy logic
   const [addedFeatures, setAddedFeatures] = useState([]);
   const [selectedFeatureId, setSelectedFeatureId] = useState("");
 
@@ -49,7 +48,6 @@ export default function AddRoleForm({
   ];
 
   const handleAddFeature = () => {
-    // Ambil nilai terbaru langsung dari form state
     const currentSelectedId = form.getValues("feature");
 
     if (!currentSelectedId) {
@@ -57,7 +55,6 @@ export default function AddRoleForm({
       return;
     }
 
-    // Cek apakah sudah ada di list agar tidak duplikat
     const isAlreadyAdded = addedFeatures.some(
       (f) => f.featureId === currentSelectedId,
     );
@@ -67,17 +64,14 @@ export default function AddRoleForm({
         (f) => f.value === currentSelectedId,
       );
 
-      // Tambahkan ke state
       setAddedFeatures((prev) => [
         ...prev,
         {
           featureId: currentSelectedId,
           name: featureDetail?.label,
-          access: ["Read"], // Default awal sesuai gambar
+          access: ["Read"],
         },
       ]);
-
-      // Opsional: Reset field select setelah berhasil menambah
       form.setValue("feature", "");
     }
   };
@@ -87,7 +81,6 @@ export default function AddRoleForm({
   };
 
   const onSubmit = (data) => {
-    // Gabungkan data form utama dengan daftar fitur yang sudah ditambahkan
     const finalData = {
       ...data,
       permissions: addedFeatures,
@@ -100,7 +93,6 @@ export default function AddRoleForm({
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
-          {/* Role Name */}
           <TextInputForm
             name="role"
             label="Role Name"
@@ -109,7 +101,6 @@ export default function AddRoleForm({
             control={control}
           />
 
-          {/* List Feature Selection */}
           <div className="space-y-2">
             <Label className="text-sm font-medium">
               Features & Permissions
@@ -117,7 +108,7 @@ export default function AddRoleForm({
             <div className="flex gap-2 items-end">
               <div className="flex-1">
                 <SelectInputForm
-                  name="feature" // Menggunakan state internal form
+                  name="feature"
                   label=""
                   control={control}
                   options={featOptions}

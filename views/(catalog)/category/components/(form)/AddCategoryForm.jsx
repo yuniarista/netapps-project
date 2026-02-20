@@ -5,8 +5,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
-  const form = useForm({ defaultValues: { areaName: "" } });
+export default function AddCategoryForm({ handleModalClose, loading, onSuccess }) {
+  const form = useForm({ defaultValues: { categoryName: "" } });
 
   return (
     <Form {...form}>
@@ -15,14 +15,14 @@ export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
         <div className="px-6 py-4">
           <FormField
             control={form.control}
-            name="areaName"
+            name="categoryName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-[#334155] font-semibold text-sm">
-                  Area Name
+                  Category Name
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Area name" {...field} className="mt-1" />
+                  <Input placeholder="Category name" {...field} className="mt-1" />
                 </FormControl>
               </FormItem>
             )}

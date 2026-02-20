@@ -1,7 +1,5 @@
 "use client";
 
-
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -15,7 +13,7 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { size } from "zod";
 
-const ProductDataColumn = ({ actions }) => {
+const CategoryDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -38,39 +36,14 @@ const ProductDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "productName",
-      header: "Product Name",
-      size: 150,
-    },
-    {
-      accessorKey: "price",
-      header: "Price",
-      size:100
-    },
-    {
-      accessorKey: "areaCategory",
-      header: "Area Category",
-      size:100
-    },
-    {
-      accessorKey: "category",
+      accessorKey: "categoryName",
       header: "Category",
-      size:100
-    },
-    {
-      accessorKey: "subCategory",
-      header: "Sub Category",
-      size:100
-    },
-    {
-      accessorKey: "promoPrice",
-      header: "Promo Price",
-      size:100
+      size: 600,
     },
     {
       accessorKey: "status",
       header: "Status",
-      size:50,
+      size: 50,
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const rowId = row.original.id;
@@ -112,7 +85,7 @@ const ProductDataColumn = ({ actions }) => {
       id: "actions",
       enableHiding: false,
       header: "Action",
-      size:50,
+      size: 50,
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (
@@ -154,4 +127,4 @@ const ProductDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default ProductDataColumn;
+export default CategoryDataColumn;

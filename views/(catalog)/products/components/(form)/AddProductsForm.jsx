@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useForm } from "react-hook-form";
-import { X, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { X, ChevronDown, ChevronUp, Trash, Trash2, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import TextInputForm from "@/components/inputcopy/textInputForm";
@@ -19,13 +19,34 @@ import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import AddAreaForm from "./AddAreaForm";
 import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
+import { Label } from "@radix-ui/react-select";
+import NumberInputForm from "@/components/inputcopy/inputNumber";
+import InputNumberForm from "@/components/inputcopy/inputNumber";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ProductAddSchema } from "../../schemas/productScemas";
+import AddCategoryForm from "./AddCategoryForm";
+import AddSubCategoryForm from "./AddSubCategoryForm";
 
 export default function AddProductsForm() {
-  const form = useForm({ mode: "all" });
+  const form = useForm({
+    mode: "all",
+    defaultValues: {
+      sameAsCompanyEmail: false,
+      category: "",
+      addOns: [{ addName: "", categoryProduct: "", quantity: 1 }],
+    },
+  });
   const {
     control,
     formState: { errors },
+    watch,
+    setValue,
   } = form;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "addOns",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,12 +57,14 @@ export default function AddProductsForm() {
     // Handle input change logic here
   };
 
+  const isToggleActive = watch("sameAsCompanyEmail");
   const [openSections, setOpenSections] = useState({
     clasification: true,
     product: true,
   });
 
-  // Fungsi untuk toggle (bolak-balik) status
+  const [addedFeatures, setAddedFeatures] = useState([]);
+
   const toggleSection = (section) => {
     setOpenSections((prev) => ({
       ...prev,
@@ -55,18 +78,33 @@ export default function AddProductsForm() {
   ];
 
   const areaOptions = [{ label: "Bali", value: "area1" }];
-
   const categoryOptions = [{ label: "Business", value: "category1" }];
-
   const subCategoryOptions = [{ label: "Soho", value: "subCategory1" }];
+  const productOptions = [{ label: "Access Point", value: "product1" }];
+  const productCategory = [{ label: "Device", value: "productCat1" }];
+
+  useEffect(() => {
+    if (isToggleActive) {
+      setValue("area", "");
+      setValue("category", "");
+    }
+  });
+
+  const onSubmit = (data) => {
+    console.log("Data Form:", data);
+
+    if (handleCreate) {
+      handleCreate(data);
+    }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <CardContent>
           <section>
             <div
-              className="flex items-center justify-between mt-4 cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleSection("clasification")}
             >
               <h3 className="text-lg font-semibold">CLASSIFICATION</h3>
@@ -109,7 +147,7 @@ export default function AddProductsForm() {
                     placeholder="Select category"
                     errors={errors}
                     renderModalContent={(closeModal) => (
-                      <AddAreaForm
+                      <AddCategoryForm
                         onCancel={closeModal}
                         onSuccess={(data) => {
                           console.log("Data area baru:", data);
@@ -128,7 +166,7 @@ export default function AddProductsForm() {
                     placeholder="Select sub category"
                     errors={errors}
                     renderModalContent={(closeModal) => (
-                      <AddAreaForm
+                      <AddSubCategoryForm
                         onCancel={closeModal}
                         onSuccess={(data) => {
                           console.log("Data area baru:", data);
@@ -145,7 +183,7 @@ export default function AddProductsForm() {
 
           <section>
             <div
-              className="flex items-center justify-between mt-4 cursor-pointer"
+              className="flex items-center justify-between cursor-pointer"
               onClick={() => toggleSection("product")}
             >
               <h3 className="text-lg font-semibold">PRODUCT INFO & PRICING</h3>
@@ -191,15 +229,121 @@ export default function AddProductsForm() {
                     />
                   </div>
                 </div>
-                <div className="flex flex-row gap-4 justify-between">
-                  <TextInputForm
-                    id="price"
-                    name="price"
-                    placeholder="IDR"
-                    label="Price"
+                <div>
+                  <SwitchToggleInput
                     control={control}
-                    errors={errors}
+                    name="sameAsCompanyEmail"
+                    label="Include Add-on Products"
+                    description="Toggle this on if this product plan comes with optional hardware or extra services."
                   />
+
+                  {isToggleActive && (
+                    <div className="flex flex-col gap-2 p-4 mt-2 bg-[#F9F9F9] border rounded-[5px]">
+                      {fields.map((field, index) => (
+                        <div
+                          key={field.id}
+                          className="flex flex-row gap-4 items-start py-1"
+                        >
+                          <SelectInputCustom
+                            name="addOnName"
+                            label="Add-on Name"
+                            control={control}
+                            options={productOptions}
+                            optionName="label"
+                            placeholder="Product Name"
+                            errors={errors}
+                            helperText="e.g., Wifi Extender, Static IP, or Mesh Router."
+                            renderModalContent={(closeModal) => (
+                              <AddAreaForm
+                                onCancel={closeModal}
+                                onSuccess={(data) => {
+                                  console.log("Data area baru:", data);
+                                  // Tambahkan logic API di sini jika perlu
+                                  closeModal(); // Tutup modal setelah sukses
+                                }}
+                              />
+                            )}
+                          />
+
+                          <SelectInputCustom
+                            name="categoryProduct"
+                            label="Category"
+                            control={control}
+                            options={productCategory}
+                            optionName="label"
+                            placeholder="Category"
+                            errors={errors}
+                            helperText="e.g., Choose the brand of the add-on."
+                            renderModalContent={(closeModal) => (
+                              <AddAreaForm
+                                onCancel={closeModal}
+                                onSuccess={(data) => {
+                                  console.log("Data area baru:", data);
+                                  // Tambahkan logic API di sini jika perlu
+                                  closeModal(); // Tutup modal setelah sukses
+                                }}
+                              />
+                            )}
+                          />
+
+                          {/* <div className="flex gap-2"> */}
+                          <InputNumberForm
+                            control={control}
+                            name="quantity"
+                            label="Qty"
+                            placeholder="0"
+                            errors={errors}
+                          />
+
+                          <div className="py-6 mt-1">
+                            <button
+                              type="button"
+                              className=""
+                              onClick={() => remove(index)}
+                            >
+                              <Trash2 className="w-4 h-4 text-red-500" />
+                            </button>
+                          </div>
+                          {/* </div> */}
+                        </div>
+                      ))}
+                      <div
+                        className="flex items-center py-3 gap-1 cursor-pointer text-primary text-sm font-medium "
+                        onClick={() =>
+                          append({
+                            addOnName: "",
+                            categoryProduct: "",
+                            quantity: 1,
+                          })
+                        }
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add another add-on
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-row gap-4 justify-between">
+                  <div className="w-full">
+                    <TextInputForm
+                      id="price"
+                      name="price"
+                      placeholder="IDR"
+                      label="Price"
+                      control={control}
+                      errors={errors}
+                    />
+
+                    <div className="py-2">
+                      <SwitchToggleInput
+                        // control={control}
+                        name="includeTax"
+                        label="Include Tax (11%)"
+                        description="Turn off if tax should be added separately."
+                      />
+                    </div>
+                  </div>
 
                   <TextInputForm
                     id="promoPrice"
@@ -208,25 +352,34 @@ export default function AddProductsForm() {
                     label="Promo Price"
                     control={control}
                     errors={errors}
+                    helperText="Leave empty if no promotion."
                   />
-
-                  <SelectInputForm
-                    name="status"
-                    label="Status"
-                    placeholder="Select status"
+                  <TextInputForm
+                    id="promoPrice"
+                    name="promoPrice"
+                    placeholder="IDR"
+                    label="Promo Price"
                     control={control}
-                    options={statusValues}
-                    optionName="label"
                     errors={errors}
+                    helperText="One-time fee charged during the initial setup."
                   />
                 </div>
+                <SelectInputCustom
+                  name="status"
+                  label="Status"
+                  control={control}
+                  options={statusValues}
+                  optionName="label"
+                  placeholder="status"
+                  errors={errors}
+                />
                 <TextInputForm
                   id="detailsProduct"
                   name="detailsProduct"
                   placeholder="Describe speed, quota, SLA, contract terms."
-                  helperText="Leave empty if not promotion."
                   label="Product Details"
-                  rows={4}
+                  rows={3}
+                  maxLength={100}
                 />
               </div>
             )}

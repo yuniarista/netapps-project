@@ -1,8 +1,8 @@
 import { TriangleAlert } from "lucide-react";
-import AddAreaForm from "../components/(form)/AddAreaForm";
-import DeleteAreaForm from "../components/(form)/DeleteAreaForm";
+import DeleteCategoryForm from "../components/(form)/DeleteCategoryForm";
+import AddCategoryForm from "../components/(form)/AddCategoryForm";
 
-export const areaModalConfig = ({
+export const categoryModalConfig = ({
   form,
   loading,
   response,
@@ -16,9 +16,9 @@ export const areaModalConfig = ({
 }) => {
   return {
     addModal: {
-      title: "Add Area",
+      title: "Add Category",
       content: (
-        <AddAreaForm
+        <AddCategoryForm
           loading={loading}
           handleModalClose={handleModalClose} // Kirim fungsi close ke form
           onSuccess={handleCreate}
@@ -33,7 +33,7 @@ export const areaModalConfig = ({
         </div>
       ),
       content: (
-        <DeleteAreaForm
+        <DeleteCategoryForm
           formData={form}
           loading={loading}
           response={response}

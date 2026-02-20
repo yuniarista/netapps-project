@@ -22,19 +22,19 @@ import {
   X,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { AREA_TABS_CONFIG } from "../../configs/areaTabsConfig";
+import { SUB_CATEGORY_TABS_CONFIG } from "../../configs/subCategoryTabsConfig";
 import { useState } from "react";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
-export default function AreaDataTable({ columns, handleModalOpen }) {
+export default function SubCategoryDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
-      areaName: "Bali",
+      subCategoryName: "Soho",
       status: "Active",
     },
     {
-      areaName: "Jakarta",
+      subCategoryName: "Villa",
       status: "Inactive",
     },
   ];
@@ -73,11 +73,12 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
 
   return (
     <div className="flex flex-col min-h-screen">
+
       {hasData ? (
         <>
           <div className="px-4 space-y-2 py-2">
             <div className="w-full">
-              <Label className="font-semibold text-sm">Area Data</Label>
+              <Label className="font-semibold text-sm">Sub Category Data</Label>
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">

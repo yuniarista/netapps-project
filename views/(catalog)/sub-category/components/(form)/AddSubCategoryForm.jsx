@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 
-export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
-  const form = useForm({ defaultValues: { areaName: "" } });
+export default function AddSubCategoryForm({ handleModalClose, loading, onSuccess }) {
+  const form = useForm({ defaultValues: { subCategoryName: "" } });
 
   return (
     <Form {...form}>
@@ -15,14 +16,14 @@ export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
         <div className="px-6 py-4">
           <FormField
             control={form.control}
-            name="areaName"
+            name="subCategoryName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-[#334155] font-semibold text-sm">
-                  Area Name
+                  Sub Category Name
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Area name" {...field} className="mt-1" />
+                  <Input placeholder="Sub Category name" {...field} className="mt-1" />
                 </FormControl>
               </FormItem>
             )}
@@ -30,14 +31,14 @@ export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
         </div>
 
         <div className="border-t border-slate-200 w-full" />
-        <div className="w-full flex items-center justify-end space-x-4 px-6 py-4">
+        <DialogClose className="w-full flex items-center justify-end space-x-4 px-6 py-4">
           <Button type="button" variant="secondary" onClick={handleModalClose}>
             Cancel
           </Button>
           <Button type="submit" disabled={loading}>
             {loading ? "Added..." : "Add"}
           </Button>
-        </div>
+        </DialogClose>
         
       </form>
     </Form>
