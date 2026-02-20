@@ -10,19 +10,49 @@ import CustomerDataTable from "../(table)/CustomerDataTable";
 import customerActionConfig from "../../configs/customerActionConfig";
 
 export default function CustomersPage() {
-  const state = useCustomerHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+const {
+    form,
+    openModal,
+    modalType,
+    loading,
+    response,
+    setResponse,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    handleCreate,
+    handleUpdate,
+    handleDelete
+  } = useCustomerHooks();
+  
+  const actions = customerActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete", "detail", "notify"] 
+  );
 
-  const modalConfig = getModalConfig(modalType, customerModalConfig(state));
-  const actions = customerActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete", "detail", "notify"]);
-
+  const modalConfig = getModalConfig(
+    modalType,
+    customerModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate, 
+      handleUpdate,
+      handleDelete
+    })
+  );
+  
   return (
     <div>
       <CustomerDataTable
         columns={CustomerDataColumn({
-          actions
+          actions,
         })}
         handleModalOpen={handleModalOpen}
       />

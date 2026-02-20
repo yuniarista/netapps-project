@@ -9,10 +9,37 @@ import UsersDataColumn from "../(table)/UsersDataColumn";
 import { usersModalConfig } from "../../configs/usersModalConfig";
 
 export default function UsersPage() {
-  const state = useUsersHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+  const {
+      form,
+      openModal,
+      modalType,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleModalOpen,
+      handleModalClose,
+      handleCreate,
+      handleUpdate,
+      handleDelete
+    } = useUsersHooks();
+    
+  const modalConfig = getModalConfig(
+    modalType,
+    usersModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate, 
+      handleUpdate,
+      handleDelete
+    })
+  );
 
-  const modalConfig = getModalConfig(modalType, usersModalConfig(state));
   const actions = usersActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
-
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
@@ -15,6 +14,7 @@ import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
 import MapInput from "@/components/inputcopy/mapInput";
 import AddSegmentForm from "../(components)/AddSegmentForm";
 import DatePickerForm from "@/components/datePicker/datePickerForm";
+import { cn } from "@/lib/utils";
 
 const customerSegmentOptions = [
     { label: "Home", value: "home" },
@@ -34,36 +34,14 @@ const productOptions = [
     { label: "Product 3", value: "product3" },
 ];
 
-const dummyData = {
-    customerSegment: "villas",
-    companyName: "Luxury Villa Bali",
-    product: "product2",
-    area: "Seminyak",
-    homepassId: "HP-12345",
-    odpId: "ODP-SMY-01",
-    npwpId: "01.234.567.8-999.000",
-    nationality: "Indonesia",
-    idType: "KTP",
-    idNumber: "3201234567890001",
-    fullName: "John Doe",
-    email: "johndoe@example.com",
-    whatsappNumber: "+628123456789",
-    gender: "Male",
-    dateOfBirth: new Date("1990-01-01"),
-    state: "Bali",
-    province: "Badung",
-    city: "Kuta",
-    longitude: "115.1628",
-    latitude: "-8.7263",
-    addressDetails: "Jl. Kayu Aya No. 10, Seminyak",
-    isActive: true, // Ini untuk toggle Affiliate
-    referalCode: "REF-001",
-    affiliateSalesName: "Budi Affiliator",
-    mobileNumber: "+62899887766",
-};
+const homepassOptions = [
+    { label: "HP-001 (Blok A-10)", value: "hp001", odp: "ODP-KUTA-01" },
+    { label: "HP-002 (Blok B-05)", value: "hp002", odp: "ODP-KUTA-01" },
+    { label: "HP-003 (Blok C-12)", value: "hp003", odp: "ODP-KUTA-02" },
+    { label: "HP-004 (Blok D-01)", value: "hp004", odp: "ODP-JIMBARAN-05" },
+];
 
-export default function DetailCustomerForm({ handleModalClose, loading }) {
-    const [isEditMode, setIsEditMode] = useState(false);
+export default function EditCustomerForm({ handleModalClose, loading }) {
     const [openSections, setOpenSections] = useState({
         general: true,
         contactDetails: true,
@@ -72,11 +50,23 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
 
     const form = useForm({
         mode: "all",
-        defaultValues: dummyData,
     });
 
-    const { control, formState: { errors }, handleSubmit, setValue, watch, reset } = form;
+    const { control, formState: { errors }, handleSubmit, setValue, watch } = form;
     const isAffiliate = watch("isActive");
+    const selectedHomepass = watch("homepassId");
+
+    useEffect(() => {
+        if (selectedHomepass) {
+            const selectedData = homepassOptions.find(item => item.value === selectedHomepass);
+
+            if (selectedData) {
+                setValue("odpId", selectedData.odp);
+            }
+        } else {
+            setValue("odpId", "");
+        }
+    }, [selectedHomepass, setValue]);
 
     const toggleSection = (section) => {
         setOpenSections((prev) => ({
@@ -86,45 +76,13 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
     };
 
     const onSubmit = (data) => {
-        console.log("Data Berhasil di Update:", data);
-        setIsEditMode(false);
-    };
-
-    const handleCancelEdit = () => {
-        reset(dummyData);
-        setIsEditMode(false);
+        console.log("Data Form Submit:", data);
     };
 
     return (
         <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <CardContent>
-                    <div className="flex justify-end mb-2">
-                        {!isEditMode ? (
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                size="sm"
-                                className="gap-1"
-                                onClick={() => setIsEditMode(true)}
-                            >
-                                <Pencil className="h-4 w-4 text-primary" />
-                                Edit
-                            </Button>
-                        ) : (
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                size="sm"
-                                className="gap-1"
-                                onClick={handleCancelEdit}
-                            >
-                                <X className="h-4 w-4" />
-                                Cancel
-                            </Button>
-                        )}
-                    </div>
-
                     <section>
                         <div
                             className="flex items-center justify-between cursor-pointer"
@@ -148,7 +106,6 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                         optionName="label"
                                         control={control}
                                         errors={errors}
-                                        disabled={!isEditMode}
                                         // required
                                         options={customerSegmentOptions}
                                         renderModalContent={(closeModal) => (
@@ -168,7 +125,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                         placeholder="Company Name"
                                         control={control}
                                         errors={errors}
-                                        disabled={!isEditMode}
+                                        disabled={true}
                                         helperText="Not Required for personal customers."
                                     />
                                 </div>
@@ -193,25 +150,33 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                     />
                                 </div>
 
-                                <div className="flex flex-row gap-4">
-                                    <SelectInputCustom
-                                        name="homepassId"
-                                        label="Homepass ID"
-                                        placeholder="Select homepass ID"
-                                        showSearch={true}
-                                        control={control}
-                                        errors={errors}
-                                    />
+                                <div className="flex flex-row gap-4 items-end">
+                                    <div className={cn("transition-all duration-500", selectedHomepass ? "w-1/2" : "w-full")}>
+                                        <SelectInputCustom
+                                            name="homepassId"
+                                            label="Homepass ID"
+                                            placeholder="Select Homepass"
+                                            showSearch={true}
+                                            control={control}
+                                            errors={errors}
+                                            options={homepassOptions}
+                                            optionName="label"
+                                        />
+                                    </div>
 
-                                    <TextInputForm
-                                        name="odpId"
-                                        label="ODP"
-                                        placeholder="ODP Number"
-                                        control={control}
-                                        errors={errors}
-                                        disabled={!isEditMode}
-                                        helperText="ODP will be automatically set after you select a Homepass ID."
-                                    />
+                                    {selectedHomepass && (
+                                        <div className="w-1/2 animate-in fade-in slide-in-from-left-4 duration-500">
+                                            <TextInputForm
+                                                name="odpId"
+                                                label="ODP"
+                                                placeholder="ODP Number"
+                                                control={control}
+                                                errors={errors}
+                                                disabled={true}
+                                                helperText="ODP will be automatically set after you select a Homepass ID."
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-row gap-4">
@@ -222,7 +187,6 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                             placeholder="NPWP Number"
                                             control={control}
                                             errors={errors}
-                                            disabled={!isEditMode}
                                             helperText="Not Required for personal customers."
                                         />
                                     </div>
@@ -233,7 +197,6 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                             label="NPWP Photo"
                                             control={control}
                                             errors={errors}
-                                            disabled={!isEditMode}
                                             helperText="Not Required for personal customers."
                                         />
                                     </div>
@@ -244,7 +207,6 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                     label="Location Photo"
                                     control={control}
                                     errors={errors}
-                                    disabled={!isEditMode}
                                     helperText="Upload a photo of the business exterior for verification."
                                 />
                             </div>
@@ -280,6 +242,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                         placeholder="Select ID Type"
                                         control={control}
                                         errors={errors}
+                                        helperText="Not Required for personal customers."
                                     />
                                 </div>
 
@@ -412,68 +375,68 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
 
                         {openSections.salesInfo && (
                             <div className="space-y-4 animate-in fade-in duration-300 py-3">
-                                {isEditMode && (
-                                    <SwitchToggleInput
+                                <SwitchToggleInput
+                                    control={control}
+                                    name="isActive"
+                                    label="Is this Affiliate Sales?"
+                                    labelPosition="right"
+                                />
+
+                                {!isAffiliate && (
+                                    <SelectInputCustom
+                                        name="salesName"
+                                        label="Sales Name"
+                                        placeholder="Sales name"
+                                        optionName="label"
+                                        errors={errors}
                                         control={control}
-                                        name="isActive"
-                                        label="Is this Affiliate Sales?"
-                                        labelPosition="right"
+                                        options={salesNameOptions}
                                     />
                                 )}
 
-                                {isAffiliate ? (
-                                    <div className="flex flex-row gap-4">
+                                {isAffiliate && (
+                                    <div className="flex flex-row gap-4 animate-in slide-in-from-top-2 duration-300">
                                         <TextInputForm
                                             name="referalCode"
                                             label="Referral Code"
+                                            placeholder="Referral Code"
                                             control={control}
                                             errors={errors}
-                                            disabled={!isEditMode}
                                         />
                                         <TextInputForm
                                             name="affiliateSalesName"
                                             label="Affiliate Sales Name"
+                                            placeholder="Affiliate Sales Name"
                                             control={control}
                                             errors={errors}
-                                            disabled={!isEditMode}
                                         />
                                         <TextInputForm
                                             name="mobileNumber"
                                             label="Mobile Number"
+                                            placeholder="+62"
                                             control={control}
                                             errors={errors}
-                                            disabled={!isEditMode}
                                         />
                                     </div>
-                                ) : (
-                                    <SelectInputCustom
-                                        name="salesName"
-                                        label="Sales Name"
-                                        control={control}
-                                        errors={errors}
-                                        options={salesNameOptions}
-                                    />
                                 )}
-                        </div>
+                            </div>
                         )}
                     </section>
                 </CardContent>
 
-                {isEditMode && (
-                    <div className="flex items-center justify-end space-x-3 pt-4">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleModalClose}
-                            disabled={loading}
-                        >
-                            Cancel
-                        </Button>
-                        <Button type="submit" disabled={loading}>
-                            {loading ? "Submitting..." : "Create"}
-                        </Button>
-                    </div>
-                )}
+                <div className="flex items-center justify-end space-x-3 pt-4">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleModalClose}
+                        disabled={loading}
+                    >
+                        Cancel
+                    </Button>
+                    <Button type="submit" disabled={loading}>
+                        {loading ? "Submitting..." : "Create"}
+                    </Button>
+                </div>
             </form>
         </Form>
     );

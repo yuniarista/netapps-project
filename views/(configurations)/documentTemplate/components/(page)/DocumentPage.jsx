@@ -11,10 +11,37 @@ import DocumentDataColumn from "../(table)/DocumentDataColumn";
 import DocumentDataTable from "../(table)/DocumentDataTable";
 
 export default function DocumentPage() {
-  const state = useDocumentHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
-
-  const modalConfig = getModalConfig(modalType, documentModalConfig(state));
+  const {
+      form,
+      openModal,
+      modalType,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleModalOpen,
+      handleModalClose,
+      handleCreate,
+      handleUpdate,
+      handleDelete
+    } = useDocumentHooks();
+    
+  const modalConfig = getModalConfig(
+    modalType,
+    documentModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate, 
+      handleUpdate,
+      handleDelete
+    })
+  );
+  
   const actions = documentActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);

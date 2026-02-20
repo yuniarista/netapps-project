@@ -15,10 +15,37 @@ import WhatsAppConnection from "../(components)/WhatsAppConnection";
 import WhatsAppFeatures from "../(components)/WhatsAppFeatures";
 
 export default function WhatsAppPage() {
-  const state = useWhatsAppHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+    const {
+        form,
+        openModal,
+        modalType,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        handleModalOpen,
+        handleModalClose,
+        handleCreate,
+        handleUpdate,
+        handleDelete
+      } = useWhatsAppHooks();
+      
+    const modalConfig = getModalConfig(
+      modalType,
+      whatsAppModalConfig({
+        form,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        handleCreate, 
+        handleUpdate,
+        handleDelete
+      })
+    );
 
-  const modalConfig = getModalConfig(modalType, whatsAppModalConfig(state));
   const actions = whatsAppActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
