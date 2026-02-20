@@ -38,7 +38,7 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
-  const form = useForm({ resolver: yupResolver(LoginSchema), mode: "all" });
+  const form = useForm({ mode: "all" });
   const {
     control,
     handleSubmit,
@@ -59,24 +59,29 @@ export default function Login() {
     setLoading(true);
     setMessage(null);
 
-    try {
-      const res = await signIn("credentials", {
-        redirect: false,
-        email: event.email,
-        password: event.password,
-      });
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/dashboard");
+    }, 1000);
 
-      if (res.ok) {
-        const session = await userSession();
-        router.replace(session.redirectUrl || "/");
-      } else {
-        setLoading(false);
+    // try {
+    //   const res = await signIn("credentials", {
+    //     redirect: false,
+    //     email: event.email,
+    //     password: event.password,
+    //   });
 
-        setMessage(res.error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (res.ok) {
+    //     const session = await userSession();
+    //     router.replace(session.redirectUrl || "/");
+    //   } else {
+    //     setLoading(false);
+
+    //     setMessage(res.error);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -105,8 +110,8 @@ export default function Login() {
 
           <div className="relative z-20 p-6 flex flex-col justify-between h-full">
             <div className="flex justify-center p-3">
-                  <Image src={logo} alt="logo" priority />
-                </div>
+              <Image src={logo} alt="logo" priority />
+            </div>
 
             <div className="flex flex-col gap-1 max-w-sm">
               <h1 className="text-3xl font-bold text-[#0F172A] leading-tight">
@@ -149,12 +154,14 @@ export default function Login() {
               )}
               <TextInputForm
                 name="email"
+                label={""}
                 control={control}
                 placeholder="Email"
                 errors={errors}
                 type="text"
               />
               <PasswordInput
+                label={""}
                 name={"password"}
                 placeholder={"Passsword"}
                 errors={errors}

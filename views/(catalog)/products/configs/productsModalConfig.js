@@ -1,7 +1,9 @@
 import AddProductsForm from "../components/(form)/AddProductsForm";
+import DeleteFeaturesForm from "../components/(form)/deleteForm";
 
 export const productsModalConfig = (state) => {
-  const { loading, response, setResponse, handleCreate, handleModalClose } = state;
+  const { loading, response, setResponse, handleCreate, handleModalClose } =
+    state;
 
   return {
     add: {
@@ -14,7 +16,17 @@ export const productsModalConfig = (state) => {
           handleCreate={handleCreate}
           handleModalClose={handleModalClose} // Kirim fungsi close ke form
         />
-      )
+      ),
+    },
+    delete: {
+      title: "Confirm Delete",
+      content: (
+        <DeleteFeaturesForm
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+        />
+      ),
     },
   };
 };

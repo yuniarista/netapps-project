@@ -1,23 +1,43 @@
-export default function CustomTabs({ tabs = [], activeTab, onChange }) {
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
+
+export default function CustomTabs({ tabs = [] }) {
+  const pathname = usePathname();
 
   return (
-    <div>
-      <div className="flex border-b border-gray-200">
-        {tabs.map((tab, index) => (
-          <button 
-          key={index} 
-          onClick={() => onChange?.(tab)}
-          className={`px-4 py-2 font-medium text-sm transition-colors ${
-              activeTab === tab.path
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}>
-                {tab.label}
+    <div className="w-full">
+      <div className="flex items-center gap-2">
+        {tabs.map((tab) => {
+          const isActive = pathname === tab.path;
 
-          </button>
-        ))}
+          return (
+            <Link
+              key={tab.path}
+              href={tab.path}
+              className={cn(
+                "relative px-4 py-2 font-medium text-sm transition-all outline-none",
+                isActive
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {tab.label}
+
+              {isActive && (
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary z-10"
+                />
+              )}
+            </Link>
+          );
+        })}
       </div>
-      
+
+      <Separator className="-mt-[2px] relative z-0" />
     </div>
   );
 }

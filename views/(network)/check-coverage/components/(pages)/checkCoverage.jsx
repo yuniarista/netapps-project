@@ -1,15 +1,14 @@
 "use client";
 
+import CustomButton from "@/components/button/customButton";
+import { Label } from "@/components/ui/label";
+import { Plus } from "lucide-react";
+import { useCheckCoverageState } from "../../hooks/useCheckCoverageHooks";
 import { getModalConfig } from "@/utils/getModalConfig";
-import { useProductHooks } from "../../hooks/useProductHooks";
-import { productsModalConfig } from "../../configs/productsModalConfig";
-import productActionConfig from "../../configs/productsActionConfig";
-import ProductDataTable from "../(table)/ProductsDataTable";
-import ProductDataColumn from "../(table)/ProductsDataColumn";
 import CustomDialog from "@/components/dialog/basicDialog";
+import { CheckCoverageModalConfig } from "../../configs/CheckCoverageModalConfig";
 
-export default function ProductPage() {
-  
+export default function CoveragePage() {
   const {
     form,
     setForm,
@@ -33,11 +32,11 @@ export default function ProductPage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
-  } = useProductHooks();
+  } = useCheckCoverageState();
 
   const modalConfig = getModalConfig(
     modalType,
-    productsModalConfig({
+    CheckCoverageModalConfig({
       form,
       loading,
       response,
@@ -48,21 +47,23 @@ export default function ProductPage() {
       setSelectedRows,
     }),
   );
-  const actions = productActionConfig(
-    (type, item) => {
-      handleModalOpen(type, item);
-    },
-    ["update", "delete"],
-  );
 
   return (
-    <div>
-      <ProductDataTable
-        columns={ProductDataColumn({
-          actions,
-        })}
-        handleModalOpen={handleModalOpen}
-      />
+    <>
+      <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
+        <Label className="text-lg">Network Setup Required</Label>
+        <p className="text-sm text-muted-foreground">
+          Network not configured yet. Create
+          <br /> POP to start coverage checking
+        </p>
+        <CustomButton
+          variant="primary"
+          className="flex gap-2"
+          onClick={() => handleModalOpen("add")}
+        >
+          <Plus className="w-4 h-4" /> Setup Network
+        </CustomButton>
+      </div>
       <CustomDialog
         open={openModal}
         onOpenChange={handleModalClose}
@@ -74,6 +75,6 @@ export default function ProductPage() {
       >
         {modalConfig.content}
       </CustomDialog>
-    </div>
+    </>
   );
 }

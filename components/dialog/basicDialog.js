@@ -8,9 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+
+import { X } from "lucide-react";
 
 const CustomDialog = ({
   open,
@@ -21,40 +23,61 @@ const CustomDialog = ({
   children,
   className,
   footer,
-  headerAlignment = "center",
+  headerAlignment = "start",
   modalType,
 }) => {
-  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update";
-  const isDelete = modalType === "delete";
-  const positionClass = isEditOrCreate
-    ? "fixed left-[230px] top-10 max-h-[calc(100vh-40px)] overflow-y-auto"
-    : "fixed left-1/2 top-10 -translate-x-1/2 translate-y-0";
+  const isDelete = ["delete", "bulk-delete"].includes(modalType);
+
+  const positionClass = isDelete
+    ? "fixed left-1/2 top-20 -translate-x-1/2 translate-y-0"
+    : "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         positionClass={positionClass}
-        className={`max-w-xl max-h-full rounded-[10px] border border-zinc-200 shadow-md overflow-y-auto scrollbar-hidden-y ${isDelete ? "p-0" : ""} ${className}`}
-        onInteractOutside={(e) => e.preventDefault()}
+        className={cn(
+          "transition-all duration-300 ",
+          isDelete
+            ? "max-w-sm gap-0 rounded-xl border border-zinc-200"
+            : "rounded-xl rounded-l-none border-l-0",
+          className,
+        )}
       >
-        <DialogHeader className={isDelete ? "border-b border-slate-200 bg-white px-6 py-4" : ""}>
+        <DialogHeader className="relative flex items-center justify-center">
           <DialogTitle
             className={cn(
-              "w-full text-base font-semibold text-zinc-900 leading-5 ",
-              `text-${headerAlignment}`
+              "w-full text-base font-semibold text-zinc-900 leading-5 text-center",
+              `text-${headerAlignment}`,
             )}
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              margin: 0,
+            }}
           >
             {title}
           </DialogTitle>
-          {description && (
-            <DialogDescription className="text-sm text-zinc-500 leading-5 mt-1">
-              {description}
-            </DialogDescription>
-          )}
+
+          <button
+            onClick={() => onOpenChange(false)}
+            aria-label="Close"
+            className="absolute outline-none top-1/2 right-0 -translate-y-1/2 text-zinc-500 hover:text-zinc-900 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </DialogHeader>
-        <div className={isDelete ? "px-6" : ""}>{children}</div>
-        {footer && <DialogFooter className={isDelete ? "border-t border-slate-200 bg-white px-6 py-4 mt-0" : "mt-6"}>{footer}</DialogFooter>}
+
+        {description && (
+          <DialogDescription className="text-sm text-zinc-500 leading-5 mt-1">
+            {description}
+          </DialogDescription>
+        )}
+
+        <div>{children}</div>
+
+        {footer && <DialogFooter className="mt-6">{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );
