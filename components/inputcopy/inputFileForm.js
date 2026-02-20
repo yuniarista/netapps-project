@@ -43,7 +43,6 @@ export default function InputFileForm({
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormItem className="w-full">
-          {/* Label disamakan persis logikanya dengan TextInputForm */}
           {label && (
             <FormLabel className="flex items-center gap-0">
               <span>{String(label).trim()}</span>
@@ -55,11 +54,10 @@ export default function InputFileForm({
             <div
               onClick={() => !disabled && fileInputRef.current?.click()}
               className={cn(
-                // h-10 ditambahkan agar tinggi box sama dengan InputText standar
                 "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer",
                 error
                   ? "border-red-500"
-                  : "border-slate-200 shadow-sm hover:border-slate-300",
+                  : "border-slate-300 focus-within:ring-1 focus-within:ring-primary",
                 disabled && "opacity-50 cursor-not-allowed",
               )}
             >
@@ -93,7 +91,6 @@ export default function InputFileForm({
             </div>
           </FormControl>
 
-          {/* Helper Text & Error Message */}
           {helperText && !error && (
             <p className="text-[12px] text-slate-500 mt-1">{helperText}</p>
           )}

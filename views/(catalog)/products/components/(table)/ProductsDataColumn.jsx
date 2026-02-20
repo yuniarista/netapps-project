@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { size } from "zod";
 
 const ProductDataColumn = ({ actions }) => {
   return [
@@ -39,31 +40,37 @@ const ProductDataColumn = ({ actions }) => {
     {
       accessorKey: "productName",
       header: "Product Name",
-      size: 300,
+      size: 150,
     },
     {
       accessorKey: "price",
       header: "Price",
+      size:100
     },
     {
       accessorKey: "areaCategory",
       header: "Area Category",
+      size:100
     },
     {
       accessorKey: "category",
       header: "Category",
+      size:100
     },
     {
       accessorKey: "subCategory",
       header: "Sub Category",
+      size:100
     },
     {
       accessorKey: "promoPrice",
       header: "Promo Price",
+      size:100
     },
     {
       accessorKey: "status",
       header: "Status",
+      size:50,
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const rowId = row.original.id;
@@ -105,6 +112,7 @@ const ProductDataColumn = ({ actions }) => {
       id: "actions",
       enableHiding: false,
       header: "Action",
+      size:50,
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (

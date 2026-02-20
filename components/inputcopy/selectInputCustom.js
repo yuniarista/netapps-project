@@ -15,18 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../select/CustomSelect";
-import { Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react"; 
 import BaseModal from "./inputBaseModal";
 import { Button } from "../ui/button";
-import { useState } from "react";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-// import IconifyIcon from "../icon";
+import { Input } from "../ui/input"; 
+import { useState, useMemo } from "react";
 
 export default function SelectInputCustom({
   name,
@@ -41,12 +34,24 @@ export default function SelectInputCustom({
   isMultiple = false,
   multipleData = [],
   required = false,
-  helperText = "",
+  helperText,
   errors,
   onAddNew,
   renderModalContent,
+  showSearch = false,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Logic untuk memfilter opsi berdasarkan search query
+  const filteredOptions = useMemo(() => {
+    if (!showSearch || !searchQuery) return options;
+    return options.filter((option) =>
+      String(option[optionName])
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    );
+  }, [options, searchQuery, showSearch, optionName]);
 
   return (
     <div className={cn("w-full", isHidden && "hidden")}>
@@ -54,8 +59,7 @@ export default function SelectInputCustom({
         control={control}
         name={name}
         defaultValue={defaultValue}
-        render={({ field }) => {
-          const [isModalOpen, setIsModalOpen] = useState(false);
+        render={({ field, fieldState: { error } }) => {
           return (
             <FormItem>
               {label && (
@@ -71,7 +75,7 @@ export default function SelectInputCustom({
                     const selected = options?.find(
                       (option) =>
                         (option.value ?? option.id)?.toString() ===
-                        selectedValue?.toString(),
+                        selectedValue?.toString()
                     );
                     if (selected) {
                       field.onChange(selected?.value ?? selected?.id);
@@ -87,48 +91,67 @@ export default function SelectInputCustom({
                     />
                   </SelectTrigger>
                   <SelectContent>
-                    {options.map((option) => {
-                      return (
-                        <SelectItem
-                          key={option.value || option.id}
-                          value={option.value || option.id}
-                          className={cn(
-                            "capitalize text-sm",
-                            isMultiple &&
-                              multipleData?.includes(option.value || option.id)
-                              ? "bg-gray-200"
-                              : "",
-                          )}
-                        >
-                          {option[optionName]}
-                        </SelectItem>
-                      );
-                    })}
+                    {showSearch && (
+                      <div className="flex items-center px-2 py-2 sticky top-0 bg-white z-10">
+                        <div className="relative w-full">
+                          <Input
+                            placeholder="Search..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="h-9 w-full pr-10 border rounded-md shadow-none text-sm"
+                          />
+                          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary pointer-events-none" />
+                        </div>
+                      </div>
+                    )}
+                    <div className="max-h-[200px] overflow-y-auto mt-1">
+                      {filteredOptions.length > 0 ? (
+                        filteredOptions.map((option) => (
+                          <SelectItem
+                            key={option.value || option.id}
+                            value={option.value || option.id}
+                            className={cn(
+                              "capitalize text-sm",
+                              isMultiple &&
+                                multipleData?.includes(option.value || option.id)
+                                ? "bg-gray-200"
+                                : ""
+                            )}
+                          >
+                            {option[optionName]}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <div className="py-2 px-2 text-xs text-slate-500 text-center">
+                          No results found.
+                        </div>
+                      )}
+                    </div>
 
                     {(onAddNew || renderModalContent) && (
-                      <>
-                        <div
-                          onClick={(e) => {
-                            if (renderModalContent) {
-                              setIsModalOpen(true); // Buka modal internal
-                            }
-                            if (onAddNew) onAddNew(); // Jalankan fungsi external jika ada
-                          }}
-                          className="flex items-center gap-2 px-2 py-2 text-sm text-primary font-medium cursor-pointer hover:bg-blue-50 rounded-md transition-all"
-                        >
-                          <Plus className="w-4 h-4" />
-                          Add new {label?.toLowerCase() || "item"}
-                        </div>
-                      </>
+                      <div
+                        onClick={() => {
+                          if (renderModalContent) setIsModalOpen(true);
+                          if (onAddNew) onAddNew();
+                        }}
+                        className="flex items-center gap-2 px-2 py-2 mt-1 text-sm text-primary font-medium cursor-pointer hover:bg-blue-50 border-t rounded-none transition-all"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add {label?.toLowerCase() || "item"}
+                      </div>
                     )}
                   </SelectContent>
                 </Select>
               </FormControl>
+              {helperText && !error && (
+                <p className="text-[12px] text-slate-500 mt-1">{helperText}</p>
+              )}
               <FormMessage />
             </FormItem>
           );
         }}
       />
+
       {renderModalContent && (
         <BaseModal
           open={isModalOpen}
@@ -136,17 +159,10 @@ export default function SelectInputCustom({
           title={`Add ${label}`}
           footer={
             <>
-              <Button
-                variant="secondary"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <Button variant="outline" onClick={() => setIsModalOpen(false)}>
                 Cancel
               </Button>
-
-              <Button
-                type="submit"
-                form="add-select-form"
-              >
+              <Button type="submit" form="add-select-form">
                 Add
               </Button>
             </>

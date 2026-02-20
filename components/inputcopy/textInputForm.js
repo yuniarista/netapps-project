@@ -27,8 +27,10 @@ export default function TextInputForm({
   helperText,
   errors,
   readOnly,
+  maxLength,
 }) {
   const isTextarea = !!rows;
+
   return (
     <div className={cn("w-full", isHidden && "hidden")}>
       <FormField
@@ -38,6 +40,11 @@ export default function TextInputForm({
         render={({ field, fieldState: { error } }) => {
           const handleChange = (event) => {
             let inputValue = event.target.value;
+            
+            if (maxLength && inputValue.length > maxLength) {
+              inputValue = inputValue.substring(0, maxLength);
+            }
+
             if (type === "number") {
               const numericValue = parseInt(inputValue);
               inputValue =
@@ -46,12 +53,27 @@ export default function TextInputForm({
 
             field.onChange(inputValue);
           };
+
+          const currentLength = field.value?.toString().length || 0;
+
           return (
             <FormItem>
-              <FormLabel className="flex items-center gap-0">
-                <span>{String(label).trim()}</span>
-                {required && <span className="text-red-500">*</span>}
-              </FormLabel>
+              <div className="flex items-center justify-between">
+                <FormLabel className="flex items-center gap-0">
+                  <span>{String(label).trim()}</span>
+                  {required && <span className="text-red-500 ml-1">*</span>}
+                </FormLabel>
+
+                {maxLength && (
+                  <span className={cn(
+                    "text-sm font-medium",
+                    currentLength >= maxLength ? "text-red-500" : "text-slate-400"
+                  )}>
+                    {currentLength}/{maxLength}
+                  </span>
+                )}
+              </div>
+
               <FormControl>
                 {isTextarea ? (
                   <Textarea
@@ -61,6 +83,7 @@ export default function TextInputForm({
                     disabled={disabled}
                     autoFocus={autoFocus}
                     {...field}
+                    maxLength={maxLength}
                     value={field.value ?? ""}
                     onChange={handleChange}
                   />
@@ -73,18 +96,18 @@ export default function TextInputForm({
                     placeholder={placeholder || `Input ${label}`}
                     disabled={disabled}
                     autoFocus={autoFocus}
+                    maxLength={maxLength}
                     value={
                       type === "number" && field.value === 0 ? "0" : field.value
                     }
                     onChange={handleChange}
                     endAdornment={endAdornment}
-                    // variant={!!errors[name] && "destructive"}
                     showLabel={false}
                     readOnly={readOnly}
                   />
                 )}
               </FormControl>
-              {/* Helper Text & Error Message */}
+              
               {helperText && !error && (
                 <p className="text-xs text-slate-500">{helperText}</p>
               )}

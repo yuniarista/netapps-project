@@ -33,6 +33,7 @@ export default function RolePage() {
         headerAlignment="start"
         titleClassname="text-xl p-3"
         withHeaderBorder={modalType === 'delete'}
+        size="lg"
       >
         {modalConfig.content}
       </CustomDialog>

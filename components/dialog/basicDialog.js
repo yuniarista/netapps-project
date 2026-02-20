@@ -25,13 +25,13 @@ const CustomDialog = ({
   footer,
   headerAlignment = "start",
   modalType,
+  size = "3xl",
 }) => {
   const isDelete = ["delete", "bulk-delete"].includes(modalType);
 
   const positionClass = isDelete
     ? "fixed left-1/2 top-20 -translate-x-1/2 translate-y-0"
     : "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0";
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -47,7 +47,7 @@ const CustomDialog = ({
         <DialogHeader className="relative flex items-center justify-center">
           <DialogTitle
             className={cn(
-              "w-full text-base font-semibold text-zinc-900 leading-5 text-center",
+              "w-full text-xl font-semibold text-zinc-900 leading-5 ",
               `text-${headerAlignment}`,
             )}
             style={{
@@ -68,16 +68,18 @@ const CustomDialog = ({
             <X className="w-5 h-5" />
           </button>
         </DialogHeader>
-
-        {description && (
-          <DialogDescription className="text-sm text-zinc-500 leading-5 mt-1">
-            {description}
-          </DialogDescription>
+        <div className={isDelete ? "p-0" : ""}>{children}</div>
+        {footer && (
+          <DialogFooter
+            className={
+              isDelete
+                ? "border-t border-slate-200 bg-white px-6 py-4 mt-0"
+                : "mt-6"
+            }
+          >
+            {footer}
+          </DialogFooter>
         )}
-
-        <div>{children}</div>
-
-        {footer && <DialogFooter className="mt-6">{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

@@ -31,7 +31,6 @@ const DialogContent = React.forwardRef(
           positionClass
             ? positionClass
             : "fixed left-[var(--sidebar-width,240px)] top-1/2 -translate-y-1/2",
-
           "z-20 w-[800px] border border-border bg-background shadow-xl duration-300",
           "max-w-[calc(100vw-var(--sidebar-width,240px)-2rem)] max-h-[90vh]",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-full",

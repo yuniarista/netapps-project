@@ -35,6 +35,7 @@ export default function DocumentPage() {
         headerAlignment="start"
         titleClassname="text-xl p-3"
         withHeaderBorder={modalType === 'delete'}
+        size="lg"
       >
         {modalConfig.content}
       </CustomDialog>
