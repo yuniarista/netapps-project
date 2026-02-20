@@ -34,8 +34,9 @@ export default function BaseModal({
 
       <DialogContent
         className={cn(
-          "fixed z-50 w-[90%] max-w-[400px] bg-white p-0 border border-muted overflow-hidden",
-          "top-[35%] left-1/2 -translate-x-1/2",
+          "fixed z-50 max-w-md bg-white p-0 gap-0 border border-muted rounded-md overflow-hidden",
+          "top-[40%] left-1/2 -translate-x-1/2",
+          "flex flex-col",
           "data-[state=open]:animate-in",
           "data-[state=closed]:animate-out",
           "data-[state=open]:slide-in-from-top-5",
@@ -43,18 +44,18 @@ export default function BaseModal({
           "duration-300"
         )}
       >
-        <DialogHeader className="p-4 border-b border-slate-300">
-          <DialogTitle className="text-lg font-bold text-[#1e293b]">
+        <DialogHeader className="-mx-6 -mt-6 px-6 py-3 border-b border-slate-300">
+          <DialogTitle className="text-lg font-semibold text-[#1e293b]">
             {title}
           </DialogTitle>
         </DialogHeader>
 
-        <div className="bg-white px-4 py-4">
+        <div>
           {children}
         </div>
 
         {footer && (
-          <DialogFooter className="px-4 py-4 border-t border-slate-300">
+          <DialogFooter className="-mx-6 px-4 py-3 border-t border-slate-300">
             {footer}
           </DialogFooter>
         )}

@@ -3,6 +3,7 @@ import AddInvoiceForm from "../components/(form)/AddDocumentForm";
 import DeleteInvoiceForm from "../components/(form)/DeleteDocumentForm";
 import AddDocumentForm from "../components/(form)/AddDocumentForm";
 import DeleteDocumentForm from "../components/(form)/DeleteDocumentForm";
+import EditDocumentForm from "../components/(form)/EditDocumentForm";
 
 export const documentModalConfig = ({
   form,
@@ -24,6 +25,19 @@ export const documentModalConfig = ({
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
+          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
+        />
+      )
+    },
+    edit: {
+      title: "Edit Document Template",
+      content: (
+        <EditDocumentForm
+          form={form} 
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+          handleUpdate={handleUpdate}
           // handleModalClose={handleModalClose} // Kirim fungsi close ke form
         />
       )

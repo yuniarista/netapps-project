@@ -39,15 +39,15 @@ const CustomDialog = ({
         className={cn(
           "transition-all duration-300 ",
           isDelete
-            ? "max-w-sm gap-0 rounded-xl border border-zinc-200"
-            : "rounded-xl rounded-l-none border-l-0",
+            ? "max-w-sm gap-3 rounded-md border border-zinc-200"
+            : "rounded-md rounded-l-none border-l-0",
           className,
         )}
       >
         <DialogHeader className="relative flex items-center justify-center">
           <DialogTitle
             className={cn(
-              "w-full text-xl font-semibold text-zinc-900 leading-5 ",
+              "w-full text-xl font-semibold text-zinc-900 leading-5",
               `text-${headerAlignment}`,
             )}
             style={{

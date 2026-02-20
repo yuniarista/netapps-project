@@ -141,7 +141,6 @@ export default function EditBilingForm({ handleModalClose, loading }) {
                             </div>
                         )}
                     </section>
-
                 </CardContent>
 
                 <div className="flex items-center justify-end space-x-3 pt-4">

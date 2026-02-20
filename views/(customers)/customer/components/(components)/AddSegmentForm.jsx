@@ -42,6 +42,7 @@ export default function AddSegmentForm({ handleModalClose, loading, onSuccess })
                 <Input
                   placeholder="Custom Segment name"
                   {...field}
+                  className="focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
                 />
               </FormControl>
             </FormItem>

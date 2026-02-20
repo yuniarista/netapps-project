@@ -19,6 +19,14 @@ export default function customersLayout({ children }) {
             label: "Customers Segments",
             path: "/customersSegments",
         },
+        {
+            label: "Label",
+            path: "/label",
+        },
+        {
+            label: "Pre-Sales",
+            path: "/preSales",
+        },
     ];
 
     return (

@@ -46,7 +46,7 @@ CardDescription.displayName = "CardDescription";
 const CardContent = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("space-y-4 pt-0", className)} // ✅ sesuai custom kamu (space-y-4)
+    className={cn("space-y-4 pt-4", className)} // ✅ sesuai custom kamu (space-y-4)
     {...props}
   />
 ));
