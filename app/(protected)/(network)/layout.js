@@ -32,7 +32,9 @@ export default function NetworkLayout({ children }) {
         <CustomTabs tabs={networkTabs} />
       </div>
 
-      <div className="flex-1 overflow-auto min-h-0 pt-4">{children}</div>
+      <div className="flex-1 overflow-auto min-h-0 pt-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {children}
+      </div>
     </div>
   );
 }

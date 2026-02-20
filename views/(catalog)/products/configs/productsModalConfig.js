@@ -1,5 +1,5 @@
 import AddProductsForm from "../components/(form)/AddProductsForm";
-import DeleteFeaturesForm from "../components/(form)/deleteForm";
+import DeleteForm from "../components/(form)/deleteForm";
 
 export const productsModalConfig = (state) => {
   const { loading, response, setResponse, handleCreate, handleModalClose } =
@@ -21,7 +21,7 @@ export const productsModalConfig = (state) => {
     delete: {
       title: "Confirm Delete",
       content: (
-        <DeleteFeaturesForm
+        <DeleteForm
           loading={loading}
           response={response}
           setResponse={setResponse}

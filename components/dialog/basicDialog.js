@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-import { X } from "lucide-react";
+import { TriangleAlert, X } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 const CustomDialog = ({
   open,
@@ -37,49 +38,39 @@ const CustomDialog = ({
       <DialogContent
         positionClass={positionClass}
         className={cn(
-          "transition-all duration-300 ",
+          "transition-all duration-300",
           isDelete
-            ? "max-w-sm gap-0 rounded-xl border border-zinc-200"
-            : "rounded-xl rounded-l-none border-l-0",
+            ? "max-w-sm gap-0 p-0 rounded-md border border-zinc-200"
+            : "rounded-md rounded-l-none border-l-0 gap-4 p-7",
           className,
         )}
       >
-        <DialogHeader className="relative flex items-center justify-center">
+        <DialogHeader
+          className={`flex items-center justify-between align-self-stretch ${isDelete ? "p-4" : ""}`}
+        >
           <DialogTitle
             className={cn(
-              "w-full text-xl font-semibold text-zinc-900 leading-5 ",
+              "w-full flex items-center text-base font-medium text-zinc-900 leading-7",
               `text-${headerAlignment}`,
             )}
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              margin: 0,
-            }}
-          >
-            {title}
+          >  
+         {isDelete ? <TriangleAlert className="w-6 h-6 text-red-500 font-light mr-2" /> : "" } {title}
           </DialogTitle>
 
           <button
             onClick={() => onOpenChange(false)}
             aria-label="Close"
-            className="absolute outline-none top-1/2 right-0 -translate-y-1/2 text-zinc-500 hover:text-zinc-900 transition-colors"
+            className="outline-none text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </DialogHeader>
-        <div className={isDelete ? "p-0" : ""}>{children}</div>
-        {footer && (
-          <DialogFooter
-            className={
-              isDelete
-                ? "border-t border-slate-200 bg-white px-6 py-4 mt-0"
-                : "mt-6"
-            }
-          >
-            {footer}
-          </DialogFooter>
-        )}
+
+        <div className={isDelete ? "border-t border-slate-200" : "pt-7"}>
+          {children}
+        </div>
+
+        {footer && <DialogFooter className={"mt-6"}>{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

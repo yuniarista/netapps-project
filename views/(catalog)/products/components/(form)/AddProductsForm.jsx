@@ -385,7 +385,7 @@ export default function AddProductsForm() {
             )}
           </section>
         </CardContent>
-        <CardFooter className="gap-4">
+        <CardFooter className="gap-4 p-0">
           <Button
             type="reset"
             variant="secondary"
