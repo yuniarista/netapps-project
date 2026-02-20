@@ -40,8 +40,7 @@ const DialogContent = React.forwardRef(
         )}
         {...props}
       >
-        {/* Konten tetap sama */}
-        <div className="grid gap-4 p-6 overflow-y-auto max-h-[80vh] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid  overflow-y-auto max-h-[80vh] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {children}
         </div>
       </DialogPrimitive.Content>

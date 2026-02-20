@@ -3,12 +3,12 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { DialogClose } from "@/components/ui/dialog";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+//import BasicAlert from "@/components/alert/basicAlert";
 import Loading from "@/app/(protected)/loading";
 import CustomAlert from "@/components/alert/customAlert";
 
-export default function DeleteFeaturesForm({
-  formData,
+export default function DeleteForm({
   loading,
   response,
   setResponse,
@@ -30,20 +30,26 @@ export default function DeleteFeaturesForm({
         >
           {response?.message}
         </CustomAlert>
-        <div className="mt-4">
-          Are you sure to delete{" "}
-          {formData?.length > 1 ? formData?.length : "this"} data?
+
+        <div className="px-4 py-4 border-b border-slate-200 bg-white">
+          <div className="space-x-1">
+            <h4 className="text-md font-bold text-[#1e293b]">Are you sure?</h4>
+            <p className="text-sm text-slate-500">
+              Are you sure you want to delete this data?
+            </p>
+          </div>
         </div>
-        <div className="w-full flex items-center justify-end space-x-4 pt-4">
-          <DialogClose asChild>
-            <Button type="reset" variant="secondary" disabled={loading}>
-              Cancel
+
+          <div className="flex items-center justify-end gap-3 p-4">
+            <DialogClose asChild>
+              <Button type="reset" variant="secondary" disabled={loading}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button type="submit" variant="destructive" disabled={loading}>
+              {loading ? <Loading /> : "Delete"}
             </Button>
-          </DialogClose>
-          <Button type="submit" variant="destructive" disabled={loading}>
-            {loading ? <Loading /> : "Delete"}
-          </Button>
-        </div>
+          </div>
       </form>
     </Form>
   );
