@@ -1,7 +1,10 @@
 "use client";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import { invoiceModalConfig, roleModalConfig } from "../../configs/roleModalConfig";
+import {
+  invoiceModalConfig,
+  roleModalConfig,
+} from "../../configs/roleModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
 import { useRoleHooks } from "../../hooks/useRoleHooks";
 import roleActionConfig from "../../configs/roleActionConfig";
@@ -48,7 +51,7 @@ export default function RolePage() {
     <div>
       <RoleDataTable
         columns={RoleDataColumn({
-          actions
+          actions,
         })}
         handleModalOpen={handleModalOpen}
       />
@@ -59,7 +62,7 @@ export default function RolePage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
-        withHeaderBorder={modalType === 'delete'}
+        withHeaderBorder={modalType === "delete"}
         size="lg"
       >
         {modalConfig.content}

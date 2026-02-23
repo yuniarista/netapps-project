@@ -105,10 +105,12 @@ const filterSections = [
                   iconPosition="left"
                   className="w-40"
                   sections={filterSections}
+                  badgeVariant="outline"
                 />
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
+                  badgeVariant="outline"
                 />
 
                 <CustomButton

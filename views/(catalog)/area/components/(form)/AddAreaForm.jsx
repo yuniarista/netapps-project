@@ -1,17 +1,27 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
+export default function AddAreaForm({
+  handleModalClose,
+  loading,
+  onSuccess,
+  showFooter = true,
+}) {
   const form = useForm({ defaultValues: { areaName: "" } });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSuccess)} className="flex flex-col">
-        
         <div className="px-6 py-4">
           <FormField
             control={form.control}
@@ -29,16 +39,23 @@ export default function AddAreaForm({ handleModalClose, loading, onSuccess }) {
           />
         </div>
 
-        <div className="border-t border-slate-200 w-full" />
-        <div className="w-full flex items-center justify-end space-x-4 px-6 py-4">
-          <Button type="button" variant="secondary" onClick={handleModalClose}>
-            Cancel
-          </Button>
-          <Button type="submit" disabled={loading}>
-            {loading ? "Added..." : "Add"}
-          </Button>
-        </div>
-        
+        {showFooter && (
+          <>
+            <div className="border-t border-slate-200 w-full" />
+            <div className="w-full flex items-center justify-end space-x-4 px-6 py-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleModalClose}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? "Added..." : "Add"}
+              </Button>
+            </div>
+          </>
+        )}
       </form>
     </Form>
   );
