@@ -22,12 +22,12 @@ import {
   X,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { AREA_TABS_CONFIG } from "../../configs/areaTabsConfig";
 import { useState } from "react";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
 export default function AreaDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
   const dummyData = [
     {
       areaName: "Bali",
@@ -166,6 +166,8 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
                   data: dummyData,
                   totalData: dummyData.length,
                 }}
+                selectedRows={rowSelection}
+                setSelectedRows={setRowSelection}
                 pagination={{ pageIndex: 0, pageLimit: 10 }}
               />
             </div>

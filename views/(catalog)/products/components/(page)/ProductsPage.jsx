@@ -1,6 +1,5 @@
 "use client";
 
-
 import { getModalConfig } from "@/utils/getModalConfig";
 import { useProductHooks } from "../../hooks/useProductHooks";
 import { productsModalConfig } from "../../configs/productsModalConfig";
@@ -9,21 +8,50 @@ import ProductDataTable from "../(table)/ProductsDataTable";
 import ProductDataColumn from "../(table)/ProductsDataColumn";
 import CustomDialog from "@/components/dialog/basicDialog";
 
-
 export default function ProductPage() {
-  const state = useProductHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+  const {
+    form,
+    openModal,
+    modalType,
+    loading,
+    response,
+    setResponse,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    handleCreate,
+    handleUpdate,
+    handleDelete,
+  } = useProductHooks();
 
-  const modalConfig = getModalConfig(modalType, productsModalConfig(state));
-  const actions = productActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+  const modalConfig = getModalConfig(
+    modalType,
+    productsModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate,
+      handleUpdate,
+      handleDelete,
+    }),
+  );
+
+  const actions = productActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete"],
+  );
 
   return (
     <div>
       <ProductDataTable
         columns={ProductDataColumn({
-          actions
+          actions,
         })}
         handleModalOpen={handleModalOpen}
       />
@@ -34,7 +62,7 @@ export default function ProductPage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
-        withHeaderBorder={modalType === 'delete'}
+        withHeaderBorder={modalType === "delete"}
       >
         {modalConfig.content}
       </CustomDialog>

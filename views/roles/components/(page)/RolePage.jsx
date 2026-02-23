@@ -1,7 +1,10 @@
 "use client";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import { invoiceModalConfig, roleModalConfig } from "../../configs/roleModalConfig";
+import {
+  invoiceModalConfig,
+  roleModalConfig,
+} from "../../configs/roleModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
 import { useRoleHooks } from "../../hooks/useRoleHooks";
 import roleActionConfig from "../../configs/roleActionConfig";
@@ -9,19 +12,49 @@ import RoleDataTable from "../(table)/RoleDataTable";
 import RoleDataColumn from "../(table)/RoleColumn";
 
 export default function RolePage() {
-  const state = useRoleHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+  const {
+    form,
+    openModal,
+    modalType,
+    loading,
+    response,
+    setResponse,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    handleCreate,
+    handleUpdate,
+    handleDelete,
+  } = useRoleHooks();
 
-  const modalConfig = getModalConfig(modalType, roleModalConfig(state));
-  const actions = roleActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+  const modalConfig = getModalConfig(
+    modalType,
+    roleModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate,
+      handleUpdate,
+      handleDelete,
+    }),
+  );
+
+  const actions = roleActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete"],
+  );
 
   return (
     <div>
       <RoleDataTable
         columns={RoleDataColumn({
-          actions
+          actions,
         })}
         handleModalOpen={handleModalOpen}
       />
@@ -32,7 +65,7 @@ export default function RolePage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
-        withHeaderBorder={modalType === 'delete'}
+        withHeaderBorder={modalType === "delete"}
         size="lg"
       >
         {modalConfig.content}

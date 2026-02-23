@@ -38,6 +38,7 @@ export default function DataTableComponent({
   pagination,
   filterParams,
   selectedRows = [],
+  setSelectedRows,
   setPagination,
   columnFilters,
   filterComponent,
@@ -72,12 +73,15 @@ export default function DataTableComponent({
       pagination,
       sorting,
       columnFilters,
-      rowSelection: Object.fromEntries(
-        Object.keys(selectedRows).map((id) => [id, true])
-      )
+      rowSelection: selectedRows
+      // rowSelection: Object.fromEntries(
+      //   Object.keys(selectedRows).map((id) => [id, true])
+      // )
     },
     getCoreRowModel: getCoreRowModel(),
-    onRowSelectionChange: () => { },
+    // onRowSelectionChange: () => { },
+    onRowSelectionChange: setSelectedRows,
+    getRowId: (row) => row.id,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,

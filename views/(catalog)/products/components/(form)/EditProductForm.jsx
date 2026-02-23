@@ -17,18 +17,17 @@ import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
 import SelectInput from "@/components/inputcopy/selectInputCustom";
 import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
+import AddAreaForm from "./AddAreaForm";
 import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
 import { Label } from "@radix-ui/react-select";
 import NumberInputForm from "@/components/inputcopy/inputNumber";
 import InputNumberForm from "@/components/inputcopy/inputNumber";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductAddSchema } from "../../schemas/productScemas";
-import AddAreaForm from "@/views/(catalog)/area/components/(form)/AddAreaForm";
-import AddCategoryForm from "@/views/(catalog)/category/components/(form)/AddCategoryForm";
-import AddSubCategoryForm from "@/views/(catalog)/sub-category/components/(form)/AddSubCategoryForm";
+import AddCategoryForm from "./AddCategoryForm";
+import AddSubCategoryForm from "./AddSubCategoryForm";
 
-
-export default function AddProductsForm() {
+export default function EditProductsForm() {
   const form = useForm({
     mode: "all",
     defaultValues: {
@@ -131,7 +130,6 @@ export default function AddProductsForm() {
                     renderModalContent={(closeModal) => (
                       <AddAreaForm
                         onCancel={closeModal}
-                        showFooter={false}
                         onSuccess={(data) => {
                           console.log("Data area baru:", data);
                           // Tambahkan logic API di sini jika perlu
@@ -151,7 +149,6 @@ export default function AddProductsForm() {
                     renderModalContent={(closeModal) => (
                       <AddCategoryForm
                         onCancel={closeModal}
-                        showFooter={false}
                         onSuccess={(data) => {
                           console.log("Data area baru:", data);
                           // Tambahkan logic API di sini jika perlu
@@ -171,7 +168,6 @@ export default function AddProductsForm() {
                     renderModalContent={(closeModal) => (
                       <AddSubCategoryForm
                         onCancel={closeModal}
-                        showFooter={false}
                         onSuccess={(data) => {
                           console.log("Data area baru:", data);
                           // Tambahkan logic API di sini jika perlu

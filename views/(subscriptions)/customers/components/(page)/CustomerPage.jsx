@@ -10,10 +10,37 @@ import CustomDialog from "@/components/dialog/basicDialog";
 
 
 export default function WhatsAppPage() {
-  const state = UseCustomerState([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+const {
+    form,
+    openModal,
+    modalType,
+    loading,
+    response,
+    setResponse,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    handleCreate,
+    handleUpdate,
+    handleDelete,
+  } = UseCustomerState();
 
-  const modalConfig = getModalConfig(modalType, CustomerModalConfig(state));
+  const modalConfig = getModalConfig(
+    modalType,
+    CustomerModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleCreate,
+      handleUpdate,
+      handleDelete,
+    }),
+  );
+
   const actions = CustomerActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);

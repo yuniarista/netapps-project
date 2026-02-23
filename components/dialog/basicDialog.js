@@ -32,7 +32,7 @@ const CustomDialog = ({
   };
 
   const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update" || modalType === "detail";
-  const isDelete = modalType === "delete" || modalType === "addModal";
+  const isDelete = modalType === "delete" || modalType === "addModal" || modalType === "editModal";
   
   const maxWidthClass = isDelete ? "max-w-md" : (sizeMap[size] || "max-w-3xl");
 

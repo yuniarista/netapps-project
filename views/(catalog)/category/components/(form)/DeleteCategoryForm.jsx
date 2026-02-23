@@ -43,7 +43,7 @@ export default function DeleteCategoryForm({
       <DialogFooter className="border-t border-slate-200 bg-white px-2 py-4 mt-0">
         <div className="flex items-center justify-end space-x-3">
           <DialogClose>
-            <Button type="reset" variant="secondary" disabled={loading}>
+            <Button type="reset" variant="outline" disabled={loading}>
               Cancel
             </Button>
           </DialogClose>

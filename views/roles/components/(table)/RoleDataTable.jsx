@@ -168,12 +168,14 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
                   iconPosition="left"
                   className="w-40"
                   sections={filterSections}
+                  badgeVariant="outline"
                 />
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
                   showSectionLabelSeparator={false}
                   showSectionSeparator={false}
+                  badgeVariant="outline"
                 />
 
                 <CustomButton

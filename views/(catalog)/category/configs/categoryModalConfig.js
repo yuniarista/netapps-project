@@ -1,12 +1,14 @@
 import { TriangleAlert } from "lucide-react";
 import DeleteCategoryForm from "../components/(form)/DeleteCategoryForm";
 import AddCategoryForm from "../components/(form)/AddCategoryForm";
+import EditCategoryForm from "../components/(form)/EditCategoryForm";
 
 export const categoryModalConfig = ({
   form,
   loading,
   response,
   setResponse,
+  formOptions,
   alertOpen,
   setAlertOpen,
   handleCreate,
@@ -25,6 +27,21 @@ export const categoryModalConfig = ({
         />
       )
     },
+    editModal: {
+          title: "Edit Category",
+          content: (
+            <EditCategoryForm
+              formData={form}
+              formOptions={formOptions}
+              loading={loading}
+              alertOpen={alertOpen}
+              setAlertOpen={setAlertOpen}
+              response={response}
+              setResponse={setResponse}
+              handleUpdate={handleUpdate}
+            />
+          )
+        },
     delete: {
       title: (
         <div className="flex items-center gap-3">

@@ -8,7 +8,7 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import Loading from "@/app/(protected)/loading";
 import CustomAlert from "@/components/alert/customAlert";
 
-export default function DeleteAreaForm({
+export default function DeleteUserForm({
   loading,
   response,
   setResponse,
@@ -43,7 +43,7 @@ export default function DeleteAreaForm({
       <DialogFooter className="border-t border-slate-200 bg-white px-2 py-4 mt-0">
         <div className="flex items-center justify-end space-x-3">
           <DialogClose>
-            <Button type="reset" variant="outline" disabled={loading}>
+            <Button type="reset" variant="secondary" disabled={loading}>
               Cancel
             </Button>
           </DialogClose>

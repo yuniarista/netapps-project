@@ -49,7 +49,7 @@ export default function BaseModal({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="bg-white px-4 py-4">
+        <div className="bg-white">
           {children}
         </div>
 

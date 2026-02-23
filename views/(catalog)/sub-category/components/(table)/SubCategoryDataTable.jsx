@@ -22,12 +22,12 @@ import {
   X,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { SUB_CATEGORY_TABS_CONFIG } from "../../configs/subCategoryTabsConfig";
 import { useState } from "react";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 
 export default function SubCategoryDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
   const dummyData = [
     {
       subCategoryName: "Soho",
@@ -167,6 +167,8 @@ export default function SubCategoryDataTable({ columns, handleModalOpen }) {
                   data: dummyData,
                   totalData: dummyData.length,
                 }}
+                selectedRows={rowSelection}
+                setSelectedRows={setRowSelection}
                 pagination={{ pageIndex: 0, pageLimit: 10 }}
               />
             </div>
