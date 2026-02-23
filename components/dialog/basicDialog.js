@@ -8,9 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+
+import { TriangleAlert, X } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 const CustomDialog = ({
   open,
@@ -21,62 +24,66 @@ const CustomDialog = ({
   children,
   className,
   footer,
-  headerAlignment = "center",
+  headerAlignment = "start",
   modalType,
   size = "3xl",
 }) => {
-  const sizeMap = {
-    "lg": "max-w-lg",
-    "xl": "max-w-xl",
-    "2xl": "max-w-2xl",
+  const isDelete = ["delete", "bulk-delete"].includes(modalType);
+  const isForm = ["addModal", "editModal"].includes(modalType);
+
+  const isModal = isDelete || isForm;
+
+  const sizeClasses = {
+    sm: "max-w-sm",      // ~384px
+    md: "max-w-md",      // ~448px
+    lg: "max-w-lg",      // ~512px
+    xl: "max-w-xl",      // ~576px
+    "600": "max-w-[600px]", 
+    "3xl": "max-w-[800px]",  
   };
 
-  const isEditOrCreate = modalType === "edit" || modalType === "add" || modalType === "create" || modalType === "update" || modalType === "detail";
-  const isDelete = modalType === "delete" || modalType === "addModal" || modalType === "editModal";
-  
-  const maxWidthClass = isDelete ? "max-w-md" : (sizeMap[size] || "max-w-3xl");
-
-  const positionClass = isEditOrCreate
-    ? "fixed left-[230px] top-10 max-h-[calc(100vh-40px)] overflow-y-auto"
-    : "fixed left-1/2 top-10 -translate-x-1/2 translate-y-0";
+  const positionClass = isModal
+    ? "fixed left-1/2 top-20 -translate-x-1/2 translate-y-0"
+    : "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         positionClass={positionClass}
         className={cn(
-          "max-h-full rounded-[10px] z-10 border border-zinc-200 shadow-md overflow-y-auto scrollbar-hidden-y",
-          maxWidthClass,
-          isDelete ? "p-0 gap-0" : "gap-4",
-          className
+          "transition-all duration-300",
+          isModal
+            ? "max-w-sm gap-0 p-0 rounded-md border border-zinc-200"
+            : cn("rounded-md rounded-l-none border-l-0 gap-4 p-7", sizeClasses[size] || sizeClasses["3xl"]),
+          className,
         )}
-
-        onInteractOutside={(e) => e.preventDefault()}
       >
-        <DialogHeader className={isDelete ? "border-b border-slate-200 bg-white px-6 py-4" : ""}>
+        <DialogHeader
+          className={`flex items-center justify-between align-self-stretch ${isModal ? "p-4" : ""}`}
+        >
           <DialogTitle
             className={cn(
-              "w-full text-xl font-semibold text-zinc-900 leading-5 ",
-              `text-${headerAlignment}`
+              "w-full flex items-center text-xl font-medium text-zinc-900 leading-7",
+              `text-${headerAlignment}`,
             )}
-          >
-            {title}
+          >  
+        {isDelete ? <TriangleAlert className="w-6 h-6 text-red-500 font-light mr-2" /> : "" } {title}
           </DialogTitle>
-          {description && (
-            <DialogDescription className="text-sm text-zinc-500 leading-5 mt-1">
-              {description}
-            </DialogDescription>
-          )}
-        </DialogHeader>
-        <div className={isDelete ? "p-0" : ""}>{children}</div>
-        {footer && (
-          <DialogFooter 
-            className={isDelete ? "border-t border-slate-200 bg-white px-6 py-4 mt-0" : "mt-6"}
+
+          <button
+            onClick={() => onOpenChange(false)}
+            aria-label="Close"
+            className="outline-none text-zinc-500 hover:text-zinc-900 transition-colors"
           >
-            {footer}
-          </DialogFooter>
-        )}
+            <X className="w-5 h-5" />
+          </button>
+        </DialogHeader>
+
+        <div className={isModal ? "border-t border-slate-200" : "pt-7"}>
+          {children}
+        </div>
+
+        {footer && <DialogFooter className={"mt-6"}>{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

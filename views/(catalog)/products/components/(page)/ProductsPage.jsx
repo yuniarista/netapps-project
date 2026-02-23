@@ -9,20 +9,30 @@ import ProductDataColumn from "../(table)/ProductsDataColumn";
 import CustomDialog from "@/components/dialog/basicDialog";
 
 export default function ProductPage() {
+  
   const {
     form,
+    setForm,
     openModal,
+    setOpenModal,
     modalType,
-    loading,
+    setModalType,
+    data,
+    setData,
     response,
     setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
     alertOpen,
     setAlertOpen,
     handleModalOpen,
     handleModalClose,
-    handleCreate,
-    handleUpdate,
-    handleDelete,
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
   } = useProductHooks();
 
   const modalConfig = getModalConfig(
@@ -34,12 +44,11 @@ export default function ProductPage() {
       setResponse,
       alertOpen,
       setAlertOpen,
-      handleCreate,
-      handleUpdate,
-      handleDelete,
+      selectedRows,
+      setSelectedRows,
     }),
   );
-
+  
   const actions = productActionConfig(
     (type, item) => {
       handleModalOpen(type, item);

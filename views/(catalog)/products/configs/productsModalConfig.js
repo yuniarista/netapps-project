@@ -1,21 +1,23 @@
 import { TriangleAlert } from "lucide-react";
 import AddProductsForm from "../components/(form)/AddProductsForm";
-import DeleteProductForm from "../components/(form)/DeleteDeleteForm";
 import EditProductsForm from "../components/(form)/EditProductForm";
 
-export const productsModalConfig = ({
-  form,
-  loading,
-  response,
-  setResponse,
-  formOptions,
-  alertOpen,
-  setAlertOpen,
-  handleCreate,
-  handleUpdate,
-  handleDelete,
-  handleModalClose,
-}) => {
+import DeleteForm from "../components/(form)/deleteForm";
+
+export const productsModalConfig = (state) => {
+  const {
+    form,
+    loading,
+    response,
+    setResponse,
+    formOptions,
+    alertOpen,
+    setAlertOpen,
+    handleCreate,
+    handleUpdate,
+    handleModalClose,
+  } = state;
+
   return {
     add: {
       title: "Create Product",
@@ -27,7 +29,17 @@ export const productsModalConfig = ({
           handleCreate={handleCreate}
           handleModalClose={handleModalClose} // Kirim fungsi close ke form
         />
-      )
+      ),
+    },
+    delete: {
+      title: "Confirm Delete",
+      content: (
+        <DeleteForm
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+        />
+      ),
     },
     edit: {
       title: "Edit Product",
@@ -42,26 +54,7 @@ export const productsModalConfig = ({
           setResponse={setResponse}
           handleUpdate={handleUpdate}
         />
-      )
-    },
-    delete: {
-      title: (
-        <div className="flex items-center gap-3">
-          <TriangleAlert className="w-5 h-5 text-destructive" /> 
-          <span className="text-lg">Delete Confirmation</span>
-        </div>
       ),
-      content: (
-        <DeleteProductForm
-          formData={form}
-          loading={loading}
-          response={response}
-          alertOpen={alertOpen}
-          setAlertOpen={setAlertOpen}
-          setResponse={setResponse}
-          handleConfirm={handleDelete}
-        />
-      )
-    }
-  };
+    },
+};
 }

@@ -13,21 +13,21 @@ import RoleDataColumn from "../(table)/RoleColumn";
 
 export default function RolePage() {
   const {
-    form,
-    openModal,
-    modalType,
-    loading,
-    response,
-    setResponse,
-    alertOpen,
-    setAlertOpen,
-    handleModalOpen,
-    handleModalClose,
-    handleCreate,
-    handleUpdate,
-    handleDelete,
-  } = useRoleHooks();
-
+      form,
+      openModal,
+      modalType,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleModalOpen,
+      handleModalClose,
+      handleCreate,
+      handleUpdate,
+      handleDelete
+    } = useRoleHooks();
+    
   const modalConfig = getModalConfig(
     modalType,
     roleModalConfig({
@@ -37,18 +37,15 @@ export default function RolePage() {
       setResponse,
       alertOpen,
       setAlertOpen,
-      handleCreate,
+      handleCreate, 
       handleUpdate,
-      handleDelete,
-    }),
+      handleDelete
+    })
   );
 
-  const actions = roleActionConfig(
-    (type, item) => {
-      handleModalOpen(type, item);
-    },
-    ["update", "delete"],
-  );
+  const actions = roleActionConfig((type, item) => {
+    handleModalOpen(type, item);
+  }, ["update", "delete"]);
 
   return (
     <div>

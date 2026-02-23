@@ -31,7 +31,7 @@ export function SidebarNavigation({ menu = [], session }) {
   // auto open group berdasarkan route aktif
   useEffect(() => {
     const foundGroup = menu.find((item) =>
-      item.features?.some((f) => pathname.startsWith(f.url))
+      item.features?.some((f) => pathname.startsWith(f.url)),
     );
 
     if (foundGroup?.groupName) {
@@ -40,7 +40,7 @@ export function SidebarNavigation({ menu = [], session }) {
   }, [pathname, menu]);
 
   return (
-    <Sidebar className="border-r z-20 bg-[#F9F9F9]">
+    <Sidebar className="border-r bg-[#F9F9F9] z-30">
       <SidebarHeader className="px-2">
         <div className="flex items-center gap-2 my-2">
           <div className="size-8 rounded border border-primary bg-primary/10 flex items-center justify-center">
@@ -51,20 +51,27 @@ export function SidebarNavigation({ menu = [], session }) {
             )}
           </div>
 
-          <div className="flex-1 min-w-0">
-            <div className="text-sm font-semibold truncate">
-              {session?.username || "Guest"}
+          <div
+            className={cn(
+              "flex flex-1 items-center justify-between min-w-0 transition-all duration-300",
+              "group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:invisible group-data-[state=collapsed]:w-0",
+            )}
+          >
+            <div className="flex flex-col min-w-0 flex-1 truncate">
+              <span className="text-sm font-semibold truncate leading-none">
+                {session?.username || "Guest"}
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {session?.email || "guest@mail.com"}
+              </span>
             </div>
-            <div className="text-xs text-muted-foreground truncate">
-              {session?.email || "guest@mail.com"}
-            </div>
-          </div>
 
-          <div className="flex gap-2 px-2">
-            <Settings className="size-4 cursor-pointer" />
-            <div className="relative size-4 cursor-pointer">
-              <BellDot className="size-full" />
-              <span className="absolute -top-0.5 -right-0.5 size-2 bg-red-500 rounded-full border" />
+            <div className="flex gap-2 shrink-0 ml-2">
+              <Settings className="size-4 cursor-pointer hover:text-primary transition-colors" />
+              <div className="relative size-4 cursor-pointer hover:text-primary transition-colors">
+                <BellDot className="size-full" />
+                <span className="absolute -top-0.5 -right-0.5 size-2 bg-red-500 rounded-full border border-white" />
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +93,7 @@ export function SidebarNavigation({ menu = [], session }) {
                     setOpenGroups((prev) =>
                       isOpen
                         ? prev.filter((g) => g !== item.groupName)
-                        : [...prev, item.groupName]
+                        : [...prev, item.groupName],
                     )
                   }
                 >
@@ -98,11 +105,7 @@ export function SidebarNavigation({ menu = [], session }) {
                           {item.groupName}
                         </div>
                         <IconifyIcon
-                          icon={
-                            isOpen
-                              ? "mdi:chevron-up"
-                              : "mdi:chevron-down"
-                          }
+                          icon={isOpen ? "mdi:chevron-up" : "mdi:chevron-down"}
                         />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
@@ -117,7 +120,7 @@ export function SidebarNavigation({ menu = [], session }) {
                                 "block px-2 py-1.5 rounded-md text-sm",
                                 pathname === f.url
                                   ? "bg-primary text-white"
-                                  : "hover:bg-muted"
+                                  : "hover:bg-muted",
                               )}
                             >
                               {f.name}
@@ -133,22 +136,21 @@ export function SidebarNavigation({ menu = [], session }) {
 
             return (
               <SidebarMenuItem key={item.url}>
-                <Link href={item.url} passHref legacyBehavior>
-                  <SidebarMenuButton
-                    asChild
-                    className={cn(
-                      "flex items-center gap-2",
-                      pathname === item.url
-                        ? "bg-primary text-white"
-                        : "hover:bg-muted"
-                    )}
-                  >
-                    <button>
-                      <IconifyIcon icon={item.icon} className="w-4 h-4" />
-                      {item.name}
-                    </button>
-                  </SidebarMenuButton>
-                </Link>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === item.url}
+                  className={cn(
+                    "flex items-center gap-2 rounded-md",
+                    pathname === item.url
+                      ? "hover:bg-primary hover:text-white"
+                      : "hover:bg-muted",
+                  )}
+                >
+                  <Link href={item.url}>
+                    <IconifyIcon icon={item.icon} />
+                    <span>{item.name}</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             );
           })}

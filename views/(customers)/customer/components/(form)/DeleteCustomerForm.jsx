@@ -14,7 +14,7 @@ export default function DeleteCustomerForm({
   setResponse,
   alertOpen,
   setAlertOpen,
-  handleConfirm
+  handleConfirm,
 }) {
   const form = useForm();
   const { handleSubmit } = form;
@@ -31,7 +31,7 @@ export default function DeleteCustomerForm({
           {response?.message}
         </CustomAlert>
 
-        <div className="px-2 py-2">
+        <div className="px-4 py-4 border-b border-slate-200 bg-white">
           <div className="space-x-1">
             <h4 className="text-md font-bold text-[#1e293b]">Are you sure?</h4>
             <p className="text-sm text-slate-500">
@@ -40,18 +40,16 @@ export default function DeleteCustomerForm({
           </div>
         </div>
 
-      <DialogFooter className="border-t border-slate-200 bg-white px-2 py-4 mt-0">
-        <div className="flex items-center justify-end space-x-3">
-          <DialogClose>
-            <Button type="reset" variant="secondary" disabled={loading}>
-              Cancel
+          <div className="flex items-center justify-end gap-3 p-4">
+            <DialogClose asChild>
+              <Button type="reset" variant="secondary" disabled={loading}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button type="submit" variant="destructive" disabled={loading}>
+              {loading ? <Loading /> : "Delete"}
             </Button>
-          </DialogClose>
-          <Button type="submit" variant="destructive" disabled={loading}>
-            {loading ? <Loading /> : "Delete"}
-          </Button>
-        </div>
-      </DialogFooter>
+          </div>
       </form>
     </Form>
   );

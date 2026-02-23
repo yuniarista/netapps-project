@@ -15,26 +15,26 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
   const [rowSelection, setRowSelection] = useState({});
 
   const dummyData = [
-    {
-      id: "1",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Active",
-    },
-    {
-      id: "2",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
-    },
+    // {
+    //   id: "1",
+    //   productName: "Bisnis Soho 30 Mbps",
+    //   price: "120,000.00",
+    //   areaCategory: "Urban",
+    //   category: "Residential",
+    //   subCategory: "Basic",
+    //   promoPrice: "100,000.00",
+    //   status: "Active",
+    // },
+    // {
+    //   id: "2",
+    //   productName: "Bisnis Soho 30 Mbps",
+    //   price: "120,000.00",
+    //   areaCategory: "Urban",
+    //   category: "Residential",
+    //   subCategory: "Basic",
+    //   promoPrice: "100,000.00",
+    //   status: "Inactive",
+    // },
   ];
 
   const handleToggleFilter = (label, value, showBadge = true) => {
@@ -105,7 +105,9 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
     },
   ];
 
-  const handleResetAll = () => { setActiveFilters([])};
+  const handleResetAll = () => {
+    setActiveFilters([]);
+  };
 
   const bulkActionSections = [
     {
@@ -237,10 +239,11 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                 />
 
                 <CustomButton
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-1 border-none text-primary"
-                onClick = {handleResetAll}>
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1 border-none text-primary"
+                  onClick={handleResetAll}
+                >
                   Reset <X className="h-3.5 w-3.5 text-primary" />
                 </CustomButton>
               </div>
@@ -293,20 +296,19 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
           </div>
         </div>
       ) : (
-        <div className="flex-1 flex flex-col items-center justify-center text-center p-6">
-          <div className="space-y-4 max-w-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
-              No Invoice Template
-            </h2>
-            <p className="text-slate-500">
-              You haven't created any template yet.
+        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
+            <Label className="text-lg">No Catalog Product</Label>
+            <p className="text-sm text-muted-foreground">
+              You haven’t created any product yet.
+               <br /> Go a head and create your first one.
             </p>
             <CustomButton
               variant="primary"
-              size="lg"
+              className="flex gap-2"
               onClick={() => handleModalOpen("add")}
             >
-              <Plus className="w-4 h-4" /> Create invoice template
+              <Plus className="w-4 h-4" /> Setup Network
             </CustomButton>
           </div>
         </div>

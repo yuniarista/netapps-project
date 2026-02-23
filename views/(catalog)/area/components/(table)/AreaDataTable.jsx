@@ -81,7 +81,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
-              <div className="relative w-full max-w-xs">
+              <div className="relative w-md">
                 <Input
                   placeholder="Search"
                   className="pr-10"
@@ -120,6 +120,7 @@ export default function AreaDataTable({ columns, handleModalOpen }) {
                     iconPosition="left"
                     className="w-40"
                     sections={filterSections}
+                    badgeVariant="outline"
                   />
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (

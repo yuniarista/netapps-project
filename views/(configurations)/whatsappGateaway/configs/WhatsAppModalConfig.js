@@ -3,7 +3,7 @@ import EditBilingForm from "../components/(form)/EditBilingForm";
 import EditWhatsAppForm from "../components/(form)/EditWhatsAppForm";
 
 export const whatsAppModalConfig = (state) => {
-  const { loading, response, setResponse, handleCreate, handleModalClose } = state;
+  const { loading, response, setResponse, handleCreate, handleModalClose, selectedData } = state;
 
   return {
     add: {
@@ -30,11 +30,12 @@ export const whatsAppModalConfig = (state) => {
     },
     edit: {
       title: "Edit Billing Template",
+      className: "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0 rounded-r-none border-r-0 shadow-none",
       content: (
         <EditBilingForm
           loading={loading}
           handleModalClose={handleModalClose}
-          // initialData={selectedData} 
+          initialData={selectedData} 
         />
       )
     },

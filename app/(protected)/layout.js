@@ -41,7 +41,7 @@ const dummyMenu = [
   {
     name: "Google API",
     url: "/google-api",
-    icon: "material-symbols:api-outline",
+    icon: "mdi:google",
   },
 
   {
@@ -59,11 +59,11 @@ const dummyMenu = [
     url: "/app",
     icon: "material-symbols:settings-outline",
   },
-    {
-    name: "Dashboard",
-    url: "/dashboard",
-    icon: "lucide:layout-dashboard",
-  },
+  //   {
+  //   name: "Dashboard",
+  //   url: "/dashboard",
+  //   icon: "lucide:layout-dashboard",
+  // },
   {
     groupName: "Catalog",
     icon: "lucide:package",
@@ -124,7 +124,7 @@ const dummyMenu = [
   },
   {
     name: "Employee",
-    url: "/users",
+    url: "/employee",
     icon: "lucide:briefcase-business",
   },
   {

@@ -1,7 +1,8 @@
-import { TriangleAlert } from "lucide-react";
+import { Edit, TriangleAlert } from "lucide-react";
 import AddCustomerForm from "../components/(form)/AddCustomerForm";
 import DeleteCustomerForm from "../components/(form)/DeleteCustomerForm";
 import DetailCustomerForm from "../components/(form)/DetailCustomerForm";
+import EditCustomerForm from "../components/(form)/EditCustomerform";
 
 export const customerModalConfig = ({
   form,
@@ -23,7 +24,7 @@ export const customerModalConfig = ({
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
-          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
+          // handleModalClose={handleModalClose} 
         />
       )
     },
@@ -36,28 +37,32 @@ export const customerModalConfig = ({
           response={response}
           setResponse={setResponse}
           handleUpdate={handleUpdate}
-          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
+        />
+      )
+    },
+    edit: {
+      title: "Edit Customer",
+      content: (
+        <EditCustomerForm
+          form={form} 
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+          handleUpdate={handleUpdate}
+          // handleModalClose={handleModalClose}
         />
       )
     },
     delete: {
-      title: (
-        <div className="flex items-center gap-3">
-          <TriangleAlert className="w-5 h-5 text-destructive" /> 
-          <span className="text-lg">Delete Confirmation</span>
-        </div>
-      ),
+      title: "Confirm Delete",
       content: (
         <DeleteCustomerForm
           formData={form}
           loading={loading}
           response={response}
-          alertOpen={alertOpen}
-          setAlertOpen={setAlertOpen}
           setResponse={setResponse}
-          handleConfirm={handleDelete}
         />
-      )
-    }
+      ),
+    },
   };
 };

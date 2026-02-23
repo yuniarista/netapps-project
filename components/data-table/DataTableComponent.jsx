@@ -187,7 +187,12 @@ export default function DataTableComponent({
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="h-14" style={{ width: `${cell.column.getSize()}px` }}>
+                      <TableCell key={cell.id} className={cn(
+                        "h-14",
+                        cell.column.id === "actions" ? "text-right" : "text-left"
+                      )}
+                        style={{ width: `${cell.column.getSize()}px` }}
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -275,16 +280,16 @@ export default function DataTableComponent({
           <Button
             variant="outline"
             size="sm"
-            // onClick={onClick}
-            // disabled={disabled}
+          // onClick={onClick}
+          // disabled={disabled}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-            // onClick={onClick}
-            // disabled={disabled}
+          // onClick={onClick}
+          // disabled={disabled}
           >
             Next
           </Button>

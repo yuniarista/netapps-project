@@ -55,14 +55,14 @@ export default function EditWhatsAppForm({ handleModalClose, loading }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <CardContent className="p-0">
-                    <section className="overflow-hidden">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <CardContent>
+                    <section>
                         <div
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("general")}
                         >
-                            <h3 className="text-sm font-semibold text-slate-700 tracking-wider">GENERAL</h3>
+                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">GENERAL</h3>
                             {openSections.general ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -71,10 +71,11 @@ export default function EditWhatsAppForm({ handleModalClose, loading }) {
                         </div>
 
                         {openSections.general && (
-                            <div className="space-y-4 animate-in fade-in duration-300 p-2">
+                            <div className="space-y-4 animate-in fade-in duration-300 py-2">
                                 <SwitchToggleInput
                                     control={control}
-                                    name="isActive"
+                                    labelPosition="left"
+                                    name="isActive" 
                                     label="Activate Gateway"
                                     description="Turn this on to activate your gateway status."
                                 />
@@ -82,11 +83,12 @@ export default function EditWhatsAppForm({ handleModalClose, loading }) {
                                 <SelectInputForm
                                     name="ispName"
                                     label="ISP Name"
-                                    placeholder="Choose registered ISP"
+                                    placeholder="ISP Name"
                                     errors={errors}
                                     control={control}
                                     options={isOptions}
                                     optionName="label"
+                                    disabled={true}
                                 />
 
                                 <TextInputForm
@@ -120,12 +122,12 @@ export default function EditWhatsAppForm({ handleModalClose, loading }) {
                         )}
                     </section>
 
-                    <section className="overflow-hidden">
+                    <section>
                         <div
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("provider")}
                         >
-                            <h3 className="text-sm font-semibold text-slate-700 tracking-wider">Provider Credential</h3>
+                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">Provider Credential</h3>
                             {openSections.provider ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -134,7 +136,7 @@ export default function EditWhatsAppForm({ handleModalClose, loading }) {
                         </div>
 
                         {openSections.provider && (
-                            <div className="space-y-4 animate-in fade-in duration-300 p-2">
+                            <div className="space-y-4 animate-in fade-in duration-300 py-2">
                                 <TextInputForm
                                     name="token"
                                     label="Token"

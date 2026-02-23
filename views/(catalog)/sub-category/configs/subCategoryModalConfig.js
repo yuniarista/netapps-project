@@ -13,7 +13,6 @@ export const subCategoryModalConfig = ({
   setAlertOpen,
   handleCreate,
   handleUpdate,
-  handleDelete,
   handleModalClose,
 }) => {
   return {
@@ -22,7 +21,7 @@ export const subCategoryModalConfig = ({
       content: (
         <AddSubCategoryForm
           loading={loading}
-          handleModalClose={handleModalClose} // Kirim fungsi close ke form
+          handleModalClose={handleModalClose}
           onSuccess={handleCreate}
         />
       ),
@@ -43,21 +42,12 @@ export const subCategoryModalConfig = ({
       ),
     },
     delete: {
-      title: (
-        <div className="flex items-center gap-3">
-          <TriangleAlert className="w-5 h-5 text-destructive" />
-          <span className="text-lg">Delete Confirmation</span>
-        </div>
-      ),
+      title: "Confirm Delete",
       content: (
         <DeleteSubCategoryForm
-          formData={form}
           loading={loading}
           response={response}
-          alertOpen={alertOpen}
-          setAlertOpen={setAlertOpen}
           setResponse={setResponse}
-          handleConfirm={handleDelete}
         />
       ),
     },
