@@ -117,7 +117,7 @@ export function SidebarNavigation({ menu = [], session }) {
                             <Link
                               href={f.url}
                               className={cn(
-                                "block px-2 py-1.5 rounded-xl text-sm",
+                                "block px-2 py-1.5 rounded-md text-sm",
                                 pathname === f.url
                                   ? "bg-primary text-white"
                                   : "hover:bg-muted",
@@ -140,7 +140,7 @@ export function SidebarNavigation({ menu = [], session }) {
                   asChild
                   isActive={pathname === item.url}
                   className={cn(
-                    "flex items-center gap-2 rounded-xl",
+                    "flex items-center gap-2 rounded-md",
                     pathname === item.url
                       ? "hover:bg-primary hover:text-white"
                       : "hover:bg-muted",

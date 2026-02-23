@@ -1,0 +1,17 @@
+export const BILLING_VARIABLES = [
+  { label: "{name}", description: "Nama Pelanggan" },
+  { label: "{noservices}", description: "ID Pelanggan" },
+  { label: "{email}", description: "Email (tambah pelanggan)" },
+  { label: "{password}", description: "Password (tambah pelanggan)" },
+  { label: "{nominal}", description: "Jumlah Tagihan" },
+  { label: "{invoice}", description: "No Invoice" },
+  { label: "{month}", description: "Bulan" },
+  { label: "{year}", description: "Tahun" },
+  { label: "{period}", description: "Periode (Februari 2026)" },
+  { label: "{duedate}", description: "Tanggal Jatuh Tempo" },
+  { label: "{receiver}", description: "Penerima Tagihan" },
+  { label: "{companyname}", description: "Nama Perusahaan" },
+  { label: "{slogan}", description: "Moto / Slogan" },
+  { label: "{link}", description: "Alamat website" },
+  { label: "{e}", description: "Enter / Baris Baru" },
+];

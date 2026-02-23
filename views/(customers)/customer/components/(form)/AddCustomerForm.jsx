@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -15,6 +15,7 @@ import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
 import MapInput from "@/components/inputcopy/mapInput";
 import AddSegmentForm from "../(components)/AddSegmentForm";
 import DatePickerForm from "@/components/datePicker/datePickerForm";
+import { cn } from "@/lib/utils";
 
 const customerSegmentOptions = [
     { label: "Home", value: "home" },
@@ -34,6 +35,13 @@ const productOptions = [
     { label: "Product 3", value: "product3" },
 ];
 
+const homepassOptions = [
+    { label: "HP-001 (Blok A-10)", value: "hp001", odp: "ODP-KUTA-01" },
+    { label: "HP-002 (Blok B-05)", value: "hp002", odp: "ODP-KUTA-01" },
+    { label: "HP-003 (Blok C-12)", value: "hp003", odp: "ODP-KUTA-02" },
+    { label: "HP-004 (Blok D-01)", value: "hp004", odp: "ODP-JIMBARAN-05" },
+];
+
 export default function AddCustomerForm({ handleModalClose, loading }) {
     const [openSections, setOpenSections] = useState({
         general: true,
@@ -47,6 +55,19 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
 
     const { control, formState: { errors }, handleSubmit, setValue, watch } = form;
     const isAffiliate = watch("isActive");
+    const selectedHomepass = watch("homepassId");
+
+    useEffect(() => {
+        if (selectedHomepass) {
+            const selectedData = homepassOptions.find(item => item.value === selectedHomepass);
+
+            if (selectedData) {
+                setValue("odpId", selectedData.odp);
+            }
+        } else {
+            setValue("odpId", "");
+        }
+    }, [selectedHomepass, setValue]);
 
     const toggleSection = (section) => {
         setOpenSections((prev) => ({
@@ -105,6 +126,7 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                                         placeholder="Company Name"
                                         control={control}
                                         errors={errors}
+                                        disabled={true}
                                         helperText="Not Required for personal customers."
                                     />
                                 </div>
@@ -129,24 +151,33 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                                     />
                                 </div>
 
-                                <div className="flex flex-row gap-4">
-                                    <SelectInputCustom
-                                        name="homepassId"
-                                        label="Homepass ID"
-                                        placeholder="Select homepass ID"
-                                        showSearch={true}
-                                        control={control}
-                                        errors={errors}
-                                    />
+                                <div className="flex flex-row gap-4 items-end">
+                                    <div className={cn("transition-all duration-500", selectedHomepass ? "w-1/2" : "w-full")}>
+                                        <SelectInputCustom
+                                            name="homepassId"
+                                            label="Homepass ID"
+                                            placeholder="Select Homepass"
+                                            showSearch={true}
+                                            control={control}
+                                            errors={errors}
+                                            options={homepassOptions}
+                                            optionName="label"
+                                        />
+                                    </div>
 
-                                    <TextInputForm
-                                        name="odpId"
-                                        label="ODP"
-                                        placeholder="ODP Number"
-                                        control={control}
-                                        errors={errors}
-                                        helperText="ODP will be automatically set after you select a Homepass ID."
-                                    />
+                                    {selectedHomepass && (
+                                        <div className="w-1/2 animate-in fade-in slide-in-from-left-4 duration-500">
+                                            <TextInputForm
+                                                name="odpId"
+                                                label="ODP"
+                                                placeholder="ODP Number"
+                                                control={control}
+                                                errors={errors}
+                                                disabled={true} 
+                                                helperText="ODP will be automatically set after you select a Homepass ID."
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-row gap-4">
@@ -352,7 +383,6 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                                     labelPosition="right"
                                 />
 
-                                {/* Jika isAffiliate FALSE (Tidak Aktif), hanya tampilkan ini */}
                                 {!isAffiliate && (
                                     <SelectInputCustom
                                         name="salesName"
@@ -365,9 +395,8 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                                     />
                                 )}
 
-                                {/* Jika isAffiliate TRUE (Aktif), tampilkan 3 form ini */}
                                 {isAffiliate && (
-                                    <div className="grid grid-cols-3 gap-4 animate-in slide-in-from-top-2 duration-300">
+                                    <div className="flex flex-row gap-4 animate-in slide-in-from-top-2 duration-300">
                                         <TextInputForm
                                             name="referalCode"
                                             label="Referral Code"

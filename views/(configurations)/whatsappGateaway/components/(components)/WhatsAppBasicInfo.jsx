@@ -39,7 +39,7 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
 
     return (
         <Card className="h-full flex flex-col shadow-sm border-slate-200 bg-white">
-            <CardHeader className="flex flex-row items-center justify-between p-4 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between p-4">
                 <CardTitle className="text-base font-bold text-slate-900">Basic Info</CardTitle>
                 <Button 
                     variant="ghost" 
