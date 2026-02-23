@@ -3,12 +3,12 @@
 import CustomButton from "@/components/button/customButton";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
-import { useCheckCoverageState } from "../../hooks/useCheckCoverageHooks";
 import { getModalConfig } from "@/utils/getModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
-import { CheckCoverageModalConfig } from "../../configs/CheckCoverageModalConfig";
+import { useBscState } from "../../hooks/useBscHooks";
+import { BscModalConfig } from "../../configs/BscModalConfig";
 
-export default function CoveragePage() {
+export default function BscPage() {
   const {
     form,
     setForm,
@@ -32,23 +32,12 @@ export default function CoveragePage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
-  } = useCheckCoverageState();
-
-  const areaData = [
-    {label: "Denpasar", value: "denpasar"},
-    {label: "Tabanan", value: "tabanan"},
-    {label: "Jembrana", value: "jembrana"}
-  ]
-
-  const formOptions = {
-    area: areaData
-  }
+  } = useBscState();
 
   const modalConfig = getModalConfig(
     modalType,
-    CheckCoverageModalConfig({
+    BscModalConfig({
       form,
-      formOptions,
       loading,
       response,
       setResponse,
@@ -62,17 +51,18 @@ export default function CoveragePage() {
   return (
     <>
       <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
-        <Label className="text-lg">Network Setup Required</Label>
+        <Label className="text-lg">No BSC Records Found</Label>
         <p className="text-sm text-muted-foreground">
-          Network not configured yet. Create
-          <br /> POP to start coverage checking
+          Connect your POP to distribution
+          <br /> cabinets. Add a BSC to manage your
+          <br /> fiber optic backbone splices.
         </p>
         <CustomButton
           variant="primary"
           className="flex gap-2"
           onClick={() => handleModalOpen("add")}
         >
-          <Plus className="w-4 h-4" /> Setup Network
+          <Plus className="w-4 h-4" /> Create BSC
         </CustomButton>
       </div>
       <CustomDialog

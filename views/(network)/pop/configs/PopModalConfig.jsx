@@ -1,6 +1,6 @@
-import AddPopForm from "../../pop/components/(form)/AddPopForm";
+import AddUsersForm from "../components/(form)/AddPopForm";
 
-export const CheckCoverageModalConfig = ({
+export const PopModalConfig = ({
   form,
   formOptions,
   loading,
@@ -16,7 +16,7 @@ export const CheckCoverageModalConfig = ({
     add: {
       title: "Create Point of Presence (POP)",
       content: (
-        <AddPopForm
+        <AddUsersForm
           formOptions={formOptions}
           loading={loading}
           response={response}

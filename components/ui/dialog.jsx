@@ -35,12 +35,12 @@ const DialogContent = React.forwardRef(
           "max-w-[calc(100vw-var(--sidebar-width,240px)-2rem)] max-h-[90vh]",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-full",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left-full",
-          "focus:outline-none",
+          "outline-none",
           className,
         )}
         {...props}
       >
-        <div className="grid  overflow-y-auto max-h-[80vh] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid  overflow-y-auto max-h-[80vh] px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {children}
         </div>
       </DialogPrimitive.Content>
