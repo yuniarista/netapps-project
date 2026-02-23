@@ -2,19 +2,19 @@
 
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
-import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
-import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
-import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
-import whatsAppActionConfig from "../../configs/WhatsAppActionConfig";
+import { telegramModalConfig } from "../../configs/TelegramModalConfig";
+import { useTelegramHooks} from "../../hooks/useTelegramHooks";
 import CustomDialog from "@/components/dialog/basicDialog";
-import WhatsAppBasicInfo from "../(components)/WhatsAppBasicInfo";
 import PageHeader from "@/components/pageHeader";
 import { PanelRight } from "lucide-react";
-import WhatsAppConnection from "../(components)/WhatsAppConnection";
-import WhatsAppFeatures from "../(components)/WhatsAppFeatures";
+import TelegramBasicInfo from "../(components)/TelegramBasicInfo";
+import TelegramConnection from "../(components)/TelegramConnection";
+import TelegramFeatures from "../(components)/TelegramFeatures";
+import telegramActionConfig from "../../configs/TelegramActionConfig";
+import TelegramDataTable from "../(table)/TelegramDataTable";
+import TelegramDataColumn from "../(table)/TelegramDataColumn";
 
-export default function WhatsAppPage() {
+export default function TelegramPage() {
    const {
     form,
     setForm,
@@ -38,11 +38,11 @@ export default function WhatsAppPage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
-  } = useWhatsAppHooks();
+  } = useTelegramHooks();
 
   const modalConfig = getModalConfig(
     modalType,
-    whatsAppModalConfig({
+    telegramModalConfig({
       form,
       loading,
       response,
@@ -55,7 +55,7 @@ export default function WhatsAppPage() {
     }),
   );
 
-  const actions = whatsAppActionConfig(
+  const actions = telegramActionConfig(
     (type, item) => {
       handleModalOpen(type, item);
     },
@@ -66,19 +66,19 @@ export default function WhatsAppPage() {
     <div>
       <PageHeader
         icon={<PanelRight className="w-4 h-4 text-gray-600" />}
-        title="WhatsApp Gateway"
+        title="Telegram Gateway"
       />
 
       <div className="p-4">
         <div className="grid grid-cols-3 gap-4">
-          <WhatsAppBasicInfo onEdit={() => handleModalOpen("update")} />
-          <WhatsAppConnection />
-          <WhatsAppFeatures />
+          <TelegramBasicInfo onEdit={() => handleModalOpen("update")} />
+          <TelegramConnection />
+          <TelegramFeatures />
         </div>
       </div>
 
-      <WhatsAppDataTable
-        columns={WhatsAppDataColumn({
+      <TelegramDataTable
+        columns={TelegramDataColumn({
           actions
         })}
         handleModalOpen={handleModalOpen}

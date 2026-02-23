@@ -6,21 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Phone, Globe, Clock, Building } from "lucide-react";
 import IconifyIcon from "@/components/icon";
 
-const WhatsAppBasicInfo = ({ onEdit }) => {
+const TelegramBasicInfo = ({ onEdit }) => {
     const infoData = [
         {
             label: "ISP Name",
             value: "SAI ISP",
             icon: Building,
-            hexColor: "#3b82f6", // Blue-500
-            hexBg: "#eff6ff",    // Blue-50
-        },
-        {
-            label: "WhatsApp Number",
-            value: "+62 123-3456-7890",
-            icon: "ph:whatsapp-logo-light",
             hexColor: "#22c55e", // Green-500
             hexBg: "#f0fdf4",    // Green-50
+        },
+        {
+            label: "Telegram Number",
+            value: "+62 123-3456-7890",
+            icon: "ph:telegram-logo",
+            hexColor: "#3b82f6", // Blue-500
+            hexBg: "#eff6ff",    // Blue-50
         },
         {
             label: "Provider",
@@ -91,4 +91,4 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
     );
 };
 
-export default WhatsAppBasicInfo;
+export default TelegramBasicInfo;
