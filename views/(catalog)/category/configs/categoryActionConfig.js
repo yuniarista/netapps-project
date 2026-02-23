@@ -5,7 +5,7 @@ const categoryActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
     dashboardAccessPermissions.includes("update") && {
       label: "Edit",
     icon: PencilLine,
-      onClick: (item) => handleModalOpen("edit", item)
+      onClick: (item) => handleModalOpen("editModal", item)
     },
     dashboardAccessPermissions.includes("delete") && {
       label: "Delete",

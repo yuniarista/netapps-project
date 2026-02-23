@@ -3,6 +3,7 @@
 import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import PageHeader from "@/components/pageHeader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,10 +19,13 @@ import {
   Plus,
   Search,
   Settings2,
+  Trash2,
   X,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function CustomerDataTable({ columns, handleModalOpen }) {
+  const [activeFilters, setActiveFilters] = useState([]);
   const dummyData = [
     {
       name: "SAI",
@@ -53,6 +57,47 @@ export default function CustomerDataTable({ columns, handleModalOpen }) {
       city: "Denpasar",
       status: "Active",
     },
+  ];
+
+  const handleAddFilter = (label, value) => {
+    if (!activeFilters.find((f) => f.value === value)) {
+      setActiveFilters([...activeFilters, { label, value }]);
+    }
+  };
+
+  const handleRemoveFilter = (value) => {
+    setActiveFilters(activeFilters.filter((f) => f.value !== value));
+  };
+
+  const filterActionSections = [
+    {
+      label: "Change Status",
+      items: [
+        {
+          label: "Mark as active",
+          value: "active",
+          onClick: () => handleAddFilter("Active", "active"),
+        },
+        {
+          label: "Mark as non active",
+          value: "inactive",
+          onClick: () => handleAddFilter("Inactive", "inactive"),
+        },
+        // { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
+        // { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
+      ]
+    },
+    {
+      items: [
+        {
+          label: "Delete",
+          value: "delete",
+          icon: Trash2,
+          variant: "destructive",
+          onClick: () => confirm("Are you sure?")
+        },
+      ]
+    }
   ];
 
   const hasData = dummyData.length > 0;
@@ -105,14 +150,6 @@ export default function CustomerDataTable({ columns, handleModalOpen }) {
                     //   });
                     //   setData(result);
                     // }} */}
-                  <SelectTrigger
-                    className="w-40"
-                    icon={Settings2}
-                    iconPosition="left"
-                    iconClassName="text-primary"
-                  >
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
                         <SelectItem
@@ -125,31 +162,30 @@ export default function CustomerDataTable({ columns, handleModalOpen }) {
                   </SelectContent>
                 </Select>
 
-                <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-2"
+                {activeFilters.map((filter) => (
+                  <CustomButton
+                    key={filter.value}
+                    variant="secondary"
+                    type="button"
+                    size="sm"
+                    className="mt-1"
+                    onClick={() => handleRemoveFilter(filter.value)}
+                  >
+                    {filter.label}
+                    <X className="h-4 w-4 text-primary" />
+                  </CustomButton>
+                ))}
 
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Home
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
-                <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-2"
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Active
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
+                <SelectDropdown
+                  triggerLabel="Filter"
+                  sections={filterActionSections}
+                  badgeVariant="outline"
+                />
+                <SelectDropdown
+                  triggerLabel="Status"
+                  sections={filterActionSections}
+                  badgeVariant="outline"
+                />
 
                 <CustomButton
                   variant="primary"

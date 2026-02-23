@@ -3,113 +3,111 @@
 import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
-import PageHeader from "@/components/pageHeader";
-import CustomTabs from "@/components/tabs/CustomTabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ChevronDown,
-  PanelRight,
-  Plus,
-  Search,
-  Settings2,
-  Trash2,
-  X,
-} from "lucide-react";
-import { PRODUCT_TABS_CONFIG } from "../../configs/productTabsConfig";
+import { Search, Trash2, X, CirclePlus, Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
 
 export default function ProductDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
+
   const dummyData = [
-    {
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Active",
-    },
-    {
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
-    },
+    // {
+    //   id: "1",
+    //   productName: "Bisnis Soho 30 Mbps",
+    //   price: "120,000.00",
+    //   areaCategory: "Urban",
+    //   category: "Residential",
+    //   subCategory: "Basic",
+    //   promoPrice: "100,000.00",
+    //   status: "Active",
+    // },
+    // {
+    //   id: "2",
+    //   productName: "Bisnis Soho 30 Mbps",
+    //   price: "120,000.00",
+    //   areaCategory: "Urban",
+    //   category: "Residential",
+    //   subCategory: "Basic",
+    //   promoPrice: "100,000.00",
+    //   status: "Inactive",
+    // },
   ];
+
+  const handleToggleFilter = (label, value, showBadge = true) => {
+    setActiveFilters((prev) => {
+      const isExist = prev.find((f) => f.value === value);
+
+      if (isExist) {
+        return prev.filter((f) => f.value !== value);
+      } else {
+        // Menyimpan status apakah filter ini harus muncul sebagai button tambahan atau tidak
+        return [...prev, { label, value, showBadge }];
+      }
+    });
+  };
 
   const handleAddFilter = (label, value) => {
     if (!activeFilters.find((f) => f.value === value)) {
-      setActiveFilters([...activeFilters, { label, value }]);
+      setActiveFilters([...activeFilters, { label, value, showBadge: true }]);
     }
   };
 
   const handleRemoveFilter = (value) => {
     setActiveFilters(activeFilters.filter((f) => f.value !== value));
   };
-  const filterSections = [
+
+  const getActiveCount = (values) => {
+    return activeFilters.filter((f) => values.includes(f.value)).length;
+  };
+
+  const renderLabelWithCount = (title, values) => {
+    const count = getActiveCount(values);
+    if (count === 0) return title;
+
+    return (
+      <div className="flex items-center gap-2">
+        <span className="text-slate-900">{title}</span>
+        <div className="w-[1px] h-3 bg-slate-200 mx-0.5" />
+        <span className="font-normal">{count} Item</span>
+      </div>
+    );
+  };
+
+  const areaOptions = [
+    { label: "Bali", value: "bali" },
+    { label: "Jawa", value: "jawa" },
+    { label: "Sumatera", value: "sumatera" },
+  ];
+
+  const categoryOptions = [
+    { label: "Residential", value: "residential" },
+    { label: "Business", value: "business" },
+  ];
+
+  const subCategoryOptions = [
+    { label: "Tess", value: "tes" },
+    { label: "SubCategri 2", value: "subcategory" },
+  ];
+
+  // Fungsi pembuat section yang bisa diatur showBadge-nya
+  const generateFilterSection = (options, showBadge = true) => [
     {
-      label: "Area",
-      items: [
-        {
-          label: "Bali",
-          value: "bali",
-          onClick: () => handleAddFilter("Bali", "bali"),
-        },
-        {
-          label: "Jawa",
-          value: "jawa",
-          onClick: () => handleAddFilter("Jawa", "jawa"),
-        },
-        {
-          label: "Sumatera",
-          value: "sumatera",
-          onClick: () => handleAddFilter("Sumatera", "sumatera"),
-        },
-        // { label: "Bali", value: "bali", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Jawa", value: "jawa", onClick: (v) => console.log("Filter area:", v) },
-        // { label: "Sumatera", value: "sumatera", onClick: (v) => console.log("Filter area:", v) },
-      ],
-    },
-    {
-      label: "Category",
-      items: [
-        {
-          label: "Business",
-          value: "biz",
-          onClick: () => handleAddFilter("Business", "biz"),
-        },
-        {
-          label: "Professional",
-          value: "prof",
-          onClick: () => handleAddFilter("Professional", "prof"),
-        },
-        {
-          label: "Home",
-          value: "home",
-          onClick: () => handleAddFilter("Home", "home"),
-        },
-        // { label: "Business", value: "biz", onClick: (v) => console.log("Filter cat:", v) },
-        // { label: "Proffesional", value: "prof", onClick: (v) => console.log("Filter cat:", v) },
-        // { label: "Home", value: "home", onClick: (v) => console.log("Filter cat:", v) },
-      ],
+      type: "checkbox",
+      items: options.map((item) => ({
+        ...item,
+        checked: activeFilters.some((f) => f.value === item.value),
+        onClick: () => handleToggleFilter(item.label, item.value, showBadge),
+      })),
     },
   ];
+
+  const handleResetAll = () => {
+    setActiveFilters([]);
+  };
 
   const bulkActionSections = [
     {
@@ -118,16 +116,14 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
         {
           label: "Mark as active",
           value: "active",
-          onClick: () => handleAddFilter("Active", "active"),
+          onClick: () => handleAddFilter("Active", "active", true),
         },
         {
           label: "Mark as non active",
           value: "inactive",
-          onClick: () => handleAddFilter("Inactive", "inactive"),
+          onClick: () => handleAddFilter("Inactive", "inactive", true),
         },
-        // { label: "Mark as active", value: "active", onClick: (v) => alert("Status updated!") },
-        // { label: "Mark as non active", value: "inactive", onClick: (v) => alert("Status updated!") },
-      ]
+      ],
     },
     {
       items: [
@@ -136,171 +132,183 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
           value: "delete",
           icon: Trash2,
           variant: "destructive",
-          onClick: () => confirm("Are you sure?")
+          // onClick: () => confirm("Are you sure?"),
         },
-      ]
-    }
+      ],
+    },
   ];
 
-
   const hasData = dummyData.length > 0;
-
-  const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <div className="flex flex-col min-h-screen">
       {hasData ? (
-        <>
-          <div className="px-4 space-y-2 py-2">
-            <div className="w-full">
-              <Label className="font-semibold text-sm">
-                Catalog Product Data
-              </Label>
+        <div className="px-4 space-y-2 py-2">
+          <div className="w-full">
+            <Label className="font-semibold text-sm">
+              Catalog Product Data
+            </Label>
+          </div>
+
+          <div className="flex flex-nowrap items-center justify-start w-full gap-2 pt-0">
+            <div className="relative w-md flex-shrink-0">
+              <Input placeholder="Search" className="pr-10 h-9" />
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
             </div>
 
-            <div className="flex items-center justify-between w-full gap-4 pt-0">
-              <div className="relative w-full max-w-xs">
-                <Input
-                  placeholder="Search"
-                  className="pr-10"
-                  // value={nameFilter}
-                  // onChange={(e) => setNameFilter(e.target.value)}
+            <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
+              <div className="flex flex-nowrap gap-2">
+                <SelectDropdown
+                  triggerLabel={renderLabelWithCount(
+                    "Area",
+                    areaOptions.map((i) => i.value),
+                  )}
+                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
+                  icon={CirclePlus}
+                  iconPosition="left"
+                  className="w-auto"
+                  showSearch
+                  showClear
+                  borderType="dashed"
+                  badgeVariant="outline"
+                  sections={generateFilterSection(areaOptions, false)}
+                  onClear={() =>
+                    setActiveFilters((prev) =>
+                      prev.filter(
+                        (f) =>
+                          !areaOptions.map((i) => i.value).includes(f.value),
+                      ),
+                    )
+                  }
                 />
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Select>
-                  {/* value={sortDataBy}
-                    // onValueChange={async (val) => {
-                    //   setSortDataBy(val);
-                    //   setFilterParams([
-                    //     { key: "search", value: nameFilter },
-                    //     {
-                    //       key: !!val ? `order[${val.split("-")[0]}]` : "",
-                    //       value: val.split("-")[1] ?? ""
-                    //     }
-                    //   ]);
-                    //   const result = await FilterData({
-                    //     uri,
-                    //     setLoading,
-                    //     paginationModel: {
-                    //       pageIndex: paginationModel.pageIndex + 1,
-                    //       pageLimit: paginationModel.pageLimit
-                    //     },
-                    //     filterParams: getFilterParams(nameFilter, val)
-                    //   });
-                    //   setData(result);
-                    // }} */}
-                  <SelectDropdown
-                    triggerLabel="Filter By"
-                    icon={Settings2}
-                    iconPosition="left"
-                    className="w-40"
-                    sections={filterSections}
-                  />
-                  
-                  <SelectContent>
-                    {/* {sortableFieldList.map((item) => (
-                        <SelectItem
-                          key={item.label}
-                          value={`${item.value.sortDataBy}-${item.value.sortType}`}
-                        >
-                          {item.label}
-                        </SelectItem>
-                      ))} */}
-                  </SelectContent>
-                </Select>
-
-                {activeFilters.map((filter) => (
-                  <CustomButton
-                    key={filter.value}
-                    variant="secondary"
-                    type="button"
-                    size="sm"
-                    className="mt-1"
-                    onClick={() => handleRemoveFilter(filter.value)}
-                  >
-                    {filter.label}
-                    <X className="h-4 w-4 text-primary" />
-                  </CustomButton>
-                ))}
 
                 <SelectDropdown
-                  triggerLabel="Bulk Action"
-                  sections={bulkActionSections}
+                  triggerLabel={renderLabelWithCount(
+                    "Category",
+                    categoryOptions.map((i) => i.value),
+                  )}
+                  asBadge={
+                    getActiveCount(categoryOptions.map((i) => i.value)) > 0
+                  }
+                  sections={generateFilterSection(categoryOptions, false)}
+                  icon={CirclePlus}
+                  iconPosition="left"
+                  className="w-auto"
+                  showSearch
+                  showClear
+                  borderType="dashed"
+                  badgeVariant="outline"
+                  onClear={() =>
+                    setActiveFilters((prev) =>
+                      prev.filter(
+                        (f) =>
+                          !categoryOptions
+                            .map((i) => i.value)
+                            .includes(f.value),
+                      ),
+                    )
+                  }
                 />
-                
 
-                {/* <CustomButton
-                  variant="secondary"
-                  type="button"
-                  size="sm"
-                  className="mt-1"
+                <SelectDropdown
+                  triggerLabel={renderLabelWithCount(
+                    "Sub Category",
+                    subCategoryOptions.map((i) => i.value),
+                  )}
+                  asBadge={
+                    getActiveCount(subCategoryOptions.map((i) => i.value)) > 0
+                  }
+                  sections={generateFilterSection(subCategoryOptions, false)}
+                  icon={CirclePlus}
+                  iconPosition="left"
+                  className="w-auto"
+                  showSearch
+                  showClear
+                  borderType="dashed"
+                  badgeVariant="outline"
+                  onClear={() =>
+                    setActiveFilters((prev) =>
+                      prev.filter(
+                        (f) =>
+                          !subCategoryOptions
+                            .map((i) => i.value)
+                            .includes(f.value),
+                      ),
+                    )
+                  }
+                />
 
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
-                >
-                  Home
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton>
                 <CustomButton
-                  variant="secondary"
-                  type="button"
+                  variant="outline"
                   size="sm"
-                  className="mt-1"
-                  // onClick={() => {
-                  //   handleModalOpen("bulk-delete");
-                  // }}
+                  className="flex items-center gap-1 border-none text-primary"
+                  onClick={handleResetAll}
                 >
-                  Active
-                  <X className="h-4 w-4 text-primary" />
-                </CustomButton> */}
-
-                <CustomButton
-                  variant="primary"
-                  type="button"
-                  size="md"
-                  onClick={() => handleModalOpen("add")}
-                >
-                  <IconifyIcon icon="lucide:plus" />
-                  Create
+                  Reset <X className="h-3.5 w-3.5 text-primary" />
                 </CustomButton>
+              </div>
+
+              <div className="flex flex-nowrap gap-2">
+                {activeFilters
+                  .filter((filter) => filter.showBadge === true)
+                  .map((filter) => (
+                    <CustomButton
+                      key={filter.value}
+                      variant="secondary"
+                      size="sm"
+                      className="flex items-center gap-1 whitespace-nowrap flex-shrink-0 h-8 rounded-full bg-slate-100 border-none px-3"
+                      onClick={() => handleRemoveFilter(filter.value)}
+                    >
+                      <span className="text-[13px] text-slate-700">
+                        {filter.label}
+                      </span>
+                      <X className="h-3.5 w-3.5 text-primary" />
+                    </CustomButton>
+                  ))}
               </div>
             </div>
 
-            <div className="pt-2">
-              <DataTableComponent
-                columns={columns}
-                data={{
-                  data: dummyData,
-                  totalData: dummyData.length,
-                }}
-                pagination={{ pageIndex: 0, pageLimit: 10 }}
+            <div className="ml-auto flex flex-nowrap items-center gap-2 flex-shrink-0">
+              <SelectDropdown
+                triggerLabel="Bulk Action"
+                sections={bulkActionSections}
+                badgeVariant="outline"
               />
+              <CustomButton
+                variant="primary"
+                size="md"
+                onClick={() => handleModalOpen("add")}
+              >
+                <IconifyIcon icon="lucide:plus" />
+                Create
+              </CustomButton>
             </div>
           </div>
-        </>
+
+          <div className="pt-2 py-1">
+            <DataTableComponent
+              columns={columns}
+              data={{ data: dummyData, totalData: dummyData.length }}
+              selectedRows={rowSelection}
+              setSelectedRows={setRowSelection}
+              pagination={{ pageIndex: 0, pageLimit: 10 }}
+            />
+          </div>
+        </div>
       ) : (
-        <div className="flex-1 flex  flex-col items-center justify-center text-center p-6">
-          <div className="space-y-4 max-w-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
-              No Invoice Template
-            </h2>
-            <p className="text-slate-500 max-w-sm">
-              You haven't created any invoice template yet. <br />
-              Go ahead and create your first one.
+        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
+            <Label className="text-lg">No Catalog Product</Label>
+            <p className="text-sm text-muted-foreground">
+              You haven’t created any product yet.
+               <br /> Go a head and create your first one.
             </p>
             <CustomButton
               variant="primary"
-              size="lg"
+              className="flex gap-2"
               onClick={() => handleModalOpen("add")}
-              className="mt-4"
             >
-              <Plus className="w-4 h-4" />
-              Create invoice template
+              <Plus className="w-4 h-4" /> Setup Network
             </CustomButton>
           </div>
         </div>

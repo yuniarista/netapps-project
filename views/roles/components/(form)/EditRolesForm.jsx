@@ -1,299 +1,173 @@
-// "use client";
+"use client";
 
-// import { useForm } from "react-hook-form";
-// import { useEffect, useState } from "react";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-// import { Button } from "@/components/ui/button";
-// import { DialogClose } from "@/components/ui/dialog";
-// import TextInputForm from "@/components/input/textInputForm";
-// import SelectInputForm from "@/components/input/selectInputForm";
-// import AccordionInputForm from "@/components/input/accordionInputForm";
-// //import BasicAlert from "@/components/alert/basicAlert";
-// import Loading from "@/app/(protected)/loading";
-// import { RolesEditSchema } from "@/views/roles/schemas/RolesSchema";
-// import { X } from "lucide-react";
-// import CustomAlert from "@/components/alert/customAlert";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { Icon, Trash, X } from "lucide-react"; // Import X icon
+import TextInputForm from "@/components/inputcopy/textInputForm";
+import SelectInputForm from "@/components/inputcopy/selectInputForm";
+import { Label } from "@/components/ui/label";
+import AccordionInputForm from "@/components/inputcopy/accordionInputForm";
 
-// const defaultPermissions = ["read", "write", "update", "delete"];
+export default function EditRoleForm({
+  handleModalClose,
+  loading,
+  handleUpdate,
+  formData,
+}) {
+  const form = useForm({
+    mode: "all",
+    defaultValues: {
+      role: "",
+      feature: "",
+      redirect: "",
+    },
+  });
 
-// export default function EditRolesForm({
-//   loading,
-//   formData,
-//   formOptions,
-//   alertOpen,
-//   setAlertOpen,
-//   response,
-//   setResponse,
-//   handleUpdate
-// }) {
-//   const form = useForm({
-//     resolver: yupResolver(RolesEditSchema),
-//     mode: "all"
-//   });
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    watch,
+    setValue,
+  } = form;
 
-//   const {
-//     control,
-//     handleSubmit,
-//     watch,
-//     setValue,
-//     trigger,
-//     reset,
-//     formState: { errors }
-//   } = form;
+  const [addedFeatures, setAddedFeatures] = useState([]);
+  const [selectedFeatureId, setSelectedFeatureId] = useState("");
 
-//   const [selectedFeatureId, setSelectedFeatureId] = useState("");
-//   const [isInitialized, setIsInitialized] = useState(false);
-//   const addedFeatures = watch("features") || [];
+  const featOptions = [
+    { label: "Dashboard Analytics", value: "feat1" },
+    { label: "User Management", value: "feat2" },
+    { label: "Billing System", value: "feat3" },
+  ];
 
-//   useEffect(() => {
-//     if (formData && !isInitialized) {
-//       const mappedFeatures =
-//         formData?.permission?.access?.map((item) => ({
-//           featureId: item.feature.id,
-//           access: item.name,
-//           isDeleted: false
-//         })) || [];
+  const redirectOption = [
+    { label: "Dashboard", value: "dash" },
+    { label: "Home", value: "home" },
+  ];
 
-//       const matchedRedirectFeature = formOptions.featuresData.find(
-//         (f) => f.url === formData?.redirectUrl
-//       );
+  const handleAddFeature = () => {
+    const currentSelectedId = form.getValues("feature");
 
-//       reset({
-//         name: formData?.name || "",
-//         redirectId: matchedRedirectFeature?.id || "",
-//         isAdmin: formData?.isAdmin?.toString() || "false",
-//         isUser: formData?.isUser?.toString() || "false",
-//         features: mappedFeatures
-//       });
+    if (!currentSelectedId) {
+      console.log("Pilih fitur terlebih dahulu");
+      return;
+    }
 
-//       setIsInitialized(true);
-//     }
-//   }, [formData, formOptions, reset, isInitialized]);
+    const isAlreadyAdded = addedFeatures.some(
+      (f) => f.featureId === currentSelectedId,
+    );
 
-//   const handleAddFeature = () => {
-//     if (!selectedFeatureId) return;
+    if (!isAlreadyAdded) {
+      const featureDetail = featOptions.find(
+        (f) => f.value === currentSelectedId,
+      );
 
-//     const existingFeature = addedFeatures.find(
-//       (f) => f.featureId === selectedFeatureId
-//     );
+      setAddedFeatures((prev) => [
+        ...prev,
+        {
+          featureId: currentSelectedId,
+          name: featureDetail?.label,
+          access: ["Read"],
+        },
+      ]);
+      form.setValue("feature", "");
+    }
+  };
 
-//     if (existingFeature) {
-//       if (existingFeature.isDeleted) {
-//         const updated = addedFeatures.map((f) =>
-//           f.featureId === selectedFeatureId ? { ...f, isDeleted: false } : f
-//         );
-//         setValue("features", updated);
-//       }
-//       return;
-//     }
+  const handleRemoveFeature = (id) => {
+    setAddedFeatures(addedFeatures.filter((f) => f.featureId !== id));
+  };
 
-//     const newFeature = {
-//       featureId: selectedFeatureId,
-//       access: [],
-//       isDeleted: false
-//     };
+  const onSubmit = (data) => {
+    const finalData = {
+      ...data,
+      permissions: addedFeatures,
+    };
+    console.log("Data Form Terkirim:", finalData);
+    if (handleCreate) handleCreate(finalData);
+  };
 
-//     setValue("features", [...addedFeatures, newFeature]);
-//     trigger("features");
-//   };
+  return (
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-4">
+          <TextInputForm
+            name="role"
+            label="Role Name"
+            placeholder="Enter your role name here"
+            errors={errors}
+            control={control}
+          />
 
-//   const handleTogglePermission = (featureId, permission) => {
-//     const updated = addedFeatures.map((f) => {
-//       if (f.featureId === featureId && !f.isDeleted) {
-//         const exists = f.access.includes(permission);
-//         return {
-//           ...f,
-//           access: exists
-//             ? f.access.filter((a) => a !== permission)
-//             : [...f.access, permission]
-//         };
-//       }
-//       return f;
-//     });
-//     setValue("features", updated);
-//     trigger("features");
-//   };
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">
+              Features & Permissions
+            </Label>
+            <div className="flex gap-2 items-end">
+              <div className="flex-1">
+                <SelectInputForm
+                  name="feature"
+                  label=""
+                  control={control}
+                  options={featOptions}
+                  placeholder="Select a feature to add"
+                  errors={errors}
+                  optionName={"label"}
+                />
+              </div>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={handleAddFeature}
+              >
+                + Add Feature
+              </Button>
+            </div>
 
-//   const availableFeatureOptions = formOptions.featuresData.map((f) => ({
-//     value: f.id,
-//     label: f.name
-//   }));
+            {addedFeatures.map((feat, idx) => (
+              <div
+                key={feat.featureId}
+                className="flex flex-col border rounded-[5px] overflow-hidden"
+              >
+                <div className="py-1 bg-gray-100">
+                  <AccordionInputForm
+                    name={`permissions-${feat.featureId}`}
+                    label={feat.name}
+                    control={control}
+                    options={["read", "write", "update", "delete"]}
+                    errors={errors}
+                    defaultValue={feat.access}
+                    firstRenderOpen={true}
+                    onChange={(val) => console.log("New Perms:", val)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
 
-//   const redirectOptions = (watch("features") || [])
-//     .filter((f) => !f.isDeleted)
-//     .map((f) => {
-//       const feature = formOptions.featuresData.find(
-//         (fd) => fd.id === f.featureId
-//       );
-//       return feature
-//         ? {
-//             value: feature.id,
-//             label: feature.name
-//           }
-//         : null;
-//     })
-//     .filter(Boolean);
+          <SelectInputForm
+            name="redirect"
+            label="Redirect Feature"
+            placeholder="Redirect to..."
+            errors={errors}
+            control={control}
+            options={redirectOption}
+            optionName={"label"}
+          />
+        </CardContent>
 
-//   const handleRemoveFeature = (featureId) => {
-//     const updatedFeatures = addedFeatures.map((f) =>
-//       f.featureId === featureId ? { ...f, isDeleted: true } : f
-//     );
-//     if (watch("redirectId") === featureId) {
-//       setValue("redirectId", "");
-//     }
-//     setValue("features", updatedFeatures);
-//     trigger("features");
-//   };
-
-//   const onSubmit = (data) => {
-//     const finalData = {
-//       ...data,
-//       features: addedFeatures
-//     };
-//     handleUpdate(finalData);
-//   };
-
-//   return (
-//     <Form {...form}>
-//       <form
-//         onSubmit={handleSubmit(onSubmit)}
-//         className="overflow-y-auto scroll-styled space-y-4 max-h-[calc(70dvh-2.25rem)] p-1 pr-2"
-//       >
-//         <CustomAlert
-//           variant={response?.status ?? "info"}
-//           title={response?.status}
-//           open={response?.status === "error" && alertOpen}
-//           onClose={() => setAlertOpen(false)}
-//         >
-//           {response?.message}
-//         </CustomAlert>
-
-//         <TextInputForm
-//           name="name"
-//           label="Role Name"
-//           control={control}
-//           placeholder="Enter role name"
-//           errors={errors}
-//           type="text"
-//         />
-
-//         <div className="space-y-2">
-//           <div className="flex gap-2 items-end">
-//             <SelectInputForm
-//               name="feature"
-//               label="List Feature"
-//               control={{
-//                 ...control,
-//                 register: () => ({
-//                   onChange: (e) => setSelectedFeatureId(e.target.value),
-//                   value: selectedFeatureId
-//                 })
-//               }}
-//               isMultiple
-//               multipleData={addedFeatures
-//                 ?.filter((f) => !f.isDeleted)
-//                 .map((f) => f.featureId)}
-//               options={availableFeatureOptions}
-//               optionName={"label"}
-//               placeholder="Select a feature"
-//               errors={errors}
-//             />
-//             <Button type="button" onClick={handleAddFeature}>
-//               + Add Feature
-//             </Button>
-//           </div>
-
-//           {addedFeatures
-//             .filter((feat) => !feat.isDeleted)
-//             .map((feat, idx) => {
-//               const featureData = formOptions.featuresData.find(
-//                 (f) => f.id === feat.featureId
-//               );
-//               return (
-//                 <div key={feat.featureId} className="flex flex-col">
-//                   <div className="flex gap-3 space-y-0">
-//                     <AccordionInputForm
-//                       className="w-11/12"
-//                       name={`permissions-${feat.featureId}`}
-//                       label={featureData?.name || `Feature ${idx + 1}`}
-//                       control={control}
-//                       options={defaultPermissions.map((p) => p)}
-//                       errors={errors}
-//                       firstRenderOpen
-//                       defaultValue={feat.access}
-//                       onChange={(perm) =>
-//                         handleTogglePermission(feat.featureId, perm)
-//                       }
-//                     />
-//                     <button
-//                       type="button"
-//                       onClick={() => handleRemoveFeature(feat.featureId)}
-//                       title="Remove feature"
-//                     >
-//                       <X className="h-5 w-5 text-gray-600 font-bold hover:text-red-500" />
-//                     </button>
-//                   </div>
-
-//                   {errors.features?.[idx]?.access && (
-//                     <p className="text-sm text-destructive">
-//                       {errors.features[idx].access.message}
-//                     </p>
-//                   )}
-//                 </div>
-//               );
-//             })}
-//           <FormField
-//             control={control}
-//             name="features"
-//             render={() => (
-//               <FormItem>
-//                 <FormMessage />
-//               </FormItem>
-//             )}
-//           />
-//         </div>
-
-//         <SelectInputForm
-//           name="redirectId"
-//           label="Redirect Feature"
-//           control={control}
-//           placeholder="Redirect to..."
-//           options={redirectOptions}
-//           optionName={"label"}
-//           defaultValue={formData?.redirectId}
-//           errors={errors}
-//         />
-//         {/* 
-//         <SelectInputForm
-//           name="isAdmin"
-//           label="Is Admin"
-//           control={control}
-//           placeholder="This role is admin?"
-//           options={formOptions["activeData"]}
-//           errors={errors}
-//         />
-
-//         <SelectInputForm
-//           name="isUser"
-//           label="Is User"
-//           control={control}
-//           placeholder="This role is user?"
-//           options={formOptions["activeData"]}
-//           errors={errors}
-//         /> */}
-
-//         <div className="w-full flex items-center justify-end space-x-4 pt-4">
-//           <DialogClose disabled={loading}>
-//             <Button type="reset" variant="secondary">
-//               Cancel
-//             </Button>
-//           </DialogClose>
-//           <Button type="submit" disabled={loading}>
-//             {loading ? <Loading /> : "Submit"}
-//           </Button>
-//         </div>
-//       </form>
-//     </Form>
-//   );
-// }
+        <div className="w-full flex items-center justify-end space-x-4 p-4 mt-4">
+          <Button type="button" variant="secondary" onClick={handleModalClose}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}

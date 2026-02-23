@@ -1,18 +1,28 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 
-export default function AddSubCategoryForm({ handleModalClose, loading, onSuccess }) {
+export default function AddSubCategoryForm({
+  handleModalClose,
+  loading,
+  onSuccess,
+  showFooter = true,
+}) {
   const form = useForm({ defaultValues: { subCategoryName: "" } });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSuccess)} className="flex flex-col">
-        
         <div className="px-6 py-4">
           <FormField
             control={form.control}
@@ -23,23 +33,34 @@ export default function AddSubCategoryForm({ handleModalClose, loading, onSucces
                   Sub Category Name
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Sub Category name" {...field} className="mt-1" />
+                  <Input
+                    placeholder="Sub Category name"
+                    {...field}
+                    className="mt-1"
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
         </div>
 
-        <div className="border-t border-slate-200 w-full" />
-        <DialogClose className="w-full flex items-center justify-end space-x-4 px-6 py-4">
-          <Button type="button" variant="secondary" onClick={handleModalClose}>
-            Cancel
-          </Button>
-          <Button type="submit" disabled={loading}>
-            {loading ? "Added..." : "Add"}
-          </Button>
-        </DialogClose>
-        
+        {showFooter && (
+          <>
+            <div className="border-t border-slate-200 w-full" />
+            <DialogClose className="w-full flex items-center justify-end space-x-4 px-6 py-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleModalClose}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? "Added..." : "Add"}
+              </Button>
+            </DialogClose>
+          </>
+        )}
       </form>
     </Form>
   );

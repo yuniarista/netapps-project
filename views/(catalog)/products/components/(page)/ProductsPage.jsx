@@ -48,6 +48,7 @@ export default function ProductPage() {
       setSelectedRows,
     }),
   );
+  
   const actions = productActionConfig(
     (type, item) => {
       handleModalOpen(type, item);
