@@ -6,7 +6,7 @@ import WhatsAppDataTable from "../(table)/WhatsAppDataTable";
 import WhatsAppDataColumn from "../(table)/WhatsAppDataColumn";
 import { whatsAppModalConfig } from "../../configs/WhatsAppModalConfig";
 import { useWhatsAppHooks } from "../../hooks/useInvoiceHooks";
-import whatsAppActionConfig from "../../configs/invoiceActionConfig";
+import whatsAppActionConfig from "../../configs/WhatsAppActionConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
 import WhatsAppBasicInfo from "../(components)/WhatsAppBasicInfo";
 import PageHeader from "@/components/pageHeader";
@@ -40,6 +40,7 @@ export default function WhatsAppPage() {
         setResponse,
         alertOpen,
         setAlertOpen,
+        selectedData: form,
         handleCreate, 
         handleUpdate,
         handleDelete
@@ -78,6 +79,7 @@ export default function WhatsAppPage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        size="600"
         withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}

@@ -44,18 +44,18 @@ export default function BaseModal({
           "duration-300"
         )}
       >
-        <DialogHeader className="-mx-6 -mt-6 px-6 py-3 border-b border-slate-300">
+        <DialogHeader className="px-4 py-3 border-b border-slate-300">
           <DialogTitle className="text-lg font-semibold text-[#1e293b]">
             {title}
           </DialogTitle>
         </DialogHeader>
 
-        <div>
+        <div className="p-4">
           {children}
         </div>
 
         {footer && (
-          <DialogFooter className="-mx-6 px-4 py-3 border-t border-slate-300">
+          <DialogFooter className="px-4 py-3 border-t border-slate-300">
             {footer}
           </DialogFooter>
         )}

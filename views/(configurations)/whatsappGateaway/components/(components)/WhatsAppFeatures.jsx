@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input";
 
 const WhatsAppFeatures = () => {
  const features = [
-    { id: "billing", label: "Billing Reminder", defaultChecked: true },
-    { id: "payment", label: "Payment Success Notification", defaultChecked: true },
-    { id: "otp", label: "OTP Verification", defaultChecked: true },
-    { id: "marketing", label: "Marketing Promo", defaultChecked: false },
-    { id: "technical", label: "Technical Broadcast", defaultChecked: false },
+    { id: "billing", label: "Invoice Created", defaultChecked: true },
+    { id: "payment", label: "Payment Success", defaultChecked: true },
+    { id: "otp", label: "Payment Reminder", defaultChecked: true },
+    { id: "marketing", label: "Due Date Alert", defaultChecked: true },
+    { id: "technical", label: "Service Isolation", defaultChecked: true },
+    { id: "technical", label: "Promotion Message", defaultChecked: false },
+    { id: "technical", label: "Technical Notice", defaultChecked: false },
   ];
 
   return (

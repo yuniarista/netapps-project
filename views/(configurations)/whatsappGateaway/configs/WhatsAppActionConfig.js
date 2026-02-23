@@ -7,12 +7,12 @@ const whatsAppActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
     icon: PencilLine,
       onClick: (item) => handleModalOpen("edit", item)
     },
-    dashboardAccessPermissions.includes("delete") && {
-      label: "Delete",
-      icon: Trash2,
-      className: "hover:text-red-700",
-      onClick: (item) => handleModalOpen("delete", item)
-    }
+    // dashboardAccessPermissions.includes("delete") && {
+    //   label: "Delete",
+    //   icon: Trash2,
+    //   className: "hover:text-red-700",
+    //   onClick: (item) => handleModalOpen("delete", item)
+    // }
   ].filter(Boolean);
   return actionList;
 };
