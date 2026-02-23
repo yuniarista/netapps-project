@@ -24,10 +24,11 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
-import { CATEGORY_TABS_CONFIG } from "../../configs/categoryTabsConfig";
+import { selectRowsFn } from "@tanstack/react-table";
 
-export default function CategoryDataTable({ columns, handleModalOpen }) {
+export default function CategoryDataTable({ columns, handleModalOpen}) {
   const [activeFilters, setActiveFilters] = useState([]);
+    const [rowSelection, setRowSelection] = useState({});
   const dummyData = [
     {
       categoryName: "Business",
@@ -81,7 +82,7 @@ export default function CategoryDataTable({ columns, handleModalOpen }) {
             </div>
 
             <div className="flex items-center justify-between w-full gap-4 pt-0">
-              <div className="relative w-full max-w-xs">
+              <div className="relative w-md">
                 <Input
                   placeholder="Search"
                   className="pr-10"
@@ -120,6 +121,7 @@ export default function CategoryDataTable({ columns, handleModalOpen }) {
                     iconPosition="left"
                     className="w-40"
                     sections={filterSections}
+                    badgeVariant="outline"
                   />
                   <SelectContent>
                     {/* {sortableFieldList.map((item) => (
@@ -166,6 +168,8 @@ export default function CategoryDataTable({ columns, handleModalOpen }) {
                   data: dummyData,
                   totalData: dummyData.length,
                 }}
+                selectedRows={rowSelection}
+                setSelectedRows={setRowSelection}
                 pagination={{ pageIndex: 0, pageLimit: 10 }}
               />
             </div>

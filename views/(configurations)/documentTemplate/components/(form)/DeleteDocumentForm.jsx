@@ -31,7 +31,7 @@ export default function DeleteDocumentForm({
           {response?.message}
         </CustomAlert>
 
-        <div className="px-2 py-2">
+        <div className="p-4">
           <div className="space-x-1">
             <h4 className="text-md font-bold text-[#1e293b]">Are you sure?</h4>
             <p className="text-sm text-slate-500">

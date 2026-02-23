@@ -29,6 +29,9 @@ const CustomDialog = ({
   size = "3xl",
 }) => {
   const isDelete = ["delete", "bulk-delete"].includes(modalType);
+  const isForm = ["addModal", "editModal"].includes(modalType);
+
+  const isModal = isDelete || isForm;
 
   const sizeClasses = {
     sm: "max-w-sm",      // ~384px
@@ -39,23 +42,24 @@ const CustomDialog = ({
     "3xl": "max-w-[800px]",  
   };
 
-  const positionClass = isDelete
+  const positionClass = isModal
     ? "fixed left-1/2 top-20 -translate-x-1/2 translate-y-0"
     : "fixed left-[var(--sidebar-width,240px)] top-10 translate-y-0";
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         positionClass={positionClass}
         className={cn(
           "transition-all duration-300",
-          isDelete
+          isModal
             ? "max-w-sm gap-0 p-0 rounded-md border border-zinc-200"
             : cn("rounded-md rounded-l-none border-l-0 gap-4 p-7", sizeClasses[size] || sizeClasses["3xl"]),
           className,
         )}
       >
         <DialogHeader
-          className={`flex items-center justify-between align-self-stretch ${isDelete ? "p-4" : ""}`}
+          className={`flex items-center justify-between align-self-stretch ${isModal ? "p-4" : ""}`}
         >
           <DialogTitle
             className={cn(
@@ -75,7 +79,7 @@ const CustomDialog = ({
           </button>
         </DialogHeader>
 
-        <div className={isDelete ? "border-t border-slate-200" : "pt-7"}>
+        <div className={isModal ? "border-t border-slate-200" : "pt-7"}>
           {children}
         </div>
 

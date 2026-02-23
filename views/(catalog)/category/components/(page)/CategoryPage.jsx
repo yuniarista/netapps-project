@@ -10,10 +10,37 @@ import CategoryDataColumn from "../(table)/CategoryDataColumn";
 
 
 export default function CategoryPage() {
-  const state = useCategoryHooks([]);
-  const { openModal, modalType, handleModalOpen, handleModalClose } = state;
+  const {
+      form,
+      openModal,
+      modalType,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      handleModalOpen,
+      handleModalClose,
+      handleCreate,
+      handleUpdate,
+      handleDelete,
+    } = useCategoryHooks();
+  
+    const modalConfig = getModalConfig(
+      modalType,
+      categoryModalConfig({
+        form,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
+      }),
+    );
 
-  const modalConfig = getModalConfig(modalType, categoryModalConfig(state));
   const actions = categoryActionConfig((type, item) => {
     handleModalOpen(type, item);
   }, ["update", "delete"]);
