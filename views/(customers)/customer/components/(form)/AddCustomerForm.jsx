@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { CardContent } from "@/components/ui/card";
+import { CardContent, CardFooter } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import TextInputForm from "@/components/inputcopy/textInputForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
@@ -425,7 +425,7 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                     </section>
                 </CardContent>
 
-                <div className="flex items-center justify-end space-x-3 pt-4">
+                <CardFooter className="flex items-center justify-end space-x-3 pt-4">
                     <Button
                         type="button"
                         variant="outline"
@@ -437,7 +437,7 @@ export default function AddCustomerForm({ handleModalClose, loading }) {
                     <Button type="submit" disabled={loading}>
                         {loading ? "Submitting..." : "Create"}
                     </Button>
-                </div>
+                </CardFooter>
             </form>
         </Form>
     );

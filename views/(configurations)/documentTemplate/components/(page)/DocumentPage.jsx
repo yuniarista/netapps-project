@@ -12,21 +12,30 @@ import DocumentDataTable from "../(table)/DocumentDataTable";
 
 export default function DocumentPage() {
   const {
-      form,
-      openModal,
-      modalType,
-      loading,
-      response,
-      setResponse,
-      alertOpen,
-      setAlertOpen,
-      handleModalOpen,
-      handleModalClose,
-      handleCreate,
-      handleUpdate,
-      handleDelete
-    } = useDocumentHooks();
-    
+    form,
+    setForm,
+    openModal,
+    setOpenModal,
+    modalType,
+    setModalType,
+    data,
+    setData,
+    response,
+    setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
+  } = useDocumentHooks();
+
   const modalConfig = getModalConfig(
     modalType,
     documentModalConfig({
@@ -36,15 +45,17 @@ export default function DocumentPage() {
       setResponse,
       alertOpen,
       setAlertOpen,
-      handleCreate, 
-      handleUpdate,
-      handleDelete
-    })
+      selectedRows,
+      setSelectedRows,
+    }),
   );
-  
-  const actions = documentActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+
+  const actions = documentActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete"],
+  );
 
   return (
     <div>

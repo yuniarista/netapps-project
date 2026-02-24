@@ -14,7 +14,7 @@ import VariableDialog from "@/components/dialog/variableDialog";
 import IconifyIcon from "@/components/icon";
 
 
-export default function EditBilingForm({ handleModalClose, loading, initialData }) {
+export default function EditIncoiceTemplateForm({ handleModalClose, loading, initialData }) {
     const [isVariableModalOpen, setIsVariableModalOpen] = useState(false);
     const [openSections, setOpenSections] = useState({
         general: true,
@@ -138,15 +138,15 @@ export default function EditBilingForm({ handleModalClose, loading, initialData 
                                                 <div className="flex items-center gap-3 p-3 border-b bg-white">
                                                     <div
                                                         className="w-10 h-10 rounded-full flex items-center justify-center"
-                                                        style={{ backgroundColor: '#25D366' }}
+                                                        style={{ backgroundColor: '#1E96C8' }}
                                                     >
                                                         <IconifyIcon
-                                                            icon="ph:whatsapp-logo-light"
+                                                            icon="ph:telegram-logo"
                                                             className="w-5 h-5 text-white"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <h4 className="text-[15px] font-bold text-slate-800 leading-tight">WhatsApp Business</h4>
+                                                        <h4 className="text-[15px] font-bold text-slate-800 leading-tight">Telegram Business</h4>
                                                         <p className="text-[12px] text-slate-500 leading-tight">Online</p>
                                                     </div>
                                                 </div>
@@ -154,7 +154,7 @@ export default function EditBilingForm({ handleModalClose, loading, initialData 
                                                 <div className="p-2 min-h-[200px] relative">
                                                     <div
                                                         className="p-3 rounded-sm shadow-sm relative"
-                                                        style={{ backgroundColor: '#e7ffdb' }}
+                                                        style={{ backgroundColor: '#F0F9FF' }}
                                                     >
                                                         <div className="text-[13px] text-slate-800 leading-relaxed break-words">
                                                             {form.watch("message") ? (

@@ -69,15 +69,15 @@ export function DateRangePicker({
               className
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="h-4 w-4" />
             {date?.from ? (
               date?.to || date?.from === date?.to ? (
                 <>
-                  {format(date.from, "dd MMM yyyy")} -{" "}
-                  {format(date.to, "dd MMM yyyy")}
+                  {format(date.from, "MMM dd, yyyy")} -{" "}
+                  {format(date.to, "MMM dd, yyyy")}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                format(date.from, "MMM dd, yyyy")
               )
             ) : (
               <span>{placeHolder}</span>
@@ -106,7 +106,7 @@ export function DateRangePicker({
   }
 
   return (
-    <div className="flex items-center border border-[#E4E4E7] rounded-[10px]">
+    <div className="flex items-center border border-[#E4E4E7]">
       {CalendarPopover}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -114,7 +114,7 @@ export function DateRangePicker({
             id="date"
             variant="ghost"
             className={cn(
-              "w-fit justify-start items-center text-left font-normal gap-x-2 pl-1",
+              "w-fit justify-start items-center text-left font-normal gap-x-2 pl-1 rounded-sm",
               !date && "text-muted-foreground"
             )}
           >

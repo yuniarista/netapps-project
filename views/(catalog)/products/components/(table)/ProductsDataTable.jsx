@@ -9,10 +9,30 @@ import { Search, Trash2, X, CirclePlus, Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
+import SelectFilter from "@/components/inputcopy/selectFilter";
 
-export default function ProductDataTable({ columns, handleModalOpen }) {
+export default function ProductDataTable({
+  uri,
+  data,
+  setData,
+  columns,
+  setLoading,
+  handleModalOpen,
+  filterParams,
+  setFilterParams,
+  selectedRows,
+  setSelectedRows,
+  nameFilter,
+  setNameFilter,
+  sortDataBy,
+  setSortDataBy,
+  paginationModel,
+  setPaginationModel,
+  dashboardAccessPermissions,
+}) {
   const [activeFilters, setActiveFilters] = useState([]);
-  const [rowSelection, setRowSelection] = useState({});
+  const [selectedSegments, setSelectedSegments] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState([]);
 
   const dummyData = [
     {
@@ -37,18 +57,6 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
     },
   ];
 
-  const handleToggleFilter = (label, value, showBadge = true) => {
-    setActiveFilters((prev) => {
-      const isExist = prev.find((f) => f.value === value);
-
-      if (isExist) {
-        return prev.filter((f) => f.value !== value);
-      } else {
-        return [...prev, { label, value, showBadge }];
-      }
-    });
-  };
-
   const handleAddFilter = (label, value) => {
     if (!activeFilters.find((f) => f.value === value)) {
       setActiveFilters([...activeFilters, { label, value, showBadge: true }]);
@@ -57,23 +65,6 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
 
   const handleRemoveFilter = (value) => {
     setActiveFilters(activeFilters.filter((f) => f.value !== value));
-  };
-
-  const getActiveCount = (values) => {
-    return activeFilters.filter((f) => values.includes(f.value)).length;
-  };
-
-  const renderLabelWithCount = (title, values) => {
-    const count = getActiveCount(values);
-    if (count === 0) return title;
-
-    return (
-      <div className="flex items-center gap-2">
-        <span className="text-slate-900">{title}</span>
-        <div className="w-[1px] h-3 bg-slate-200 mx-0.5" />
-        <span className="font-normal">{count} Item</span>
-      </div>
-    );
   };
 
   const areaOptions = [
@@ -92,19 +83,9 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
     { label: "SubCategri 2", value: "subcategory" },
   ];
 
-  const generateFilterSection = (options, showBadge = true) => [
-    {
-      type: "checkbox",
-      items: options.map((item) => ({
-        ...item,
-        checked: activeFilters.some((f) => f.value === item.value),
-        onClick: () => handleToggleFilter(item.label, item.value, showBadge),
-      })),
-    },
-  ];
-
   const handleResetAll = () => {
-    setActiveFilters([]);
+    setSelectedSegments([]);
+    setSelectedStatus([]);
   };
 
   const bulkActionSections = [
@@ -156,96 +137,46 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
 
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
               <div className="flex flex-nowrap gap-2">
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "Area",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
+                <SelectFilter
+                  label="Area"
+                  options={areaOptions}
+                  selected={selectedSegments}
+                  onChange={setSelectedSegments}
                   icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto"
                   showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
                 />
 
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "Category",
-                    categoryOptions.map((i) => i.value),
-                  )}
-                  asBadge={
-                    getActiveCount(categoryOptions.map((i) => i.value)) > 0
-                  }
-                  sections={generateFilterSection(categoryOptions, false)}
+                <SelectFilter
+                  label="Category"
+                  options={categoryOptions}
+                  selected={selectedStatus}
+                  onChange={setSelectedStatus}
                   icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto"
                   showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !categoryOptions
-                            .map((i) => i.value)
-                            .includes(f.value),
-                      ),
-                    )
-                  }
+                />
+                <SelectFilter
+                  label="Sub Category"
+                  options={subCategoryOptions}
+                  selected={selectedStatus}
+                  onChange={setSelectedStatus}
+                  icon={CirclePlus}
+                  showSearch
                 />
 
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "Sub Category",
-                    subCategoryOptions.map((i) => i.value),
-                  )}
-                  asBadge={
-                    getActiveCount(subCategoryOptions.map((i) => i.value)) > 0
-                  }
-                  sections={generateFilterSection(subCategoryOptions, false)}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !subCategoryOptions
-                            .map((i) => i.value)
-                            .includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <CustomButton
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-1 border-none text-primary"
-                  onClick={handleResetAll}
-                >
-                  Reset <X className="h-3.5 w-3.5 text-primary" />
-                </CustomButton>
+                {(selectedSegments.length > 0 || selectedStatus.length > 0) && (
+                  <CustomButton
+                    variant="ghost"
+                    size="sm"
+                    className="text-primary h-9"
+                    onClick={handleResetAll}
+                  >
+                    Reset <X className="h-3 w-3" />
+                  </CustomButton>
+                )}
               </div>
+            </div>
 
+            <div className="ml-auto flex flex-nowrap items-center gap-2 flex-shrink-0">
               <div className="flex flex-nowrap gap-2">
                 {activeFilters
                   .filter((filter) => filter.showBadge === true)
@@ -264,14 +195,13 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                     </CustomButton>
                   ))}
               </div>
-            </div>
 
-            <div className="ml-auto flex flex-nowrap items-center gap-2 flex-shrink-0">
               <SelectDropdown
                 triggerLabel="Bulk Action"
                 sections={bulkActionSections}
                 badgeVariant="outline"
               />
+
               <CustomButton
                 variant="primary"
                 size="md"
@@ -287,8 +217,8 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
             <DataTableComponent
               columns={columns}
               data={{ data: dummyData, totalData: dummyData.length }}
-              selectedRows={rowSelection}
-              setSelectedRows={setRowSelection}
+              selectedRows={selectedRows}
+              setSelectedRows={setSelectedRows}
               pagination={{ pageIndex: 0, pageLimit: 10 }}
             />
           </div>
@@ -299,7 +229,7 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
             <Label className="text-lg">No Catalog Product</Label>
             <p className="text-sm text-muted-foreground">
               You haven’t created any product yet.
-               <br /> Go a head and create your first one.
+              <br /> Go a head and create your first one.
             </p>
             <CustomButton
               variant="primary"

@@ -43,23 +43,14 @@ export const documentModalConfig = ({
       )
     },
     delete: {
-      title: (
-        <div className="flex items-center gap-3">
-          <TriangleAlert className="w-5 h-5 text-destructive" /> 
-          <span className="text-lg">Delete Confirmation</span>
-        </div>
-      ),
-      content: (
-        <DeleteDocumentForm
-          formData={form}
-          loading={loading}
-          response={response}
-          alertOpen={alertOpen}
-          setAlertOpen={setAlertOpen}
-          setResponse={setResponse}
-          handleConfirm={handleDelete}
-        />
-      )
-    }
+          title: "Confirm Delete",
+          content: (
+            <DeleteDocumentForm
+              loading={loading}
+              response={response}
+              setResponse={setResponse}
+            />
+          ),
+        },
   };
 };

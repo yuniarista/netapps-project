@@ -9,14 +9,14 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-const WhatsAppFeatures = () => {
+const TelegramFeatures = () => {
  const features = [
     { id: "billing", label: "Invoice Created", defaultChecked: true },
     { id: "payment", label: "Payment Success", defaultChecked: true },
     { id: "otp", label: "Payment Reminder", defaultChecked: true },
     { id: "marketing", label: "Due Date Alert", defaultChecked: true },
-    { id: "service", label: "Service Isolation", defaultChecked: true },
-    { id: "promo", label: "Promotion Message", defaultChecked: false },
+    { id: "technical", label: "Service Isolation", defaultChecked: true },
+    { id: "technical", label: "Promotion Message", defaultChecked: false },
     { id: "technical", label: "Technical Notice", defaultChecked: false },
   ];
 
@@ -58,4 +58,4 @@ const WhatsAppFeatures = () => {
   );
 };
 
-export default WhatsAppFeatures;
+export default TelegramFeatures;

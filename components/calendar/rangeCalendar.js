@@ -20,7 +20,7 @@ export function RangeCalendar({ size = "md", ...props }) {
         sizeClass
       )}
       style={{
-        "--primary": "263 60% 50%",
+        "--primary": "221 83% 53%",
         "--primary-foreground": "0 0% 100%"
       }}
     >

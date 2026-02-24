@@ -128,17 +128,17 @@ const InvoiceDataColumn = ({ actions }) => {
         const statusValue = row.original.status;
         const rowId = row.original.id;
 
-        const statusActions = [ 
+        const paidActions = [ 
           {
             label: "Change Status",
             items: [
               {
-                label: "Mark as active",
+                label: "Mark as paid",
                 value: "Paid",
                 onClick: (v) => handleStatusUpdate(rowId, v),
               },
               {
-                label: "Mark as non active",
+                label: "Mark as unpaid",
                 value: "Unpaid",
                 onClick: (v) => handleStatusUpdate(rowId, v),
               },
@@ -156,7 +156,7 @@ const InvoiceDataColumn = ({ actions }) => {
             iconClassName={
               statusValue === "Paid" ? "text-emerald-500" : "text-slate-400"
             }
-            sections={statusActions}
+            sections={paidActions}
           />
         );
       },
@@ -169,7 +169,7 @@ const InvoiceDataColumn = ({ actions }) => {
       ),
       size:50,
       cell: ({ row }) => {
-        const customerStatusValue = row.original.status;
+        const customerStatusValue = row.original.customerStatus;
         const rowId = row.original.id;
 
         const statusActions = [ 
