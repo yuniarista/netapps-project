@@ -5,7 +5,7 @@ import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, Trash2, X, CirclePlus, Plus } from "lucide-react";
+import { Search, Trash2, X, CirclePlus, Plus, Calendar } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
@@ -37,23 +37,15 @@ export default function ProductDataTable({
   const dummyData = [
     {
       id: "1",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Active",
-    },
-    {
-      id: "2",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
+      customerName: "Putu Harun",
+      cid: "C001",
+      noInvoice: "INV001",
+      billingPeriod: "01/02/26-01/03/26",
+      dueDate: "06/03/2026",
+      ppn: "-",
+      amount: "Rp100000",
+      status: "Paid",
+      customerStatus: "Active"
     },
   ];
 
@@ -138,7 +130,7 @@ export default function ProductDataTable({
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
               <div className="flex flex-nowrap gap-2">
                 <SelectFilter
-                  label="Area"
+                  label="Area/Region"
                   options={areaOptions}
                   selected={selectedSegments}
                   onChange={setSelectedSegments}
@@ -147,7 +139,7 @@ export default function ProductDataTable({
                 />
 
                 <SelectFilter
-                  label="Category"
+                  label="Payment Status"
                   options={categoryOptions}
                   selected={selectedStatus}
                   onChange={setSelectedStatus}
@@ -155,7 +147,15 @@ export default function ProductDataTable({
                   showSearch
                 />
                 <SelectFilter
-                  label="Sub Category"
+                  label="State Range"
+                  options={subCategoryOptions}
+                  selected={selectedStatus}
+                  onChange={setSelectedStatus}
+                  icon={Calendar}
+                  showSearch
+                />
+                <SelectFilter
+                  label="Status"
                   options={subCategoryOptions}
                   selected={selectedStatus}
                   onChange={setSelectedStatus}

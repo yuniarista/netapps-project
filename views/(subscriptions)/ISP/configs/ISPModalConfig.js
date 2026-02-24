@@ -1,38 +1,37 @@
-import { TriangleAlert } from "lucide-react";
-import AddRoleForm from "../components/(form)/AddRolesForm";
-import EditRoleForm from "../components/(form)/EditRolesForm";
-import DeleteRolesForm from "../components/(form)/DeleteRolesForm";
+import AddCustomersForm from "../components/(form)/AddISPForm";
+import DeleteISP from "../components/(form)/DeleteISPForm";
+import EditISP from "../components/(form)/EditISPForm";
 
-export const roleModalConfig = ({
-  form,
-  loading,
-  response,
-  setResponse,
-  formOptions,
-  alertOpen,
-  setAlertOpen,
-  handleCreate,
-  handleUpdate,
-  handleDelete,
-  handleModalClose,
-}) => {
+export const ISPModalConfig = (state) => {
+  const {
+    form,
+    loading,
+    response,
+    setResponse,
+    formOptions,
+    alertOpen,
+    setAlertOpen,
+    handleCreate,
+    handleUpdate,
+    handleModalClose,
+  } = state;
+
   return {
     add: {
-      title: "Create Role",
+      title: "Create Customer",
       content: (
-        <AddRoleForm
+        <AddCustomersForm
           loading={loading}
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
-          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
         />
       ),
     },
     edit: {
-      title: "Edit Role",
+      title: "Edit ISP",
       content: (
-        <EditRoleForm
+        <EditISP
           formData={form}
           formOptions={formOptions}
           loading={loading}
@@ -41,14 +40,13 @@ export const roleModalConfig = ({
           response={response}
           setResponse={setResponse}
           handleUpdate={handleUpdate}
-          handleModalClose={handleModalClose}
         />
       ),
     },
     delete: {
       title: "Confirm Delete",
       content: (
-        <DeleteRolesForm
+        <DeleteISP
           loading={loading}
           response={response}
           setResponse={setResponse}
