@@ -42,7 +42,7 @@ export function SidebarNavigation({ menu = [], session }) {
   return (
     <Sidebar className="border-r bg-[#F9F9F9] z-30">
       <SidebarHeader className="px-2">
-        <div className="flex items-center gap-2 my-2">
+        <div className="flex items-center gap-2">
           <div className="size-8 rounded border border-primary bg-primary/10 flex items-center justify-center">
             {session?.media ? (
               <img src={session.media} className="w-full h-full object-cover" />
@@ -70,7 +70,7 @@ export function SidebarNavigation({ menu = [], session }) {
               <Settings className="size-4 cursor-pointer hover:text-primary transition-colors" />
               <div className="relative size-4 cursor-pointer hover:text-primary transition-colors">
                 <BellDot className="size-full" />
-                <span className="absolute -top-0.5 -right-0.5 size-2 bg-red-500 rounded-full border border-white" />
+                {/* <span className="absolute -top-0.5 -right-0.5 size-2 bg-red-500 rounded-full border border-white" /> */}
               </div>
             </div>
           </div>

@@ -12,40 +12,51 @@ import RoleDataTable from "../(table)/RoleDataTable";
 import RoleDataColumn from "../(table)/RoleColumn";
 
 export default function RolePage() {
-  const {
+    const {
       form,
+      setForm,
       openModal,
+      setOpenModal,
       modalType,
-      loading,
+      setModalType,
+      data,
+      setData,
       response,
       setResponse,
+      loading,
+      setLoading,
+      paginationModel,
+      setPaginationModel,
       alertOpen,
       setAlertOpen,
       handleModalOpen,
       handleModalClose,
-      handleCreate,
-      handleUpdate,
-      handleDelete
+      selectedRows,
+      setSelectedRows,
+      filterParams,
+      setFilterParams,
     } = useRoleHooks();
-    
-  const modalConfig = getModalConfig(
-    modalType,
-    roleModalConfig({
-      form,
-      loading,
-      response,
-      setResponse,
-      alertOpen,
-      setAlertOpen,
-      handleCreate, 
-      handleUpdate,
-      handleDelete
-    })
-  );
+  
+    const modalConfig = getModalConfig(
+      modalType,
+      roleModalConfig({
+        form,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        selectedRows,
+        setSelectedRows,
+      }),
+    );
 
-  const actions = roleActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+    const actions = roleActionConfig(
+      (type, item) => {
+        handleModalOpen(type, item);
+      },
+      ["update", "delete"],
+    );
 
   return (
     <div>

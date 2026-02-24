@@ -10,28 +10,30 @@ import CustomerDataTable from "../(table)/CustomerDataTable";
 import customerActionConfig from "../../configs/customerActionConfig";
 
 export default function CustomersPage() {
-const {
+  const {
     form,
+    setForm,
     openModal,
+    setOpenModal,
     modalType,
-    loading,
+    setModalType,
+    data,
+    setData,
     response,
     setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
     alertOpen,
     setAlertOpen,
     handleModalOpen,
     handleModalClose,
-    handleCreate,
-    handleUpdate,
-    handleDelete
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
   } = useCustomerHooks();
-  
-  const actions = customerActionConfig(
-    (type, item) => {
-      handleModalOpen(type, item);
-    },
-    ["update", "delete", "detail", "notify"] 
-  );
 
   const modalConfig = getModalConfig(
     modalType,
@@ -42,17 +44,25 @@ const {
       setResponse,
       alertOpen,
       setAlertOpen,
-      handleCreate, 
-      handleUpdate,
-      handleDelete
-    })
+      selectedRows,
+      setSelectedRows,
+    }),
   );
-  
+
+  const actions = customerActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete", "detail", "notify"]
+  );
+
   return (
     <div>
       <CustomerDataTable
         columns={CustomerDataColumn({
           actions,
+          selectedRows,      
+          setSelectedRows,
         })}
         handleModalOpen={handleModalOpen}
       />

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Building2, Phone, Globe, Clock, RefreshCcw } from "lucide-react";
 
-const WhatsAppConnection = () => {
+const TelegramConnection = () => {
   const connectionData = {
     status: "Connected",
     sessionExpiry: "05-02-2026 16:28",
@@ -61,4 +61,4 @@ const WhatsAppConnection = () => {
   );
 };
 
-export default WhatsAppConnection;
+export default TelegramConnection;
