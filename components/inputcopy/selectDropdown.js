@@ -186,13 +186,12 @@ export default function SelectDropdown({
           <Button
             variant={triggerVariant}
             className={cn(
-              "flex h-9 w-full items-center rounded-[8px] gap-2 border px-3 py-2 text-sm focus:outline-none transition-all",
+              "flex h-9 w-full items-center rounded-[8px] gap-2 border px-3 py-2 text-sm transition-all",
+              "outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
 
-              asBadge
-                ? "bg-slate-100 text-black border-dashed border-slate-300 hover:bg-slate-200 shadow-sm" // Jika ada item terpilih
-                : borderType === "dashed"
-                  ? "border-dashed border-slate-300 bg-white text-[#18181B]"
-                  : "border-solid border-slate-200 bg-white text-[#18181B]",
+              asBadge || borderType === "dashed"
+                ? "border-dashed border-slate-300 bg-white text-[#18181B]"
+                : "border-solid border-slate-200 bg-white text-[#18181B]",
 
               iconPosition === "right" ? "justify-between" : "justify-start",
               className,

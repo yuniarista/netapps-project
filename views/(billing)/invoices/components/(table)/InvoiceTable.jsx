@@ -10,31 +10,24 @@ import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
 
-export default function ProductDataTable({ columns, handleModalOpen }) {
+export default function InvoiceDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
 
   const dummyData = [
     {
       id: "1",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Active",
+      customerName: "Putu Harun",
+      cid: "C001",
+      noInvoice: "INV001",
+      billingPeriod: "01/02/26-01/03/26",
+      dueDate: "06/03/2026",
+      ppn: "-",
+      amount: "Rp100000",
+      status: "Paid",
+      customerStatus: "Active"
     },
-    {
-      id: "2",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
-    },
+    
   ];
 
   const handleToggleFilter = (label, value, showBadge = true) => {
@@ -142,10 +135,16 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
     <div className="flex flex-col min-h-screen">
       {hasData ? (
         <div className="px-4 space-y-2 py-2">
+          <CustomButton
+            variant="primary"
+            size="md"
+            onClick={() => handleModalOpen("add")}
+          >
+            <IconifyIcon icon="lucide:plus" />
+            Create Invoice
+          </CustomButton>
           <div className="w-full">
-            <Label className="font-semibold text-sm">
-              Catalog Product Data
-            </Label>
+            <Label className="font-semibold text-sm">Invoice Data</Label>
           </div>
 
           <div className="flex flex-nowrap items-center justify-start w-full gap-2 pt-0">
@@ -278,7 +277,7 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                 onClick={() => handleModalOpen("add")}
               >
                 <IconifyIcon icon="lucide:plus" />
-                Create
+                Create Invoice
               </CustomButton>
             </div>
           </div>
@@ -299,7 +298,7 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
             <Label className="text-lg">No Catalog Product</Label>
             <p className="text-sm text-muted-foreground">
               You haven’t created any product yet.
-               <br /> Go a head and create your first one.
+              <br /> Go a head and create your first one.
             </p>
             <CustomButton
               variant="primary"

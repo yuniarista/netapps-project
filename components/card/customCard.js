@@ -17,7 +17,7 @@ export default function CustomCard({
 }) {
   return (
     <Card
-      className={cn("border border-[#E4E4E7] rounded-xl shadow-sm", className)}
+      className={cn("w-full border border-[#E4E4E7] rounded-xs shadow-sm", className)}
     >
       {(title || description) && (
         <CardHeader>
