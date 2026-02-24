@@ -26,7 +26,7 @@ export default function VariableDialog({ open, onOpenChange }) {
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <DialogTitle className="text-sm font-semibold text-zinc-900 leading-tight">
+          <DialogTitle className="text-lg font-semibold text-zinc-900 leading-tight">
             Variable
           </DialogTitle>
           
@@ -49,7 +49,7 @@ export default function VariableDialog({ open, onOpenChange }) {
                 key={v.label} 
               >
                 <p className="font-medium text-sm">
-                  {v.label} = <span className="text-sm leading-relaxed">
+                  - {v.label} = <span className="text-sm leading-relaxed">
                   {v.description}
                 </span>
                 </p>

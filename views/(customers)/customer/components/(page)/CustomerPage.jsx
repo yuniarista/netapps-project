@@ -53,14 +53,16 @@ export default function CustomersPage() {
     (type, item) => {
       handleModalOpen(type, item);
     },
-    ["update", "delete", "detail", "notify"] 
+    ["update", "delete", "detail", "notify"]
   );
-  
+
   return (
     <div>
       <CustomerDataTable
         columns={CustomerDataColumn({
           actions,
+          selectedRows,      
+          setSelectedRows,
         })}
         handleModalOpen={handleModalOpen}
       />

@@ -42,7 +42,7 @@ export default function DeleteCustomerForm({
 
           <div className="flex items-center justify-end gap-3 p-4">
             <DialogClose asChild>
-              <Button type="reset" variant="secondary" disabled={loading}>
+              <Button type="reset" variant="outline" disabled={loading}>
                 Cancel
               </Button>
             </DialogClose>

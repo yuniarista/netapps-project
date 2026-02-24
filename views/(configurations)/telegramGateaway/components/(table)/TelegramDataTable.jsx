@@ -100,9 +100,8 @@ export default function TelegramDataTable({ columns, handleModalOpen }) {
                   totalData: dummyWhatsAppData.length
                 }}
                 pagination={false}
-                withoutRowsSelected
-                selectedRows={{}}
-                setSelectedRows={() => { }}
+                withoutPagination={true}
+                withoutRowsSelected={true}
               />
             </div>
           </div>

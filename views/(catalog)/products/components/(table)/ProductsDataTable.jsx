@@ -15,26 +15,26 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
   const [rowSelection, setRowSelection] = useState({});
 
   const dummyData = [
-    // {
-    //   id: "1",
-    //   productName: "Bisnis Soho 30 Mbps",
-    //   price: "120,000.00",
-    //   areaCategory: "Urban",
-    //   category: "Residential",
-    //   subCategory: "Basic",
-    //   promoPrice: "100,000.00",
-    //   status: "Active",
-    // },
-    // {
-    //   id: "2",
-    //   productName: "Bisnis Soho 30 Mbps",
-    //   price: "120,000.00",
-    //   areaCategory: "Urban",
-    //   category: "Residential",
-    //   subCategory: "Basic",
-    //   promoPrice: "100,000.00",
-    //   status: "Inactive",
-    // },
+    {
+      id: "1",
+      productName: "Bisnis Soho 30 Mbps",
+      price: "120,000.00",
+      areaCategory: "Urban",
+      category: "Residential",
+      subCategory: "Basic",
+      promoPrice: "100,000.00",
+      status: "Active",
+    },
+    {
+      id: "2",
+      productName: "Bisnis Soho 30 Mbps",
+      price: "120,000.00",
+      areaCategory: "Urban",
+      category: "Residential",
+      subCategory: "Basic",
+      promoPrice: "100,000.00",
+      status: "Inactive",
+    },
   ];
 
   const handleToggleFilter = (label, value, showBadge = true) => {

@@ -88,14 +88,14 @@ export default function EditDocumentForm({ handleModalClose, loading }) {
           />
         </CardContent>
 
-        <DialogClose className="w-full flex items-center justify-end space-x-4 p-4">
-          <Button type="reset" variant="secondary" onClick={handleModalClose}>
+        <CardFooter className="w-full flex items-center justify-end space-x-4 p-4">
+          <Button type="reset" variant="outline" onClick={handleModalClose}>
             Cancel
           </Button>
           <Button type="submit" disabled={loading}>
             {loading ? "Submitting..." : "Submit"}
           </Button>
-        </DialogClose>
+        </CardFooter>
       </form>
     </Form >
   );
