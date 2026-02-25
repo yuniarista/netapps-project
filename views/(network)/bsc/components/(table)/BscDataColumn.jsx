@@ -13,7 +13,7 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { cn } from "@/lib/utils";
 
-const PopDataColumn = ({ actions }) => {
+const BscDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -38,6 +38,13 @@ const PopDataColumn = ({ actions }) => {
     {
       accessorKey: "area",
       header: "Area/Region",
+    },
+    {
+      accessorKey: "bscName",
+      header: "BSC Name",
+      cell: ({ row }) => {
+        return <div>{row.getValue("bscName")}</div>;
+      },
     },
     {
       accessorKey: "popName",
@@ -153,4 +160,4 @@ const PopDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default PopDataColumn;
+export default BscDataColumn;

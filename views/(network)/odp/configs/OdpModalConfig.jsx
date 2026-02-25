@@ -1,8 +1,7 @@
-import AddBscForm from "../components/(form)/AddBscForm";
-import AddUsersForm from "../components/(form)/AddBscForm";
+import AddOdpForm from "../components/(form)/AddOdpForm";
 import DeleteForm from "../components/(form)/deleteForm";
 
-export const BscModalConfig = ({
+export const OdpModalConfig = ({
   form,
   loading,
   response,
@@ -15,9 +14,9 @@ export const BscModalConfig = ({
 }) => {
   return {
     add: {
-      title: "Create Base Station Controller (BSC)/OLT",
+      title: "Create Optical Distribution Point (ODP)",
       content: (
-        <AddBscForm
+        <AddOdpForm
           loading={loading}
           response={response}
           setResponse={setResponse}

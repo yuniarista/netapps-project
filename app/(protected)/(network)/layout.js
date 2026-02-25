@@ -20,8 +20,16 @@ export default function NetworkLayout({ children }) {
       path: "/odc",
     },
     {
+      label: "ODP",
+      path: "/odp",
+    },
+    {
       label: "Homepass ID",
       path: "/homepass-id",
+    },
+    {
+      label: "Pre-Sales",
+      path: "/pre-sales",
     },
   ];
 
@@ -32,7 +40,7 @@ export default function NetworkLayout({ children }) {
         <CustomTabs tabs={networkTabs} />
       </div>
 
-      <div className="flex-1 overflow-auto min-h-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex-1 flex flex-col overflow-auto min-h-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {children}
       </div>
     </div>

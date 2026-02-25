@@ -1,17 +1,14 @@
 "use client";
 
-import CustomButton from "@/components/button/customButton";
-import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
 import { getModalConfig } from "@/utils/getModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
-import { useBscState } from "../../hooks/useBscHooks";
-import { BscModalConfig } from "../../configs/BscModalConfig";
-import BscDataColumn from "../(table)/BscDataColumn";
-import BscDataTable from "../(table)/BscDataTable";
-import bscActionConfig from "../../configs/BscActionConfig";
+import {useOdcState } from "../../hooks/useOdcHooks";
+import { OdcModalConfig } from "../../configs/OdcModalConfig";
+import OdcDataColumn from "../(table)/OdcDataColumn";
+import OdcDataTable from "../(table)/OdcDataTable";
+import odcActionConfig from "../../configs/OdcActionConfig";
 
-export default function BscPage() {
+export default function OdcPage() {
   const {
     form,
     setForm,
@@ -35,11 +32,11 @@ export default function BscPage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
-  } = useBscState();
+  } = useOdcState();
 
   const modalConfig = getModalConfig(
     modalType,
-    BscModalConfig({
+    OdcModalConfig({
       form,
       loading,
       response,
@@ -51,7 +48,7 @@ export default function BscPage() {
     }),
   );
 
-  const actions = bscActionConfig(
+  const actions = odcActionConfig(
     (type, item) => {
       handleModalOpen(type, item);
     },
@@ -60,8 +57,8 @@ export default function BscPage() {
 
   return (
     <div className="flex flex-col flex-1">
-      <BscDataTable
-        columns={BscDataColumn({
+      <OdcDataTable
+        columns={OdcDataColumn({
           actions,
         })}
         handleModalOpen={handleModalOpen}

@@ -8,12 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import TextInputForm from "@/components/inputcopy/textInputForm";
-import SelectInputForm from "@/components/inputcopy/selectInputForm";
-import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
-import InputFileForm from "@/components/inputcopy/inputFileForm";
 import SelectInputCustom from "@/components/inputcopy/selectInputCustom";
-import DatePickerForm from "@/components/datePicker/datePickerForm";
-import AddSegmentForm from "@/views/(customers)/customer/components/(components)/AddSegmentForm";
 import dynamic from "next/dynamic";
 import { DialogClose } from "@/components/ui/dialog";
 const MapInput = dynamic(() => import("@/components/inputcopy/mapInput"), {
@@ -25,25 +20,23 @@ const MapInput = dynamic(() => import("@/components/inputcopy/mapInput"), {
   ),
 });
 
-const customerSegmentOptions = [
-  { label: "Home", value: "home" },
-  { label: "Villas", value: "villas" },
-  { label: "Hospital", value: "hospital" },
+const popOptions = [
+  { label: "POP-DENPASAR-01", value: "01" },
+  { label: "POP-DENPASAR-02", value: "02" },
 ];
 
-const salesNameOptions = [
-  { label: "Sales 1", value: "sales1" },
-  { label: "Sales 2", value: "sales2" },
-  { label: "Sales 3", value: "sales3" },
+const bscOptions = [
+  { label: "BSC-DPS-01", value: "01" },
+  { label: "BSC-DPS-02", value: "02" },
 ];
 
-const productOptions = [
-  { label: "Product 1", value: "product1" },
-  { label: "Product 2", value: "product2" },
-  { label: "Product 3", value: "product3" },
+const addressOptions = [
+  { label: "Monang Maning", value: "mm" },
+  { label: "Sidakarya", value: "sdk" },
+  { label: "Pemecutan", value: "pmc" },
 ];
 
-export default function AddPopForm({ handleModalClose, loading }) {
+export default function AddOdcForm({ handleModalClose, loading }) {
   const [openSections, setOpenSections] = useState({
     general: true,
     contactDetails: true,
@@ -95,34 +88,31 @@ export default function AddPopForm({ handleModalClose, loading }) {
 
             {openSections.general && (
               <div className="flex flex-col gap-4 py-3 animate-in fade-in slide-in-from-top-1 duration-300">
+                <TextInputForm
+                  name="odcName"
+                  label="ODC Name"
+                  control={control}
+                  errors={errors}
+                  helperText="Unique identifier for this ODC under the selected BSC."
+                />
                 <div className="flex flex-row gap-4 justify-between">
                   <SelectInputCustom
-                    name="area"
-                    label="Area / Region"
-                    placeholder="Select Area / Region"
+                    name="bsc"
+                    label="Base Station Controller (BSC)"
                     optionName="label"
                     control={control}
                     errors={errors}
                     // required
-                    options={customerSegmentOptions}
-                    renderModalContent={(closeModal) => (
-                      <AddSegmentForm
-                        onCancel={closeModal}
-                        onSuccess={(data) => {
-                          console.log("Data segment baru:", data);
-                          // Tambahkan logic API di sini jika perlu
-                          closeModal(); // Tutup modal setelah sukses
-                        }}
-                      />
-                    )}
+                    options={bscOptions}
                   />
-                  <TextInputForm
-                    name="popName"
-                    label="POP Name"
-                    placeholder="POP Name"
+                  <SelectInputCustom
+                    name="pop"
+                    label="Point Of Presence (POP)"
+                    optionName="label"
                     control={control}
                     errors={errors}
-                    helperText="Unique name to identify this POP within the network."
+                    // required
+                    options={popOptions}
                   />
                 </div>
               </div>
@@ -153,9 +143,9 @@ export default function AddPopForm({ handleModalClose, loading }) {
                   control={control}
                   errors={errors}
                   showSearch={true}
-                  options={productOptions}
+                  options={addressOptions}
                   optionName="label"
-                  helperText={"Physical location of the POP"}
+                  helperText={"Physical or approximate location of the BSC"}
                 />
 
                 <div className="flex flex-row gap-4">

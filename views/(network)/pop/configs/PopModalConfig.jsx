@@ -1,4 +1,5 @@
 import AddUsersForm from "../components/(form)/AddPopForm";
+import DeleteForm from "../components/(form)/deleteForm";
 
 export const PopModalConfig = ({
   form,
@@ -22,6 +23,16 @@ export const PopModalConfig = ({
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
+        />
+      ),
+    },
+    delete: {
+      title: "Confirm Delete",
+      content: (
+        <DeleteForm
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
         />
       ),
     },

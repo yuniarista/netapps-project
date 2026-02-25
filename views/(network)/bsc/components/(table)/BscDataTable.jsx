@@ -3,37 +3,24 @@
 import CustomButton from "@/components/button/customButton";
 import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
+import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, Trash2, X, CirclePlus, Plus } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import SelectDropdown from "@/components/inputcopy/selectDropdown";
+import { CirclePlus, Plus, PlusCircle, Search, Trash2, X } from "lucide-react";
 import { useState } from "react";
 
-export default function ProductDataTable({ columns, handleModalOpen }) {
+export default function BscDataTable({ columns, handleModalOpen }) {
   const [activeFilters, setActiveFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
 
   const dummyData = [
     {
-      id: "1",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
+      area: "Bali",
+      bscName: "BSC-DPS-0A",
+      popName: "POP-DPS-01",
+      longitude_latitude: "40.741895,-73.989308",
+      locationNotes: "Rooftop cabinet, inside data center",
       status: "Active",
-    },
-    {
-      id: "2",
-      productName: "Bisnis Soho 30 Mbps",
-      price: "120,000.00",
-      areaCategory: "Urban",
-      category: "Residential",
-      subCategory: "Basic",
-      promoPrice: "100,000.00",
-      status: "Inactive",
     },
   ];
 
@@ -141,12 +128,12 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
   const hasData = dummyData.length > 0;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-1 flex-col">
       {hasData ? (
         <div className="px-4 space-y-2 py-2">
           <div className="w-full">
             <Label className="font-semibold text-sm">
-              Catalog Product Data
+              BSC (Backbone Splice Cassette) Data
             </Label>
           </div>
 
@@ -157,16 +144,16 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
             </div>
 
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
-              <div className="flex flex-nowrap gap-2">
+              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:display-none">
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
-                    "Area",
+                    "Area/Region",
                     areaOptions.map((i) => i.value),
                   )}
                   asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
                   icon={CirclePlus}
                   iconPosition="left"
-                  className="w-auto"
+                  className="w-auto outline"
                   showSearch
                   showClear
                   borderType="dashed"
@@ -184,7 +171,31 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
 
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
-                    "Category",
+                    "POP",
+                    areaOptions.map((i) => i.value),
+                  )}
+                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
+                  icon={CirclePlus}
+                  iconPosition="left"
+                  className="w-auto outline"
+                  showSearch
+                  showClear
+                  borderType="dashed"
+                  badgeVariant="outline"
+                  sections={generateFilterSection(areaOptions, false)}
+                  onClear={() =>
+                    setActiveFilters((prev) =>
+                      prev.filter(
+                        (f) =>
+                          !areaOptions.map((i) => i.value).includes(f.value),
+                      ),
+                    )
+                  }
+                />
+
+                <SelectDropdown
+                  triggerLabel={renderLabelWithCount(
+                    "Status",
                     categoryOptions.map((i) => i.value),
                   )}
                   asBadge={
@@ -203,34 +214,6 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
                       prev.filter(
                         (f) =>
                           !categoryOptions
-                            .map((i) => i.value)
-                            .includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "Sub Category",
-                    subCategoryOptions.map((i) => i.value),
-                  )}
-                  asBadge={
-                    getActiveCount(subCategoryOptions.map((i) => i.value)) > 0
-                  }
-                  sections={generateFilterSection(subCategoryOptions, false)}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !subCategoryOptions
                             .map((i) => i.value)
                             .includes(f.value),
                       ),
@@ -296,19 +279,21 @@ export default function ProductDataTable({ columns, handleModalOpen }) {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
-            <Label className="text-lg">No Catalog Product</Label>
+        <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-50/50">
+          <div className="space-y-4 max-w-xs">
+            <Label className="text-xl font-bold">No BSC Records Found</Label>
             <p className="text-sm text-muted-foreground">
-              You haven’t created any product yet.
-               <br /> Go a head and create your first one.
+              Connect your POP to distribution cabinets. Add a BSC to manage
+              your fiber optic backbone splices
             </p>
             <CustomButton
               variant="primary"
-              className="flex gap-2"
+              size="lg"
               onClick={() => handleModalOpen("add")}
+              className="mt-4"
             >
-              <Plus className="w-4 h-4" /> Setup Network
+              <Plus className="w-4 h-4" />
+              Create BSC
             </CustomButton>
           </div>
         </div>

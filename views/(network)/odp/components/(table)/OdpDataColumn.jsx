@@ -13,7 +13,7 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { cn } from "@/lib/utils";
 
-const PopDataColumn = ({ actions }) => {
+const OdpDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -38,6 +38,27 @@ const PopDataColumn = ({ actions }) => {
     {
       accessorKey: "area",
       header: "Area/Region",
+    },
+    {
+      accessorKey: "odpName",
+      header: "ODP Name",
+      cell: ({ row }) => {
+        return <div>{row.getValue("odpName")}</div>;
+      },
+    },
+    {
+      accessorKey: "odcName",
+      header: "ODC Name",
+      cell: ({ row }) => {
+        return <div>{row.getValue("odcName")}</div>;
+      },
+    },
+    {
+      accessorKey: "bscName",
+      header: "BSC Name",
+      cell: ({ row }) => {
+        return <div>{row.getValue("bscName")}</div>;
+      },
     },
     {
       accessorKey: "popName",
@@ -153,4 +174,4 @@ const PopDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default PopDataColumn;
+export default OdpDataColumn;

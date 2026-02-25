@@ -1,8 +1,7 @@
-import AddBscForm from "../components/(form)/AddBscForm";
-import AddUsersForm from "../components/(form)/AddBscForm";
+import AddHomepassForm from "../components/(form)/AddHomepassForm";
 import DeleteForm from "../components/(form)/deleteForm";
 
-export const BscModalConfig = ({
+export const HomepassModalConfig = ({
   form,
   loading,
   response,
@@ -15,9 +14,9 @@ export const BscModalConfig = ({
 }) => {
   return {
     add: {
-      title: "Create Base Station Controller (BSC)/OLT",
+      title: "Create Homepass",
       content: (
-        <AddBscForm
+        <AddHomepassForm
           loading={loading}
           response={response}
           setResponse={setResponse}
