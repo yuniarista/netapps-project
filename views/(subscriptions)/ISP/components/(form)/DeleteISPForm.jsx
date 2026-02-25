@@ -8,7 +8,7 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import Loading from "@/app/(protected)/loading";
 import CustomAlert from "@/components/alert/customAlert";
 
-export default function DeleteRolesForm({
+export default function DeleteISP({
   loading,
   response,
   setResponse,

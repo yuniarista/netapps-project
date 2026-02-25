@@ -15,7 +15,7 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { size } from "zod";
 
-const ProductDataColumn = ({ actions }) => {
+const InvoiceDataColumn = ({ actions }) => {
   return [
     {
       id: "select",
@@ -38,66 +38,83 @@ const ProductDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "productName",
-      header: "Product Name",
-      size: 100,
+      accessorKey: "customerName",
+      // header: "Customer Name",
+      header: ()=>(
+        <div className="w-20 truncate">Customer Name</div>
+      ),
+      size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("productName")
+        const value = row.getValue("customerName")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
       }
     },
     {
-      accessorKey: "price",
-      header: "Price",
+      accessorKey: "cid",
+      header: "CID",
       size:100,
       cell: ({ row }) => {
-        const value = row.getValue("price")
+        const value = row.getValue("cid")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
       }
     },
     {
-      accessorKey: "areaCategory",
-      header: "Area Category",
+      accessorKey: "noInvoice",
+      header: "Invoice No.",
       size:100,
       cell: ({ row }) => {
-        const value = row.getValue("areaCategory")
+        const value = row.getValue("noInvoice")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
       }
     },
     {
-      accessorKey: "category",
-      header: "Category",
-      size:100,
+      accessorKey: "billingPeriod",
+      // header: "Billing Period",
+      header: ()=>(
+        <div className="w-20 truncate">Billing Period</div>
+      ),
+      size:200,
       cell: ({ row }) => {
-        const value = row.getValue("category")
+        const value = row.getValue("billingPeriod")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
       }
     },
     {
-      accessorKey: "subCategory",
-      header: "Sub Category",
+      accessorKey: "dueDate",
+      header: "Due Date",
       size:100,
       cell: ({ row }) => {
-        const value = row.getValue("subCategory")
+        const value = row.getValue("dueDate")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
       }
     },
     {
-      accessorKey: "promoPrice",
-      header: "Promo Price",
+      accessorKey: "ppn",
+      header: "PPN",
       size:100,
       cell: ({ row }) => {
-        const value = row.getValue("promoPrice")
+        const value = row.getValue("ppn")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
+    },
+    {
+      accessorKey: "amount",
+      header: "Amount",
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("amount")
         return (
           <div className="w-20 truncate" title={value}>{value}</div>
         )
@@ -109,6 +126,50 @@ const ProductDataColumn = ({ actions }) => {
       size:50,
       cell: ({ row }) => {
         const statusValue = row.original.status;
+        const rowId = row.original.id;
+
+        const paidActions = [ 
+          {
+            label: "Change Status",
+            items: [
+              {
+                label: "Mark as paid",
+                value: "Paid",
+                onClick: (v) => handleStatusUpdate(rowId, v),
+              },
+              {
+                label: "Mark as unpaid",
+                value: "Unpaid",
+                onClick: (v) => handleStatusUpdate(rowId, v),
+              },
+            ],
+          },
+        ];
+
+        return (
+          <SelectDropdown
+            asBadge={true}
+            triggerLabel={statusValue}
+            badgeVariant={
+              statusValue === "Paid" ? "outlined-active" : "outlined-inactive"
+            }
+            iconClassName={
+              statusValue === "Paid" ? "text-emerald-500" : "text-slate-400"
+            }
+            sections={paidActions}
+          />
+        );
+      },
+    },
+    {
+      accessorKey: "customerStatus",
+      // header: "Customer Status",
+      header: ()=>(
+        <div className="w-20 truncate">Customer Status</div>
+      ),
+      size:50,
+      cell: ({ row }) => {
+        const customerStatusValue = row.original.customerStatus;
         const rowId = row.original.id;
 
         const statusActions = [ 
@@ -132,12 +193,12 @@ const ProductDataColumn = ({ actions }) => {
         return (
           <SelectDropdown
             asBadge={true}
-            triggerLabel={statusValue}
+            triggerLabel={customerStatusValue}
             badgeVariant={
-              statusValue === "Active" ? "outlined-active" : "outlined-inactive"
+              customerStatusValue === "Active" ? "outlined-active" : "outlined-inactive"
             }
             iconClassName={
-              statusValue === "Active" ? "text-emerald-500" : "text-slate-400"
+              customerStatusValue === "Active" ? "text-emerald-500" : "text-slate-400"
             }
             sections={statusActions}
           />
@@ -190,4 +251,4 @@ const ProductDataColumn = ({ actions }) => {
   ].filter(Boolean);
 };
 
-export default ProductDataColumn;
+export default InvoiceDataColumn;

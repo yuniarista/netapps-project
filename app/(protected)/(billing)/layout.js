@@ -2,31 +2,31 @@ import PageHeader from "@/components/pageHeader";
 import CustomTabs from "@/components/tabs/CustomTabs";
 
 export default function catalogLayout({ children }) {
-  const catalogTabs = [
+  const billingTabs = [
     {
-      label: "Products",
-      path: "/products",
+      label: "Invoices",
+      path: "/invoices",
     },
     {
-      label: "Area",
-      path: "/area",
+      label: "Payments",
+      path: "/paymenst",
     },
     {
-      label: "Category",
-      path: "/category",
+      label: "Refund List",
+      path: "/refund-list",
     },
     {
-      label: "Sub Category",
-      path: "/sub-category",
+      label: "Billing Setting",
+      path: "/billing-settings",
     },
   ];
 
   return (
     <div>
-      <PageHeader title="Catalog" />
+      <PageHeader title="Billing" />
 
       <div className="px-4">
-        <CustomTabs tabs={catalogTabs} />
+        <CustomTabs tabs={billingTabs} />
       </div>
       <div className="pt-1">{children}</div>
     </div>
