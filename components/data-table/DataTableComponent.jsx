@@ -220,7 +220,7 @@ export default function DataTableComponent({
       <div className="flex items-center justify-end space-x-8 py-4">
         <div
           className={cn(
-            "text-muted-foreground flex-1 text-sm",
+            "text-muted-foreground flex-1 text-xs",
             withoutRowsSelected ? "hidden" : ""
           )}
         >

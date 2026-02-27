@@ -4,6 +4,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Pencil, Phone, Globe, Clock, Building } from "lucide-react";
+import IconifyIcon from "@/components/icon";
 
 const WhatsAppBasicInfo = ({ onEdit }) => {
     const infoData = [
@@ -17,7 +18,7 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
         {
             label: "WhatsApp Number",
             value: "+62 123-3456-7890",
-            icon: Phone,
+            icon: "ph:whatsapp-logo-light",
             hexColor: "#22c55e", // Green-500
             hexBg: "#f0fdf4",    // Green-50
         },
@@ -59,10 +60,19 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
                                 className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0"
                                 style={{ backgroundColor: item.hexBg }}
                             >
-                                <IconComponent 
-                                    size={20} 
-                                    style={{ color: item.hexColor }} 
-                                />
+                                {typeof IconComponent === "string" ? (
+                                    <IconifyIcon 
+                                        icon={IconComponent} 
+                                        width="20" 
+                                        height="20" 
+                                        style={{ color: item.hexColor }} 
+                                    />
+                                ) : (
+                                    <IconComponent 
+                                        size={20} 
+                                        style={{ color: item.hexColor }} 
+                                    />
+                                )}
                             </div>
                             
                             <div className="flex flex-col min-w-0">

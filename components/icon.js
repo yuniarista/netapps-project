@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon } from "@iconify/react";
 
 const IconifyIcon = ({ icon, size = "1.5rem", ...rest }) => {

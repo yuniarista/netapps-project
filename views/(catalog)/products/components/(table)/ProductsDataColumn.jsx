@@ -40,32 +40,68 @@ const ProductDataColumn = ({ actions }) => {
     {
       accessorKey: "productName",
       header: "Product Name",
-      size: 150,
+      size: 100,
+      cell: ({ row }) => {
+        const value = row.getValue("productName")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "price",
       header: "Price",
-      size:100
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("price")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "areaCategory",
       header: "Area Category",
-      size:100
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("areaCategory")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "category",
       header: "Category",
-      size:100
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("category")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "subCategory",
       header: "Sub Category",
-      size:100
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("subCategory")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "promoPrice",
       header: "Promo Price",
-      size:100
+      size:100,
+      cell: ({ row }) => {
+        const value = row.getValue("promoPrice")
+        return (
+          <div className="w-20 truncate" title={value}>{value}</div>
+        )
+      }
     },
     {
       accessorKey: "status",

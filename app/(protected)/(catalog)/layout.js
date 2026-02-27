@@ -2,7 +2,7 @@ import PageHeader from "@/components/pageHeader";
 import CustomTabs from "@/components/tabs/CustomTabs";
 
 export default function catalogLayout({ children }) {
-  const customersTabs = [
+  const catalogTabs = [
     {
       label: "Products",
       path: "/products",
@@ -22,15 +22,13 @@ export default function catalogLayout({ children }) {
   ];
 
   return (
-    <div className="flex flex-col h-screen">
-      <div>
-        <PageHeader title="Catalog" />
-        <CustomTabs tabs={customersTabs} />
-      </div>
+    <div>
+      <PageHeader title="Catalog" />
 
-      <div className="flex-1 overflow-auto min-h-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {children}
+      <div className="px-4">
+        <CustomTabs tabs={catalogTabs} />
       </div>
+      <div className="pt-1">{children}</div>
     </div>
   );
 }

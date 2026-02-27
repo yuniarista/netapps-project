@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,8 +15,8 @@ const WhatsAppFeatures = () => {
     { id: "payment", label: "Payment Success", defaultChecked: true },
     { id: "otp", label: "Payment Reminder", defaultChecked: true },
     { id: "marketing", label: "Due Date Alert", defaultChecked: true },
-    { id: "technical", label: "Service Isolation", defaultChecked: true },
-    { id: "technical", label: "Promotion Message", defaultChecked: false },
+    { id: "service", label: "Service Isolation", defaultChecked: true },
+    { id: "promo", label: "Promotion Message", defaultChecked: false },
     { id: "technical", label: "Technical Notice", defaultChecked: false },
   ];
 

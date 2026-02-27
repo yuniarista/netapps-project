@@ -10,21 +10,30 @@ import { usersModalConfig } from "../../configs/usersModalConfig";
 
 export default function UsersPage() {
   const {
-      form,
-      openModal,
-      modalType,
-      loading,
-      response,
-      setResponse,
-      alertOpen,
-      setAlertOpen,
-      handleModalOpen,
-      handleModalClose,
-      handleCreate,
-      handleUpdate,
-      handleDelete
-    } = useUsersHooks();
-    
+    form,
+    setForm,
+    openModal,
+    setOpenModal,
+    modalType,
+    setModalType,
+    data,
+    setData,
+    response,
+    setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
+  } = useUsersHooks();
+
   const modalConfig = getModalConfig(
     modalType,
     usersModalConfig({
@@ -34,15 +43,16 @@ export default function UsersPage() {
       setResponse,
       alertOpen,
       setAlertOpen,
-      handleCreate, 
-      handleUpdate,
-      handleDelete
-    })
+      selectedRows,
+      setSelectedRows,
+    }),
   );
-
-  const actions = usersActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+  const actions = usersActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete"],
+  );
 
   return (
     <div>

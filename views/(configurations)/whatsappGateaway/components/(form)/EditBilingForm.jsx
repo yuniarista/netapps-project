@@ -11,6 +11,7 @@ import TextInputForm from "@/components/inputcopy/textInputForm";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import { SwitchToggleInput } from "@/components/inputcopy/switchToggleInput";
 import VariableDialog from "@/components/dialog/variableDialog";
+import IconifyIcon from "@/components/icon";
 
 
 export default function EditBilingForm({ handleModalClose, loading, initialData }) {
@@ -139,7 +140,10 @@ export default function EditBilingForm({ handleModalClose, loading, initialData 
                                                         className="w-10 h-10 rounded-full flex items-center justify-center"
                                                         style={{ backgroundColor: '#25D366' }}
                                                     >
-                                                        <Phone className="w-5 h-5 text-white" />
+                                                        <IconifyIcon
+                                                            icon="ph:whatsapp-logo-light"
+                                                            className="w-5 h-5 text-white"
+                                                        />
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[15px] font-bold text-slate-800 leading-tight">WhatsApp Business</h4>

@@ -15,41 +15,52 @@ import WhatsAppConnection from "../(components)/WhatsAppConnection";
 import WhatsAppFeatures from "../(components)/WhatsAppFeatures";
 
 export default function WhatsAppPage() {
-    const {
-        form,
-        openModal,
-        modalType,
-        loading,
-        response,
-        setResponse,
-        alertOpen,
-        setAlertOpen,
-        handleModalOpen,
-        handleModalClose,
-        handleCreate,
-        handleUpdate,
-        handleDelete
-      } = useWhatsAppHooks();
-      
-    const modalConfig = getModalConfig(
-      modalType,
-      whatsAppModalConfig({
-        form,
-        loading,
-        response,
-        setResponse,
-        alertOpen,
-        setAlertOpen,
-        selectedData: form,
-        handleCreate, 
-        handleUpdate,
-        handleDelete
-      })
-    );
+   const {
+    form,
+    setForm,
+    openModal,
+    setOpenModal,
+    modalType,
+    setModalType,
+    data,
+    setData,
+    response,
+    setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
+  } = useWhatsAppHooks();
 
-  const actions = whatsAppActionConfig((type, item) => {
-    handleModalOpen(type, item);
-  }, ["update", "delete"]);
+  const modalConfig = getModalConfig(
+    modalType,
+    whatsAppModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      selectedData: form,
+      setAlertOpen,
+      selectedRows,
+      setSelectedRows,
+    }),
+  );
+
+  const actions = whatsAppActionConfig(
+    (type, item) => {
+      handleModalOpen(type, item);
+    },
+    ["update", "delete"],
+  );
 
   return (
     <div>
