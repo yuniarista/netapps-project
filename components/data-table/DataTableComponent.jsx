@@ -189,7 +189,7 @@ export default function DataTableComponent({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id} className={cn(
                         "h-14",
-                        cell.column.id === "actions" ? "text-right" : "text-left"
+                        cell.column.id === "actions" ? "text-center" : "text-left"
                       )}
                         style={{ width: `${cell.column.getSize()}px` }}
                       >

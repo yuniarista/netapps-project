@@ -34,10 +34,21 @@ export default function CoveragePage() {
     setFilterParams,
   } = useCheckCoverageState();
 
+  const areaData = [
+    {label: "Denpasar", value: "denpasar"},
+    {label: "Tabanan", value: "tabanan"},
+    {label: "Jembrana", value: "jembrana"}
+  ]
+
+  const formOptions = {
+    area: areaData
+  }
+
   const modalConfig = getModalConfig(
     modalType,
     CheckCoverageModalConfig({
       form,
+      formOptions,
       loading,
       response,
       setResponse,

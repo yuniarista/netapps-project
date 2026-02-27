@@ -1,7 +1,7 @@
-export default function PopPage(){
+import PopPage from "@/views/(network)/pop/components/(pages)/pop";
+
+export default function PagePop(){
     return(
-        <div>
-            Ini halaman pop network
-        </div>
+        <PopPage/>
     )
 }

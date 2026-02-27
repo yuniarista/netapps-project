@@ -1,9 +1,8 @@
-import { TriangleAlert } from "lucide-react";
-import DeleteDocumentForm from "@/views/(configurations)/documentTemplate/components/(form)/DeleteDocumentForm";
-import AddUsersForm from "../components/(form)/AddUsersForm";
+import AddPopForm from "../../pop/components/(form)/AddPopForm";
 
 export const CheckCoverageModalConfig = ({
   form,
+  formOptions,
   loading,
   response,
   setResponse,
@@ -17,7 +16,8 @@ export const CheckCoverageModalConfig = ({
     add: {
       title: "Create Point of Presence (POP)",
       content: (
-        <AddUsersForm
+        <AddPopForm
+          formOptions={formOptions}
           loading={loading}
           response={response}
           setResponse={setResponse}
