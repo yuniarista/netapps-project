@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { size } from "zod";
 import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const TelegramDataColumn = ({ actions, onStatusChange }) => {
   return [
@@ -58,7 +59,22 @@ const TelegramDataColumn = ({ actions, onStatusChange }) => {
     },
     {
       accessorKey: "status",
-      header: () => <div className="flex items-center gap-2">Status <Info className="w-4 h-4" /> </div>,
+      header: () =>
+        <div className="flex items-center gap-2">
+          Status
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button className="outline-none">
+                  <Info className="w-4 h-4 text-muted-foreground" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-[150px]">
+                <p>Inactive templates cannot be sent.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>,
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const isActive = statusValue === "Active";

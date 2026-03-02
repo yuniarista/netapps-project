@@ -52,7 +52,7 @@ export default function InputNumberForm({
                     placeholder={placeholder}
                     disabled={disabled}
                     className={cn(
-                      "flex h-9 w-full rounded-[5px] border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 transition-all outline-none placeholder:text-slate-400 focus-visible:ring-slate-900",
+                      "flex h-9 w-full rounded-[5px] border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 transition-all outline-none placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
                       "bg-background pr-10",
                       errors[name] && "border-destructive",
                       "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",

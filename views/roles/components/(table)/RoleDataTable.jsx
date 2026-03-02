@@ -115,72 +115,42 @@ export default function RoleDataTable({ columns, handleModalOpen }) {
                 <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
               </div>
 
-              <div className="flex items-center space-x-2">
-                {/* <Select>
-                  {/* value={sortDataBy}
-              // onValueChange={async (val) => {
-              //   setSortDataBy(val);
-              //   setFilterParams([
-              //     { key: "search", value: nameFilter },
-              //     {
-              //       key: !!val ? `order[${val.split("-")[0]}]` : "",
-              //       value: val.split("-")[1] ?? ""
-              //     }
-              //   ]);
-              //   const result = await FilterData({
-              //     uri,
-              //     setLoading,
-              //     paginationModel: {
-              //       pageIndex: paginationModel.pageIndex + 1,
-              //       pageLimit: paginationModel.pageLimit
-              //     },
-              //     filterParams: getFilterParams(nameFilter, val)
-              //   });
-              //   setData(result);
-              // }} */}
-                {/* <SelectTrigger className="w-40" icon={Settings2} iconPosition="left" iconClassName="text-primary">
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
-                  <SelectContent> */}
-                {/* {sortableFieldList.map((item) => (
-                  <SelectItem
-                    key={item.label}
-                    value={`${item.value.sortDataBy}-${item.value.sortType}`}
-                  >
-                    {item.label}
-                  </SelectItem>
-                ))} */}
-                {/* </SelectContent>
-                </Select> */}
+              <div className="ml-auto flex flex-nowrap items-center gap-2 flex-shrink-0">
+                {/* <div className="flex flex-nowrap gap-2">
+                  {activeFilters
+                    .filter((filter) => filter.showBadge === true)
+                    .map((filter) => (
+                      <CustomButton
+                        key={filter.value}
+                        variant="secondary"
+                        size="sm"
+                        className="flex items-center gap-1 whitespace-nowrap flex-shrink-0 h-8 rounded-full bg-slate-100 border-none px-3"
+                        onClick={() => handleRemoveFilter(filter.value)}
+                      >
+                        <span className="text-[13px] text-slate-700">
+                          {filter.label}
+                        </span>
+                        <X className="h-3.5 w-3.5 text-primary" />
+                      </CustomButton>
+                    ))}
+                </div> */}
 
-                {/* <Select>
-                  <SelectTrigger className="w-40" iconClassName="text-primary">
-                    <SelectValue placeholder="Bulk Delete" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {/* <SelectItem value="delete">Delete Selected</SelectItem> */}
-                {/* </SelectContent>
-                </Select> */}
-
-                <SelectDropdown
+              <SelectDropdown
                   triggerLabel="Filter By"
                   icon={Settings2}
                   iconPosition="left"
-                  className="w-40"
                   sections={filterSections}
                   badgeVariant="outline"
                 />
+                
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
-                  showSectionLabelSeparator={false}
-                  showSectionSeparator={false}
                   badgeVariant="outline"
                 />
 
                 <CustomButton
                   variant="primary"
-                  type="button"
                   size="md"
                   onClick={() => handleModalOpen("add")}
                 >

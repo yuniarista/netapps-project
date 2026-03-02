@@ -69,6 +69,7 @@ export default function UsersPage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        size="600"
         withHeaderBorder={modalType === 'delete'}
       >
         {modalConfig.content}

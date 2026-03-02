@@ -57,7 +57,7 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
                     return (
                         <div key={index} className="flex items-center gap-2">
                             <div 
-                                className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0"
+                                className="flex items-center justify-center w-10 h-10 rounded-xs shrink-0"
                                 style={{ backgroundColor: item.hexBg }}
                             >
                                 {typeof IconComponent === "string" ? (
@@ -76,10 +76,10 @@ const WhatsAppBasicInfo = ({ onEdit }) => {
                             </div>
                             
                             <div className="flex flex-col min-w-0">
-                                <span className="text-xs font-medium text-slate-500 uppercase">
+                                <span className="text-sm text-muted-foreground leading-5">
                                     {item.label}
                                 </span>
-                                <span className="text-sm font-bold text-slate-900 truncate">
+                                <span className="text-sm font-semibold text-slate-900 truncate leading-6">
                                     {item.value}
                                 </span>
                             </div>

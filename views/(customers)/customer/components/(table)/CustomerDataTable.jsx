@@ -88,12 +88,12 @@ export default function CustomerDataTable({
         {
           label: "Mark as non Isolir",
           value: "Isolir",
-          onClick: (v) => handleAddFilter(rowId, v)
+          onClick: () => handleAddFilter("Active", "Isolir", "Dismantle", true),
         },
         {
           label: "Mark as Dismantle",
           value: "Dismantle",
-          onClick: (v) => handleAddFilter(rowId, v)
+          onClick: () => handleAddFilter("Active", "Isolir", "Dismantle", true),
         },
       ]
     },
@@ -103,7 +103,7 @@ export default function CustomerDataTable({
           label: "Delete",
           value: "delete",
           icon: Trash2,
-          onClick: () => confirm("Are you sure?")
+          onClick: () => handleModalOpen("delete")
         },
       ]
     }

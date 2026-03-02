@@ -54,7 +54,7 @@ export default function InputFileForm({
             <div
               onClick={() => !disabled && fileInputRef.current?.click()}
               className={cn(
-                "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer",
+                "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer overflow-hidden",
                 error
                   ? "border-red-500"
                   : "border-slate-300 focus-within:ring-1 focus-within:ring-primary",
@@ -65,9 +65,11 @@ export default function InputFileForm({
                 {value ? "Change file" : "Choose file"}
               </span>
 
-              <span className="text-[14px] truncate flex-1 text-slate-600">
-                {value ? value.name : "No file chosen"}
-              </span>
+              <div className="flex-1 w-20"> 
+                <span className="text-[14px] block truncate text-slate-600">
+                  {value ? value.name : "No file chosen"}
+                </span>
+              </div>
 
               {value && (
                 <button
