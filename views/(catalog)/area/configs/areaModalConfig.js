@@ -27,6 +27,7 @@ export const areaModalConfig = ({
         />
       ),
     },
+
     editModal: {
       title: "Edit Area",
       content: (
