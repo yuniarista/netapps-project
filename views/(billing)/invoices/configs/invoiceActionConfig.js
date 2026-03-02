@@ -1,18 +1,18 @@
-import { PencilLine, Trash2 } from "lucide-react";
+import { FileSymlink, PencilLine, Trash2 } from "lucide-react";
 
 const invoiceActionConfig = (handleModalOpen, dashboardAccessPermissions) => {
   const actionList = [
-    dashboardAccessPermissions.includes("update") && {
-      label: "Edit",
-    icon: PencilLine,
-      onClick: (item) => handleModalOpen("edit", item)
+    dashboardAccessPermissions.includes("detail") && {
+      label: "Refund",
+      icon: FileSymlink,
+      onClick: (item) => handleModalOpen("detail", item),
     },
     dashboardAccessPermissions.includes("delete") && {
       label: "Delete",
       icon: Trash2,
       className: "hover:text-red-700",
-      onClick: (item) => handleModalOpen("delete", item)
-    }
+      onClick: (item) => handleModalOpen("delete", item),
+    },
   ].filter(Boolean);
   return actionList;
 };

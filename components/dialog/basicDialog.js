@@ -79,7 +79,7 @@ const CustomDialog = ({
           </button>
         </DialogHeader>
 
-        <div className={isModal ? "border-t border-slate-200" : "pt-7"}>
+        <div className={isModal ? "border-t border-slate-200" : "pt-4"}>
           {children}
         </div>
 

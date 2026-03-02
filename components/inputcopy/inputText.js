@@ -5,11 +5,13 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { Controller } from "react-hook-form";
 
 export default function InputText({
   name,
   variant = "default",
   label,
+  control,
   placeholder,
   helperText,
   disabled = false,
@@ -19,7 +21,7 @@ export default function InputText({
   layout = "vertical",
   type,
   endAdornment = null,
-  readOnly = false
+  readOnly = false,
 }) {
   const isDestructive = variant === "destructive";
   const isHorizontal = layout === "horizontal";
@@ -30,40 +32,61 @@ export default function InputText({
       className={cn(
         "w-full",
         isHorizontal ? "flex items-center gap-4" : "flex flex-col gap-1",
-        disabled && "opacity-60 cursor-not-allowed" 
+        disabled && "opacity-60 cursor-not-allowed",
       )}
     >
       {showLabel && (
         <Label
           className={cn(
             "text-sm font-medium transition-colors",
-            disabled 
-              ? "text-slate-400" 
-                : "text-slate-900"
+            disabled ? "text-slate-400" : "text-slate-900",
           )}
         >
           {label}
         </Label>
       )}
 
-      <div className="flex w-full gap-2 items-center">
-        <Input
+      <div className="flex w-full items-center">
+        <Controller
           name={name}
-          disabled={disabled}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          className={cn(
-            "rounded-[5px] border bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition-all",
-            disabled && "bg-slate-50 border-slate-300 cursor-not-allowed",
-            readOnly && "bg-slate-50 text-slate-900 cursor-not-allowed",
-            isDestructive && !disabled && "border-red-500 focus-visible:ring-red-500",
-            !isDestructive && !disabled && "border-slate-300 focus-visible:ring-primary"
-          )}
-          type={type ?? "text"}
-          readOnly={readOnly}
+          control={control}
+          render={({ field, fieldState: { error } }) => {
+            const hasValue =
+              field.value !== undefined &&
+              field.value !== "" &&
+              field.value !== null &&
+              field.value !== 0 &&
+              field.value !== "0";
+
+
+            return (
+              <div className="w-full flex flex-col">
+                <Input
+                  {...field}
+                  value={field.value ?? ""}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => {
+                    setIsFocused(false);
+                    field.onBlur();
+                  }}
+                  className={cn(
+                    "rounded-[5px] border px-3 text-sm transition-all",
+                    hasValue && !isFocused
+                      ? "border-transparent bg-transparent shadow-none"
+                      : "border-slate-300 bg-white",
+                    error && "border-red-500",
+
+                    disabled &&
+                      "bg-slate-50 border-slate-300 cursor-not-allowed",
+                    readOnly && "bg-slate-50 text-slate-900 cursor-not-allowed",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                  )}
+                  type={type ?? "text"}
+                  readOnly={readOnly}
+                />
+              </div>
+            );
+          }}
         />
         {endAdornment}
       </div>
@@ -72,7 +95,11 @@ export default function InputText({
         <p
           className={cn(
             "text-sm mt-1",
-            disabled ? "text-slate-300" : isDestructive ? "text-red-600" : "text-slate-500"
+            disabled
+              ? "text-slate-300"
+              : isDestructive
+                ? "text-red-600"
+                : "text-slate-500",
           )}
         >
           {helperText}

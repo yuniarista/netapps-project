@@ -25,7 +25,7 @@ export default function InputNumberForm({
   helperText,
 }) {
   return (
-    <div className={cn("w-30", isHidden && "hidden")}>
+    <div className={cn("w-full", isHidden && "hidden")}>
       <FormField
         control={control}
         name={name}

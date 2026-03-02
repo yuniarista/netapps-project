@@ -1,8 +1,10 @@
 import { TriangleAlert } from "lucide-react";
-import AddProductsForm from "../components/(form)/AddProductsForm";
-import EditProductsForm from "../components/(form)/EditProductForm";
-
+import AddInvoiceForm from "../components/(form)/AddInvoiceForm";
+import GenerateInvoiceForm from "../components/(form)/GenerateForm";
+import InvoiceDetail from "../components/(component)/InvoiceDetails";
+import { size } from "zod";
 import DeleteForm from "../components/(form)/deleteForm";
+
 
 export const invoiceModalConfig = (state) => {
   const {
@@ -20,14 +22,38 @@ export const invoiceModalConfig = (state) => {
 
   return {
     add: {
-      title: "Create Product",
+      title: "Create Invoice",
       content: (
-        <AddProductsForm
+        <AddInvoiceForm
           loading={loading}
           response={response}
           setResponse={setResponse}
           handleCreate={handleCreate}
           handleModalClose={handleModalClose} // Kirim fungsi close ke form
+        />
+      ),
+    },
+    adds: {
+      title: "Generate Invoice",
+      content: (
+        <GenerateInvoiceForm
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+          handleCreate={handleCreate}
+          handleModalClose={handleModalClose} // Kirim fungsi close ke form
+        />
+      ),
+    },
+    detail: {
+      title: `Invoice Details - ${form?.noInvoice}`,
+      content: (
+        <InvoiceDetail  data={form}
+          // loading={loading}
+          // response={response}
+          // setResponse={setResponse}
+          // handleCreate={handleCreate}
+          // handleModalClose={handleModalClose} // Kirim fungsi close ke form
         />
       ),
     },
@@ -41,20 +67,20 @@ export const invoiceModalConfig = (state) => {
         />
       ),
     },
-    edit: {
-      title: "Edit Product",
-      content: (
-        <EditProductsForm
-          formData={form}
-          formOptions={formOptions}
-          loading={loading}
-          alertOpen={alertOpen}
-          setAlertOpen={setAlertOpen}
-          response={response}
-          setResponse={setResponse}
-          handleUpdate={handleUpdate}
-        />
-      ),
-    },
+    // edit: {
+    //   title: "Edit Product",
+    //   content: (
+    //     <EditProductsForm
+    //       formData={form}
+    //       formOptions={formOptions}
+    //       loading={loading}
+    //       alertOpen={alertOpen}
+    //       setAlertOpen={setAlertOpen}
+    //       response={response}
+    //       setResponse={setResponse}
+    //       handleUpdate={handleUpdate}
+    //     />
+    //   ),
+    // },
 };
 }

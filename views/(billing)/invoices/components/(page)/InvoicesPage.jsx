@@ -4,12 +4,14 @@ import Card from "../(card)/InvoicesCard";
 import { useState } from "react";
 import { DateRangePicker } from "@/components/datePicker/rangeDatePicker";
 import { Separator } from "@/components/ui/separator";
-import InvoiceDataTable from "../(table)/InvoiceTable";
-
 import CustomDialog from "@/components/dialog/basicDialog";
 import { useInvoiceHooks } from "../../hooks/useInvoiceHooks";
 import InvoiceDataColumn from "../(table)/InvoiceDataColumn";
 import invoiceActionConfig from "../../configs/invoiceActionConfig";
+import { getModalConfig } from "@/utils/getModalConfig";
+import { invoiceModalConfig } from "../../configs/invoiceModalConfig";
+import InvoiceDataTable from "../(table)/InvoiceTable";
+import { size } from "zod";
 
 export default function InvoicesPage() {
   const [date, setDate] = useState({ from: undefined, to: undefined });
@@ -38,12 +40,34 @@ export default function InvoicesPage() {
     setFilterParams,
   } = useInvoiceHooks();
 
+  const modalConfig = getModalConfig(
+      modalType,
+      invoiceModalConfig({
+        form,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        selectedRows,
+        setSelectedRows,
+      }),
+    );
+
   const actions = invoiceActionConfig(
     (type, item) => {
       handleModalOpen(type, item);
     },
-    ["update", "delete"],
+    ["delete", "detail"],
   );
+
+  const getModalSize =() => {
+    switch(modalType) {
+      case `detail`:
+        return `sm`;
+    }
+  }
+
   return (
     <>
       <div className="p-4 space-y-4">
@@ -71,16 +95,20 @@ export default function InvoicesPage() {
 
       <div>
         <InvoiceDataTable
-          columns={InvoiceDataColumn({ actions, })}
+          columns={InvoiceDataColumn({ actions,handleModalOpen })}
           handleModalOpen={handleModalOpen}
         />
-        <CustomDialog
-          open={openModal}
+        <CustomDialog open={openModal}
           onOpenChange={handleModalClose}
+          title={modalConfig.title}
           modalType={modalType}
           headerAlignment="start"
-          titleClassname="text-xl p-3"
-        />
+          titleClassname="text-xl p-3" 
+          withHeaderBorder={modalType === 'delete'}
+          size={getModalSize()}
+          >
+            {modalConfig.content}
+        </CustomDialog>
       </div>
     </>
   );

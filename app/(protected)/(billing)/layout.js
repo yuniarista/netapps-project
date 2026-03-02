@@ -9,7 +9,7 @@ export default function catalogLayout({ children }) {
     },
     {
       label: "Payments",
-      path: "/paymenst",
+      path: "/payments",
     },
     {
       label: "Refund List",
@@ -25,10 +25,10 @@ export default function catalogLayout({ children }) {
     <div>
       <PageHeader title="Billing" />
 
-      <div className="px-4">
+      <div className="">
         <CustomTabs tabs={billingTabs} />
       </div>
-      <div className="pt-1">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
