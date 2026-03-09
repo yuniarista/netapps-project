@@ -53,6 +53,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
     });
 
     const { control, formState: { errors }, handleSubmit, setValue, watch } = form;
+    const selectedSegment = watch("customerSegment");
     const isAffiliate = watch("isActive");
     const selectedHomepass = watch("homepassId");
 
@@ -88,7 +89,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("general")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">GENERAL</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">GENERAL</h3>
                             {openSections.general ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -125,7 +126,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                         placeholder="Company Name"
                                         control={control}
                                         errors={errors}
-                                        disabled={true}
+                                        disabled={selectedSegment === "home"}
                                         helperText="Not Required for personal customers."
                                     />
                                 </div>
@@ -150,7 +151,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                     />
                                 </div>
 
-                                <div className="flex flex-row gap-4 items-end">
+                                <div className="flex flex-row gap-4 justify-between">
                                     <div className={cn("transition-all duration-500", selectedHomepass ? "w-1/2" : "w-full")}>
                                         <SelectInputCustom
                                             name="homepassId"
@@ -187,6 +188,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                             placeholder="NPWP Number"
                                             control={control}
                                             errors={errors}
+                                            disabled={selectedSegment === "home"}
                                             helperText="Not Required for personal customers."
                                         />
                                     </div>
@@ -197,6 +199,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                             label="NPWP Photo"
                                             control={control}
                                             errors={errors}
+                                            disabled={selectedSegment === "home"}
                                             helperText="Not Required for personal customers."
                                         />
                                     </div>
@@ -218,7 +221,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("contactDetails")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">CONTACT DETAILS</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">CONTACT DETAILS</h3>
                             {openSections.contactDetails ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -242,7 +245,6 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                         placeholder="Select ID Type"
                                         control={control}
                                         errors={errors}
-                                        helperText="Not Required for personal customers."
                                     />
                                 </div>
 
@@ -345,7 +347,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                                 </div>
 
                                 <div className="my-4">
-                                    <MapInput setValue={setValue} watch={watch} />
+                                    <MapInput setValue={setValue} watch={watch} helperText="Adjust the pin to the exact customer location."/>
                                 </div>
 
                                 <TextInputForm
@@ -365,7 +367,7 @@ export default function EditCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("salesInfo")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">SALES INFORMATION</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">SALES INFORMATION</h3>
                             {openSections.salesInfo ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (

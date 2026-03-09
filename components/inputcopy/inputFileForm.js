@@ -58,10 +58,12 @@ export default function InputFileForm({
                 error
                   ? "border-red-500"
                   : "border-slate-300 focus-within:ring-1 focus-within:ring-primary",
-                disabled && "opacity-50 cursor-not-allowed",
+                disabled && "opacity-50 bg-white cursor-not-allowed",
               )}
             >
-              <span className="text-[#2563eb] text-[14px] font-medium hover:underline shrink-0">
+              <span className={cn("text-[#2563eb] text-[14px] font-medium hover:underline shrink-0",
+                disabled && "text-muted-foreground",
+              )}>
                 {value ? "Change file" : "Choose file"}
               </span>
 

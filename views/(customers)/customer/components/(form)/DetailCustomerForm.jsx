@@ -130,7 +130,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("general")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">GENERAL</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">GENERAL</h3>
                             {openSections.general ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -214,7 +214,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                     />
                                 </div>
 
-                                <div className="flex flex-row gap-4">
+                                {/* <div className="flex flex-row gap-4 justify-between">
                                     <div className="w-1/2">
                                         <TextInputForm
                                             name="npwpId"
@@ -246,7 +246,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                     errors={errors}
                                     disabled={!isEditMode}
                                     helperText="Upload a photo of the business exterior for verification."
-                                />
+                                /> */}
                             </div>
                         )}
                     </section>
@@ -256,7 +256,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("contactDetails")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">CONTACT DETAILS</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">CONTACT DETAILS</h3>
                             {openSections.contactDetails ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
@@ -291,12 +291,12 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                         control={control}
                                         errors={errors}
                                     />
-                                    <InputFileForm
+                                    {/* <InputFileForm
                                         name="photoId"
                                         label="Photo With ID"
                                         control={control}
                                         errors={errors}
-                                    />
+                                    /> */}
                                 </div>
 
                                 <div className="flex flex-row gap-4">
@@ -382,7 +382,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                                 </div>
 
                                 <div className="my-4">
-                                    <MapInput setValue={setValue} watch={watch} />
+                                    <MapInput setValue={setValue} watch={watch} helperText="Adjust the pin to the exact customer location." />
                                 </div>
 
                                 <TextInputForm
@@ -402,7 +402,7 @@ export default function DetailCustomerForm({ handleModalClose, loading }) {
                             className="flex items-center justify-between cursor-pointer"
                             onClick={() => toggleSection("salesInfo")}
                         >
-                            <h3 className="text-lg font-semibold text-slate-700 tracking-wider">SALES INFORMATION</h3>
+                            <h3 className="text-lg font-semibold text-slate-700">SALES INFORMATION</h3>
                             {openSections.salesInfo ? (
                                 <ChevronUp className="h-4 w-4 text-slate-500" />
                             ) : (
