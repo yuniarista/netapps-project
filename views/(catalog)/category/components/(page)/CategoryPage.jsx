@@ -46,7 +46,7 @@ export default function CategoryPage() {
   }, ["update", "delete"]);
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <CategoryDataTable
         columns={CategoryDataColumn({
           actions

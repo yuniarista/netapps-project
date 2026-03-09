@@ -152,7 +152,6 @@ const filterSections = [
                   triggerLabel="Filter By"
                   icon={Settings2}
                   iconPosition="left"
-                  className="w-40"
                   sections={filterSections}
                   badgeVariant="outline"
                 />

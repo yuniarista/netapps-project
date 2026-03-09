@@ -1,11 +1,8 @@
 "use client";
 
 import { getModalConfig } from "@/utils/getModalConfig";
-import { UseCustomerState, UseISPState } from "../../hooks/useISPHook";
-import { CustomerModalConfig, ISPModalConfig } from "../../configs/ISPModalConfig";
-import CustomerActionConfig from "../../configs/ISPActionConfig";
-import CustomerDataTable from "../(table)/ISPDataTable";
-import CustomerDataColumn from "../(table)/ISPDataColumn";
+import { UseISPState } from "../../hooks/useISPHook";
+import { ISPModalConfig } from "../../configs/ISPModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
 import ISPActionConfig from "../../configs/ISPActionConfig";
 import ISPDataTable from "../(table)/ISPDataTable";

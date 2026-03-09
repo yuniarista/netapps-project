@@ -48,7 +48,7 @@ export default function AreaPage() {
   );
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <AreaDataTable
         columns={AreaDataColumn({
           actions,

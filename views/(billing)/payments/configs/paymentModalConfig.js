@@ -1,0 +1,88 @@
+import { TriangleAlert } from "lucide-react";
+// import AddInvoiceForm from "../components/(form)/AddInvoiceForm";
+// import GenerateInvoiceForm from "../components/(form)/GenerateForm";
+// import InvoiceDetail from "../components/(component)/InvoiceDetails";
+// import { size } from "zod";
+// import DeleteForm from "../components/(form)/deleteForm";
+import RecordPaymentForm from "../components/(form)/RecordPayment";
+
+
+export const paymentModalConfig = (state) => {
+  const {
+    form,
+    loading,
+    response,
+    setResponse,
+    formOptions,
+    alertOpen,
+    setAlertOpen,
+    handleCreate,
+    handleUpdate,
+    handleModalClose,
+  } = state;
+
+  return {
+    // add: {
+    //   title: "Create Invoice",
+    //   content: (
+    //     <AddInvoiceForm
+    //       loading={loading}
+    //       response={response}
+    //       setResponse={setResponse}
+    //       handleCreate={handleCreate}
+    //       handleModalClose={handleModalClose} // Kirim fungsi close ke form
+    //     />
+    //   ),
+    // },
+    adds: {
+      title: "Record Payment",
+      description: "INV/2026/02/001 | Abimanyu Putra",
+      content: (
+        <RecordPaymentForm
+          loading={loading}
+          response={response}
+          setResponse={setResponse}
+          handleCreate={handleCreate}
+          handleModalClose={handleModalClose} // Kirim fungsi close ke form
+        />
+      ),
+    },
+    // detail: {
+    //   title: `Invoice Details - ${form?.noInvoice}`,
+    //   content: (
+    //     <InvoiceDetail  data={form}
+    //       // loading={loading}
+    //       // response={response}
+    //       // setResponse={setResponse}
+    //       // handleCreate={handleCreate}
+    //       // handleModalClose={handleModalClose} // Kirim fungsi close ke form
+    //     />
+    //   ),
+    // },
+    // delete: {
+    //   title: "Confirm Delete",
+    //   content: (
+    //     <DeleteForm
+    //       loading={loading}
+    //       response={response}
+    //       setResponse={setResponse}
+    //     />
+    //   ),
+    // },
+    // edit: {
+    //   title: "Edit Product",
+    //   content: (
+    //     <EditProductsForm
+    //       formData={form}
+    //       formOptions={formOptions}
+    //       loading={loading}
+    //       alertOpen={alertOpen}
+    //       setAlertOpen={setAlertOpen}
+    //       response={response}
+    //       setResponse={setResponse}
+    //       handleUpdate={handleUpdate}
+    //     />
+    //   ),
+    // },
+};
+}

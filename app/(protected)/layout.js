@@ -100,7 +100,7 @@ const dummyMenu = [
     features: [
       { name: "Invoices", url: "/invoices" },
       { name: "Payments", url: "/payments" },
-      { name: "Refund List", url: "/refund-list" },
+      { name: "Refund List", url: "/refund" },
       { name: "Billing Setting", url: "/billing-settings" },
     ],
   },

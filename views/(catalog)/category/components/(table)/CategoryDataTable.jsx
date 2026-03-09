@@ -73,7 +73,7 @@ export default function CategoryDataTable({ columns, handleModalOpen}) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-1 flex-col">
       {hasData ? (
         <>
           <div className="px-4 space-y-2 py-2">
@@ -119,7 +119,6 @@ export default function CategoryDataTable({ columns, handleModalOpen}) {
                     triggerLabel="Filter By"
                     icon={Settings2}
                     iconPosition="left"
-                    className="w-40"
                     sections={filterSections}
                     badgeVariant="outline"
                   />
@@ -176,14 +175,12 @@ export default function CategoryDataTable({ columns, handleModalOpen}) {
           </div>
         </>
       ) : (
-        <div className="flex-1 flex  flex-col items-center justify-center text-center p-6">
-          <div className="space-y-4 max-w-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
-              No Invoice Template
-            </h2>
-            <p className="text-slate-500 max-w-sm">
-              You haven't created any invoice template yet. <br />
-              Go ahead and create your first one.
+        <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-50/50">
+          <div className="space-y-4 max-w-xs">
+            <Label className="text-xl font-bold">No Category</Label>
+            <p className="text-sm text-muted-foreground">
+              Your network backbone starts here. Create your first POP site to
+              provide internet connectivity.
             </p>
             <CustomButton
               variant="primary"
@@ -192,7 +189,7 @@ export default function CategoryDataTable({ columns, handleModalOpen}) {
               className="mt-4"
             >
               <Plus className="w-4 h-4" />
-              Create invoice template
+              Create Category
             </CustomButton>
           </div>
         </div>

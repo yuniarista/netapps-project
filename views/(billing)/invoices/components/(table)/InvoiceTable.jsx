@@ -5,13 +5,14 @@ import DataTableComponent from "@/components/data-table/DataTableComponent";
 import IconifyIcon from "@/components/icon";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, Trash2, X, CirclePlus, Plus, Calendar } from "lucide-react";
+import { Search, Trash2, X, CirclePlus, Plus, Calendar, Type } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { useState } from "react";
 import SelectFilter from "@/components/inputcopy/selectFilter";
+import { DateRangePicker } from "@/components/datePicker/rangeDatePicker";
 
-export default function ProductDataTable({
+export default function InvoiceDataTable({
   uri,
   data,
   setData,
@@ -33,19 +34,50 @@ export default function ProductDataTable({
   const [activeFilters, setActiveFilters] = useState([]);
   const [selectedSegments, setSelectedSegments] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState([]);
+  const [date, setDate] = useState({ from: undefined, to: undefined });
 
   const dummyData = [
     {
       id: "1",
-      customerName: "Putu Harun",
-      cid: "C001",
-      noInvoice: "INV001",
-      billingPeriod: "01/02/26-01/03/26",
+      date: "01/03/2026",
+      noInvoice: "INV/2026/02/001",
+      customerName: "Ni Putu Angelina Giovany",
+      address:
+        "Jl. Imam Bonjol No.350, Pemecutan Klod, Kec. Denpasar Bar., Kota Denpasar, Bali 90119",
+      period: "Feb,2026",
+      billingType: "Prorate-12 days",
+      email: "angelina@gmail.com",
       dueDate: "06/03/2026",
-      ppn: "-",
-      amount: "Rp100000",
       status: "Paid",
-      customerStatus: "Active"
+      invoice: "01/02/2026",
+      price: 20000,
+      disc: 10,
+      total: 100000,
+      phone: "+123456789098",
+      package: "PAKET 20MBPS",
+      billingPeriod: "tess",
+      type: "paid"
+    },
+    {
+      id: "2",
+      date: "03/04/2026",
+      noInvoice: "INV/2026/03/002",
+      customerName: "Putu Wahyu Putra",
+      address:
+        "Jl. Peliatan No.10, Kec. Ubud Bar., Kota Denpasar, Bali 123",
+      period: "Jun,2026",
+      billingType: "Prorate-10 days",
+      email: "wahyu@gmail.com",
+      dueDate: "07/04/2026",
+      status: "Unpaid",
+      invoice: "02/02/2026",
+      price: 50000,
+      disc: 10,
+      total: 500000,
+      phone: "+09876543212",
+      package: "PAKET 50MBPS",
+      billingPeriod: "tess123",
+      type: "warning",
     },
   ];
 
@@ -82,17 +114,22 @@ export default function ProductDataTable({
 
   const bulkActionSections = [
     {
-      label: "Change Status",
+      // label: "Change Status",
       items: [
         {
-          label: "Mark as active",
-          value: "active",
-          onClick: () => handleAddFilter("Active", "active", true),
+          label: "Export as PDF",
+          value: "pdf",
+          // onClick: () => handleAddFilter("Active", "active", true),
         },
         {
-          label: "Mark as non active",
-          value: "inactive",
-          onClick: () => handleAddFilter("Inactive", "inactive", true),
+          label: "Export as ZIP (File)",
+          value: "zip",
+          // onClick: () => handleAddFilter("Inactive", "inactive", true),
+        },
+        {
+          label: "Mark as Sent",
+          value: "sent",
+          // onClick: () => handleAddFilter("Inactive", "inactive", true),
         },
       ],
     },
@@ -112,13 +149,19 @@ export default function ProductDataTable({
   const hasData = dummyData.length > 0;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-1 flex-col">
       {hasData ? (
         <div className="px-4 space-y-2 py-2">
+          <CustomButton
+            variant="primary"
+            size="md"
+            onClick={() => handleModalOpen("adds")}
+          >
+            <IconifyIcon icon="lucide:refresh-ccw-dot" />
+            Generate Invoice
+          </CustomButton>
           <div className="w-full">
-            <Label className="font-semibold text-sm">
-              Catalog Product Data
-            </Label>
+            <Label className="font-semibold text-sm">Invoices Data</Label>
           </div>
 
           <div className="flex flex-nowrap items-center justify-start w-full gap-2 pt-0">
@@ -146,13 +189,10 @@ export default function ProductDataTable({
                   icon={CirclePlus}
                   showSearch
                 />
-                <SelectFilter
-                  label="State Range"
-                  options={subCategoryOptions}
-                  selected={selectedStatus}
-                  onChange={setSelectedStatus}
-                  icon={Calendar}
-                  showSearch
+                <DateRangePicker
+                  date={date}
+                  handleSelect={setDate}
+                  placeHolder="select date range"
                 />
                 <SelectFilter
                   label="Status"
@@ -224,19 +264,21 @@ export default function ProductDataTable({
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
-            <Label className="text-lg">No Catalog Product</Label>
+        <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-50/50">
+          <div className="space-y-4 max-w-xs">
+            <Label className="text-xl font-bold">No Invoices</Label>
             <p className="text-sm text-muted-foreground">
-              You haven’t created any product yet.
-              <br /> Go a head and create your first one.
+              Your network backbone starts here. Create your first POP site to
+              provide internet connectivity.
             </p>
             <CustomButton
               variant="primary"
-              className="flex gap-2"
+              size="lg"
               onClick={() => handleModalOpen("add")}
+              className="mt-4"
             >
-              <Plus className="w-4 h-4" /> Setup Network
+              <Plus className="w-4 h-4" />
+              Create Invoices
             </CustomButton>
           </div>
         </div>
@@ -244,3 +286,83 @@ export default function ProductDataTable({
     </div>
   );
 }
+
+
+
+// import IconifyIcon from "@/components/icon";
+// import { Button } from "@/components/ui/button";
+// import { Separator } from "@/components/ui/separator";
+// import PaymentStatus from "../(card)/PaymentStatus";
+
+// export default function InvoiceDetail({ data }) {
+//   // Jika data belum ada, berikan nilai default agar tidak crash
+//   if (!data) return <div className="p-4 text-center">Loading data...</div>;
+
+//   // Membersihkan format Rp 100.000 menjadi angka untuk perhitungan
+//   const cleanNumber = (val) => {
+//     if (typeof val === 'number') return val;
+//     return Number(val?.replace(/[^0-9]/g, "")) / 100 || 0;
+//   };
+
+  // const subTotal = cleanNumber(data.amount);
+  // const tax = subTotal * 0.11;
+  // const grandTotal = subTotal + tax;
+
+//   return (
+//     <div className="space-y-4">
+//       <PaymentStatus status={data.status} />
+      
+//       <section>
+//         <h3 className="font-semibold mb-2">Customer Information</h3>
+//         <div className="space-y-2">
+//           <div className="flex items-center gap-2 text-sm">
+//             <IconifyIcon icon="lucide:user-round" className="text-muted-foreground w-4 h-4" />
+//             <span>{data.customerName}</span>
+//           </div>
+//           {/* Data tambahan jika tersedia di dummyData */}
+//           <div className="flex items-start gap-2 text-sm text-muted-foreground">
+//             <IconifyIcon icon="lucide:map-pin" className="w-4 h-4 mt-0.5" />
+//             <span>{data.address || "Address not provided"}</span>
+//           </div>
+//         </div>
+//       </section>
+
+//       <Separator />
+
+//       <section className="grid grid-cols-3 gap-4 text-xs">
+//         <div>
+//           <span className="font-semibold block">Invoice Date</span>
+//           <p>{data.date}</p>
+//         </div>
+//         <div>
+//           <span className="font-semibold block">Invoice No.</span>
+//           <p>{data.noInvoice}</p>
+//         </div>
+//         <div>
+//           <span className="font-semibold block">Billing Period</span>
+//           <p>{data.billingPeriod}</p>
+//         </div>
+//       </section>
+
+//       <section className="bg-slate-50 p-3 rounded-lg text-xs space-y-2">
+//         <div className="flex justify-between">
+//           <span>Sub Total</span>
+//           <span>{data.amount}</span>
+//         </div>
+//         <div className="flex justify-between">
+//           <span>Tax (11%)</span>
+//           <span>Rp {tax.toLocaleString("id-ID")}</span>
+//         </div>
+//         <div className="flex justify-between border-t border-dashed pt-2 font-bold text-sm">
+//           <span>Total Amount</span>
+//           <span>Rp {grandTotal.toLocaleString("id-ID")}</span>
+//         </div>
+//       </section>
+
+//       <div className="flex justify-end gap-2 pt-4">
+//         <Button variant="outline" size="sm">Cancel</Button>
+//         <Button variant="primary" size="sm">Download PDF</Button>
+//       </div>
+//     </div>
+//   );
+// }
