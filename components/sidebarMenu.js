@@ -40,7 +40,7 @@ export function SidebarNavigation({ menu = [], session }) {
   }, [pathname, menu]);
 
   return (
-    <Sidebar className="border-r bg-[#F9F9F9] z-30">
+    <Sidebar className="border-r z-30">
       <SidebarHeader className="px-2">
         <div className="flex items-center gap-2">
           <div className="size-8 rounded border border-primary bg-primary/10 flex items-center justify-center">

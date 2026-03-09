@@ -8,27 +8,29 @@ export default function catalogLayout({ children }) {
       path: "/invoices",
     },
     {
-      label: "Payments",
+      label: "Payments Received",
       path: "/payments",
     },
     {
       label: "Refund List",
-      path: "/refund-list",
+      path: "/refund",
     },
     {
       label: "Billing Setting",
-      path: "/billing-settings",
+      path: "/billing-setting",
     },
   ];
 
   return (
-    <div>
-      <PageHeader title="Billing" />
-
-      <div className="">
-        <CustomTabs tabs={billingTabs} />
+    <div className="flex flex-col h-screen">
+      <div>
+        <PageHeader title="Billing" />
+        <CustomTabs tabs={billingTabs}/>
       </div>
-      <div>{children}</div>
+
+      <div className="flex-1 flex flex-col overflow-auto min-h-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {children}
+      </div>
     </div>
   );
 }

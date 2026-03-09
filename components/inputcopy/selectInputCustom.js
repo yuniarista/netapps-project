@@ -15,10 +15,10 @@
 //   SelectTrigger,
 //   SelectValue,
 // } from "../select/CustomSelect";
-// import { Plus, Search } from "lucide-react"; 
+// import { Plus, Search } from "lucide-react";
 // import BaseModal from "./inputBaseModal";
 // import { Button } from "../ui/button";
-// import { Input } from "../ui/input"; 
+// import { Input } from "../ui/input";
 // import { useState, useMemo } from "react";
 
 // export default function SelectInputCustom({
@@ -174,6 +174,7 @@
 //     </div>
 //   );
 // }
+
 "use client";
 
 import {
@@ -191,11 +192,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../select/CustomSelect";
-import { Plus, Search, CheckSquare, Square } from "lucide-react"; 
+import { Plus, Search } from "lucide-react";
 import BaseModal from "./inputBaseModal";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input"; 
-import { Checkbox } from "@/components/ui/checkbox"; // Import checkbox
+import { Input } from "../ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState, useMemo } from "react";
 
 export default function SelectInputCustom({
@@ -216,7 +217,7 @@ export default function SelectInputCustom({
   onAddNew,
   renderModalContent,
   showSearch = false,
-  isCheckbox = false, // Prop untuk mengaktifkan mode checkbox di dalam select
+  isCheckbox = false,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -226,7 +227,7 @@ export default function SelectInputCustom({
     return options.filter((option) =>
       String(option[optionName])
         .toLowerCase()
-        .includes(searchQuery.toLowerCase())
+        .includes(searchQuery.toLowerCase()),
     );
   }, [options, searchQuery, showSearch, optionName]);
 
@@ -237,11 +238,11 @@ export default function SelectInputCustom({
         name={name}
         defaultValue={defaultValue}
         render={({ field, fieldState: { error } }) => {
-          
-          const allValues = options.map(opt => opt.value || opt.id);
-          const isAllSelected = Array.isArray(field.value) && 
-                               allValues.length > 0 && 
-                               allValues.every(val => field.value.includes(val));
+          const allValues = options.map((opt) => opt.value || opt.id);
+          const isAllSelected =
+            Array.isArray(field.value) &&
+            allValues.length > 0 &&
+            allValues.every((val) => field.value.includes(val));
 
           const handleSelectAll = (e) => {
             e.preventDefault();
@@ -267,13 +268,15 @@ export default function SelectInputCustom({
                     const selected = options?.find(
                       (option) =>
                         (option.value ?? option.id)?.toString() ===
-                        selectedValue?.toString()
+                        selectedValue?.toString(),
                     );
-                    
+
                     if (selected) {
                       const val = selected?.value ?? selected?.id;
                       if (isCheckbox) {
-                        const currentValues = Array.isArray(field.value) ? field.value : [];
+                        const currentValues = Array.isArray(field.value)
+                          ? field.value
+                          : [];
                         const newValue = currentValues.includes(val)
                           ? currentValues.filter((v) => v !== val)
                           : [...currentValues, val];
@@ -290,7 +293,9 @@ export default function SelectInputCustom({
                   >
                     <SelectValue
                       placeholder={
-                        isCheckbox && Array.isArray(field.value) && field.value.length > 0
+                        isCheckbox &&
+                        Array.isArray(field.value) &&
+                        field.value.length > 0
                           ? `${field.value.length} ${label}`
                           : placeholder || `Pilih ${label}`
                       }
@@ -304,8 +309,8 @@ export default function SelectInputCustom({
                             placeholder="Search..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="h-9 w-full pr-10 border rounded-md shadow-none text-sm"
                             onKeyDown={(e) => e.stopPropagation()}
+                            className="h-9 w-full pr-10 border rounded-md shadow-none text-sm"
                           />
                           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary pointer-events-none" />
                         </div>
@@ -325,34 +330,48 @@ export default function SelectInputCustom({
                       {filteredOptions.length > 0 ? (
                         filteredOptions.map((option) => {
                           const optionValue = option.value || option.id;
-                          const isChecked = Array.isArray(field.value) && field.value.includes(optionValue);
-                          
+                          const isChecked =
+                            Array.isArray(field.value) &&
+                            field.value.includes(optionValue);
+
                           return (
                             <SelectItem
                               key={optionValue}
                               value={optionValue}
                               className={cn(
                                 "capitalize text-sm",
-                                !isCheckbox && isMultiple && multipleData?.includes(optionValue)
+                                !isCheckbox &&
+                                  isMultiple &&
+                                  multipleData?.includes(optionValue)
                                   ? "bg-gray-200"
-                                  : ""
+                                  : "",
                               )}
-                              onPointerDown={(e) => isCheckbox && e.preventDefault()} 
+                              onPointerDown={(e) =>
+                                isCheckbox && e.preventDefault()
+                              }
                               onClick={() => {
                                 if (isCheckbox) {
-                                   const currentValues = Array.isArray(field.value) ? field.value : [];
-                                   const newValue = currentValues.includes(optionValue)
-                                     ? currentValues.filter((v) => v !== optionValue)
-                                     : [...currentValues, optionValue];
-                                   field.onChange(newValue);
+                                  const currentValues = Array.isArray(
+                                    field.value,
+                                  )
+                                    ? field.value
+                                    : [];
+                                  const newValue = currentValues.includes(
+                                    optionValue,
+                                  )
+                                    ? currentValues.filter(
+                                        (v) => v !== optionValue,
+                                      )
+                                    : [...currentValues, optionValue];
+                                  field.onChange(newValue);
                                 }
                               }}
                             >
                               <div className="flex items-center gap-2">
                                 {isCheckbox && (
-                                  <Checkbox 
-                                    checked={isChecked} 
-                                    className="pointer-events-none" 
+                                  <Checkbox
+                                    checked={isChecked}
+                                    className="pointer-events-none"
                                   />
                                 )}
                                 <span>{option[optionName]}</span>
@@ -361,6 +380,24 @@ export default function SelectInputCustom({
                           );
                         })
                       ) : (
+                        //                         filteredOptions.map((option) => (
+                        //                           <SelectItem
+                        //                             key={option.value || option.id}
+                        //                             value={option.value || option.id}
+                        //                             className={cn(
+                        //                               "capitalize text-sm",
+                        //                               isMultiple &&
+                        //                                 multipleData?.includes(
+                        //                                   option.value || option.id,
+                        //                                 )
+                        //                                 ? "bg-gray-200"
+                        //                                 : "",
+                        //                             )}
+                        //                           >
+                        //                             {option[optionName]}
+                        //                           </SelectItem>
+                        //                         ))
+
                         <div className="py-2 px-2 text-xs text-slate-500 text-center">
                           No results found.
                         </div>
@@ -398,8 +435,12 @@ export default function SelectInputCustom({
           title={`Add ${label}`}
           footer={
             <>
-              <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
-              <Button type="submit" form="add-select-form">Add</Button>
+              <Button variant="outline" onClick={() => setIsModalOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" form="add-select-form">
+                Add
+              </Button>
             </>
           }
         >

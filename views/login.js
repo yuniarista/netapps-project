@@ -109,15 +109,15 @@ export default function Login() {
           </div>
 
           <div className="relative z-20 p-6 flex flex-col justify-between h-full">
-            <div className="flex justify-center p-3">
+            <div className="flex justify-start">
               <Image src={logo} alt="logo" priority />
             </div>
 
             <div className="flex flex-col gap-1 max-w-sm">
-              <h1 className="text-3xl font-bold text-[#0F172A] leading-tight">
+              <h1 className="text-xl font-bold text-[#0F172A] leading-tight">
                 Smart Billing for ISP Operations
               </h1>
-              <p className="text-[#64748B] text-[10px]">
+              <p className="text-[#666D80] text-xs">
                 Manage invoices, payments, and customer billing across multiple
                 ISPs in one platform.
               </p>
@@ -156,7 +156,7 @@ export default function Login() {
                 name="email"
                 label={""}
                 control={control}
-                placeholder="Email"
+                placeholder={"Email"}
                 errors={errors}
                 type="text"
               />

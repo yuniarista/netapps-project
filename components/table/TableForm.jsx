@@ -1,7 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
-import { useFieldArray, useForm } from "react-hook-form";
-import TextInputForm from "@/components/inputcopy/textInputForm";
-import InputText from "@/components/inputcopy/inputText";
+import { useFieldArray } from "react-hook-form";
+import InputTextCustom from "../inputcopy/inputTextCustom";
 
 export default function TableForm({
   control,
@@ -45,7 +44,7 @@ export default function TableForm({
               >
                 {column.map((col) => (
                   <td key={col} className="py-2 px-1">
-                    <InputText
+                    <InputTextCustom
                       name={`invoiceItems.${index}.${col}`}
                       placeholder={`Enter ${col}`}
                       control={control}

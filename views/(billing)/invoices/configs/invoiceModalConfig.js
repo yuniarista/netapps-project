@@ -35,6 +35,7 @@ export const invoiceModalConfig = (state) => {
     },
     adds: {
       title: "Generate Invoice",
+      description: "The system will automatically scan and generate invoices for Active customers while skipping those who already have an invoice for the selected period to prevent double billing",
       content: (
         <GenerateInvoiceForm
           loading={loading}

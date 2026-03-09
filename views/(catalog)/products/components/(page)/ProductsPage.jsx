@@ -57,7 +57,7 @@ export default function ProductPage() {
   );
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <ProductDataTable
         columns={ProductDataColumn({
           actions,

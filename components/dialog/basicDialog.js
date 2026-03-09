@@ -66,8 +66,11 @@ const CustomDialog = ({
               "w-full flex items-center text-xl font-medium text-zinc-900 leading-7",
               `text-${headerAlignment}`,
             )}
-          >  
+          >
+            <div className="flex flex-col gap-2">
         {isDelete ? <TriangleAlert className="w-6 h-6 text-red-500 font-light mr-2" /> : "" } {title}
+        <span className="text-xs font-normal tracking-normal text-muted-foreground">{description}</span>
+              </div>  
           </DialogTitle>
 
           <button

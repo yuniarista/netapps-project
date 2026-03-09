@@ -22,13 +22,15 @@ export default function catalogLayout({ children }) {
   ];
 
   return (
-    <div>
-      <PageHeader title="Catalog" />
-
-      <div className="px-4">
+    <div className="flex flex-col h-screen">
+      <div>
+        <PageHeader title="Catalog" />
         <CustomTabs tabs={catalogTabs} />
       </div>
-      <div className="pt-1">{children}</div>
+
+      <div className="flex-1 flex flex-col overflow-auto min-h-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {children}
+      </div>
     </div>
   );
 }

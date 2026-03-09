@@ -48,7 +48,7 @@ export default function SubCategoryPage() {
   );
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <SubCategoryDataTable
         columns={SubCategoryDataColumn({
           actions,

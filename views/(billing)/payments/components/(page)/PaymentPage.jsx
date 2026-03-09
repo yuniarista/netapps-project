@@ -1,49 +1,90 @@
 "use client";
-
-import { ChevronDown, ChevronUp, Search } from "lucide-react";
-import List from "../(list)/paymentList";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import CustomDialog from "@/components/dialog/basicDialog";
+import { getModalConfig } from "@/utils/getModalConfig";
+import { usePaymentHooks } from "../../hooks/usePaymentHooks";
+import { paymentModalConfig } from "../../configs/paymentModalConfig";
+import PaymentCard from "../(card)/paymentCard";
+import { Separator } from "@/components/ui/separator";
 
+export default function paymentPage() {
+  // const [date, setDate] = useState({ from: undefined, to: undefined });
+  const {
+    form,
+    setForm,
+    openModal,
+    setOpenModal,
+    modalType,
+    setModalType,
+    data,
+    setData,
+    response,
+    setResponse,
+    loading,
+    setLoading,
+    paginationModel,
+    setPaginationModel,
+    alertOpen,
+    setAlertOpen,
+    handleModalOpen,
+    handleModalClose,
+    selectedRows,
+    setSelectedRows,
+    filterParams,
+    setFilterParams,
+  } = usePaymentHooks();
 
-export default function PaymentPage() {
+  const modalConfig = getModalConfig(
+      modalType,
+      paymentModalConfig({
+        form,
+        loading,
+        response,
+        setResponse,
+        alertOpen,
+        setAlertOpen,
+        selectedRows,
+        setSelectedRows,
+      }),
+    );
 
-      const [openSections, setOpenSections] = useState({
-        allInvoice: true,
-      });
+  // const actions = invoiceActionConfig(
+  //   (type, item) => {
+  //     handleModalOpen(type, item);
+  //   },
+  //   ["delete", "detail"],
+  // );
 
+  const getModalSize =() => {
+    switch(modalType) {
+      case `adds`:
+        return `md`;
+    }
+  }
 
-     const toggleSection = (section) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
   return (
-    <div className=" w-1/4 border-x min-h-screen">
-      <div>
-        <div className="relative w-md flex-shrink-0 p-3">
-          <Input placeholder="Search" className="pr-10 h-9" />
-          <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
-        </div>
-        <section>
-            <div
-              className="flex items-center cursor-pointer"
-              onClick={() => toggleSection("allInvoice")}
-            >
-              <h3 className="text-sm font-semibold p-3">All Invoice</h3>
-              {openSections.allInvoice ? (
-                <ChevronDown className="h-4 w-4 text-500" />
-              ) : (
-                <ChevronUp className="h-4 w-4 text-500" />
-              )}
-            </div>
-
-            {openSections.allInvoice && (
-              <List />
-            )}
-          </section>
+    <>
+    
+      <div className="flex flex-col flex-1">
+        {/* <InvoiceDataTable
+          columns={InvoiceDataColumn({ actions,handleModalOpen })}
+          handleModalOpen={handleModalOpen}
+        /> */}
+        <PaymentCard 
+        handleModalOpen={handleModalOpen}/>
+        <CustomDialog open={openModal}
+          onOpenChange={handleModalClose}
+          title={modalConfig.title}
+          description={modalConfig.description}
+          modalType={modalType}
+          headerAlignment="start"
+          titleClassname="text-xl p-3" 
+          withHeaderBorder={modalType === 'delete'}
+          size={getModalSize()}
+          >
+            {modalConfig.content}
+        </CustomDialog>
       </div>
-    </div>
+    </>
   );
 }

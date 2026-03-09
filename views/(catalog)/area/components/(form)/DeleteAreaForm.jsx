@@ -40,16 +40,16 @@ export default function DeleteAreaForm({
           </div>
         </div>
 
-          <div className="flex items-center justify-end gap-3 p-4">
-            <DialogClose asChild>
-              <Button type="reset" variant="secondary" disabled={loading}>
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit" variant="destructive" disabled={loading}>
-              {loading ? <Loading /> : "Delete"}
+        <div className="flex items-center justify-end gap-3 p-4">
+          <DialogClose asChild>
+            <Button type="reset" variant="secondary" disabled={loading}>
+              Cancel
             </Button>
-          </div>
+          </DialogClose>
+          <Button type="submit" variant="destructive" disabled={loading}>
+            {loading ? <Loading /> : "Delete"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

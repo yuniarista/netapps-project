@@ -77,27 +77,6 @@ export default function InvoiceDataTable({
       phone: "+09876543212",
       package: "PAKET 50MBPS",
       billingPeriod: "tess123",
-      type: "unpaid",
-    },
-    {
-      id: "3",
-      date: "03/04/2026",
-      noInvoice: "INV/2026/03/002",
-      customerName: "Putu Wahyu Putra",
-      address:
-        "Jl. Peliatan No.10, Kec. Ubud Bar., Kota Denpasar, Bali 123",
-      period: "Jun,2026",
-      billingType: "Prorate-10 days",
-      email: "wahyu@gmail.com",
-      dueDate: "07/04/2026",
-      status: "Unpaid",
-      invoice: "02/02/2026",
-      price: 50000,
-      disc: 10,
-      total: 500000,
-      phone: "+09876543212",
-      package: "PAKET 50MBPS",
-      billingPeriod: "tess123",
       type: "warning",
     },
   ];
@@ -170,7 +149,7 @@ export default function InvoiceDataTable({
   const hasData = dummyData.length > 0;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-1 flex-col">
       {hasData ? (
         <div className="px-4 space-y-2 py-2">
           <CustomButton
@@ -285,19 +264,21 @@ export default function InvoiceDataTable({
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
-            <Label className="text-lg">No Catalog Product</Label>
+        <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-50/50">
+          <div className="space-y-4 max-w-xs">
+            <Label className="text-xl font-bold">No Invoices</Label>
             <p className="text-sm text-muted-foreground">
-              You haven’t created any product yet.
-              <br /> Go a head and create your first one.
+              Your network backbone starts here. Create your first POP site to
+              provide internet connectivity.
             </p>
             <CustomButton
               variant="primary"
-              className="flex gap-2"
+              size="lg"
               onClick={() => handleModalOpen("add")}
+              className="mt-4"
             >
-              <Plus className="w-4 h-4" /> Setup Network
+              <Plus className="w-4 h-4" />
+              Create Invoices
             </CustomButton>
           </div>
         </div>

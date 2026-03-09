@@ -93,7 +93,7 @@ export default function InvoicesPage() {
       </div>
       <Separator />
 
-      <div>
+      <div className="flex flex-col flex-1">
         <InvoiceDataTable
           columns={InvoiceDataColumn({ actions,handleModalOpen })}
           handleModalOpen={handleModalOpen}
@@ -101,6 +101,7 @@ export default function InvoicesPage() {
         <CustomDialog open={openModal}
           onOpenChange={handleModalClose}
           title={modalConfig.title}
+          description={modalConfig.description}
           modalType={modalType}
           headerAlignment="start"
           titleClassname="text-xl p-3" 

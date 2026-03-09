@@ -10,13 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-primary text-white hover:bg-primary/90 focus-visible:outline-[#A1A1AA] disabled:bg-[#6332CEE6] disabled:text-[#FFF1F2]",
+          "bg-primary text-white hover:bg-primary/90 focus-visible:outline-primary disabled:bg-[#6332CEE6] disabled:text-[#FFF1F2]",
         secondary:
           "bg-[#F4F4F5] text-[#18181B] hover:bg-[#F4F4F5CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#F4F4F5E6] disabled:text-[#18181B]",
         destructive:
-          "bg-[#EF4444] text-white hover:bg-[#EF4444CC] focus-visible:outline-[#A1A1AA] disabled:bg-[#EF4444E6] disabled:text-[#FFF1F2]",
+          "bg-[#EF4444] text-white hover:bg-[#EF4444CC] focus-visible:outline-red-500 disabled:bg-[#EF4444E6] disabled:text-[#FFF1F2]",
         outline:
-          "bg-white text-[#18181B] border border-[#E4E4E7] hover:bg-[#F4F4F5CC] focus-visible:outline-[#A1A1AAE6] disabled:text-[#18181B]",
+          "bg-white text-[#18181B] border border-[#E4E4E7] hover:bg-[#F4F4F5CC] focus-visible:outline-primary disabled:text-[#18181B]",
         link: "bg-white text-[#18181B] hover:text-[#18181B] underline hover:bg-white focus-visible:outline-[#A1A1AAE6] disabled:text-[#18181B] disabled:cursor-not-allowed"
       },
       size: {
