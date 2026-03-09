@@ -141,7 +141,22 @@ const filterSections = [
                       </CustomButton>
                     ))} */}
                 </div>
+                {/* <Select>
+                  <SelectTrigger className="w-40" iconClassName="text-primary">
+                    <SelectValue placeholder="Bulk Delete" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {/* <SelectItem value="delete">Delete Selected</SelectItem> */}
+                {/* </SelectContent>
+                </Select> */}
 
+                <SelectDropdown
+                  triggerLabel="Filter By"
+                  icon={Settings2}
+                  iconPosition="left"
+                  sections={filterSections}
+                  badgeVariant="outline"
+                />
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}

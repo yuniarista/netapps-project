@@ -120,7 +120,7 @@ export default function ProductDataTable({
   const hasData = dummyData.length > 0;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-1 flex-col">
       {hasData ? (
         <div className="px-4 space-y-2 py-2">
           <div className="w-full">
@@ -224,19 +224,21 @@ export default function ProductDataTable({
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex-1 flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="w-full h-full flex flex-col items-center justify-center space-y-4 text-center">
-            <Label className="text-lg">No Catalog Product</Label>
+        <div className="flex-1 flex flex-col items-center justify-center text-center p-6 bg-slate-50/50">
+          <div className="space-y-4 max-w-xs">
+            <Label className="text-xl font-bold">No Catalog Product</Label>
             <p className="text-sm text-muted-foreground">
               You haven’t created any product yet.
               <br /> Go a head and create your first one.
             </p>
             <CustomButton
               variant="primary"
-              className="flex gap-2"
+              size="lg"
               onClick={() => handleModalOpen("add")}
+              className="mt-4"
             >
-              <Plus className="w-4 h-4" /> Setup Network
+              <Plus className="w-4 h-4" />
+              Create Product
             </CustomButton>
           </div>
         </div>

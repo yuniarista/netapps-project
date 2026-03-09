@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -14,8 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { size } from "zod";
+import IconifyIcon from "@/components/icon";
 
-const InvoiceDataColumn = ({ actions }) => {
+const InvoiceDataColumn = ({ actions, handleModalOpen }) => {
   return [
     {
       id: "select",
@@ -38,97 +38,99 @@ const InvoiceDataColumn = ({ actions }) => {
       size: 10,
     },
     {
-      accessorKey: "customerName",
+      accessorKey: "date",
       // header: "Customer Name",
-      header: ()=>(
-        <div className="w-20 truncate">Customer Name</div>
-      ),
+      header: () => <div className="w-full truncate">Date</div>,
       size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("customerName")
+        const value = row.getValue("date");
         return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
-    },
-    {
-      accessorKey: "cid",
-      header: "CID",
-      size:100,
-      cell: ({ row }) => {
-        const value = row.getValue("cid")
-        return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
+          <div className="w-full truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "noInvoice",
-      header: "Invoice No.",
-      size:100,
+      // header: "Invoice No.",
+      header: () => <div className="w-full truncate">Invoice No.</div>,
+      size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("noInvoice")
+        const value = row.getValue("noInvoice");
         return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
+          <div className="flex items-center gap-2 w-full cursor-pointer" title={value} onClick={() => handleModalOpen("detail", row.original)}>
+            <IconifyIcon icon="lucide:mail" className="w-4 h-4 text-muted-foreground" />
+            <span className="truncate text-primary">{value}</span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "customerName",
+      // header: "Billing Period",
+      header: () => <div className="w-full truncate">Customer Name</div>,
+      size: 200,
+      cell: ({ row }) => {
+        const value = row.getValue("customerName");
+        return (
+          <div className="w-full truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "billingPeriod",
-      // header: "Billing Period",
-      header: ()=>(
-        <div className="w-20 truncate">Billing Period</div>
-      ),
-      size:200,
+      // header: "Due Date",
+      header: () => <div className="w-full truncate">Billing Period</div>,
+      size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("billingPeriod")
+        const value = row.getValue("billingPeriod");
         return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
+          <div className="w-full truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "dueDate",
-      header: "Due Date",
-      size:100,
+      // header: "Due Date",
+      header: () => <div className="w-full truncate">Due Date</div>,
+      size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("dueDate")
+        const value = row.getValue("dueDate");
         return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
-    },
-    {
-      accessorKey: "ppn",
-      header: "PPN",
-      size:100,
-      cell: ({ row }) => {
-        const value = row.getValue("ppn")
-        return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
+          <div className="w-full truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "amount",
-      header: "Amount",
-      size:100,
+      // header: "Amount",
+      header: () => <div className="w-full truncate">Amount</div>,
+      size: 200,
       cell: ({ row }) => {
-        const value = row.getValue("amount")
+        const value = row.getValue("amount");
         return (
-          <div className="w-20 truncate" title={value}>{value}</div>
-        )
-      }
+          <div className="w-full truncate" title={value}>
+            {value}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "status",
       header: "Status",
-      size:50,
+      size: 50,
       cell: ({ row }) => {
         const statusValue = row.original.status;
         const rowId = row.original.id;
 
-        const paidActions = [ 
+        const paidActions = [
           {
             label: "Change Status",
             items: [
@@ -162,54 +164,10 @@ const InvoiceDataColumn = ({ actions }) => {
       },
     },
     {
-      accessorKey: "customerStatus",
-      // header: "Customer Status",
-      header: ()=>(
-        <div className="w-20 truncate">Customer Status</div>
-      ),
-      size:50,
-      cell: ({ row }) => {
-        const customerStatusValue = row.original.customerStatus;
-        const rowId = row.original.id;
-
-        const statusActions = [ 
-          {
-            label: "Change Status",
-            items: [
-              {
-                label: "Mark as active",
-                value: "Active",
-                onClick: (v) => handleStatusUpdate(rowId, v),
-              },
-              {
-                label: "Mark as non active",
-                value: "Inactive",
-                onClick: (v) => handleStatusUpdate(rowId, v),
-              },
-            ],
-          },
-        ];
-
-        return (
-          <SelectDropdown
-            asBadge={true}
-            triggerLabel={customerStatusValue}
-            badgeVariant={
-              customerStatusValue === "Active" ? "outlined-active" : "outlined-inactive"
-            }
-            iconClassName={
-              customerStatusValue === "Active" ? "text-emerald-500" : "text-slate-400"
-            }
-            sections={statusActions}
-          />
-        );
-      },
-    },
-    {
       id: "actions",
       enableHiding: false,
       header: "Action",
-      size:50,
+      size: 50,
       cell: ({ row, index }) => {
         const rowData = row.original;
         return (
