@@ -35,18 +35,18 @@ export default function paymentPage() {
   } = usePaymentHooks();
 
   const modalConfig = getModalConfig(
-      modalType,
-      paymentModalConfig({
-        form,
-        loading,
-        response,
-        setResponse,
-        alertOpen,
-        setAlertOpen,
-        selectedRows,
-        setSelectedRows,
-      }),
-    );
+    modalType,
+    paymentModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      selectedRows,
+      setSelectedRows,
+    }),
+  );
 
   // const actions = invoiceActionConfig(
   //   (type, item) => {
@@ -55,8 +55,8 @@ export default function paymentPage() {
   //   ["delete", "detail"],
   // );
 
-  const getModalSize =() => {
-    switch(modalType) {
+  const getModalSize = () => {
+    switch (modalType) {
       case `adds`:
         return `md`;
     }
@@ -64,25 +64,28 @@ export default function paymentPage() {
 
   return (
     <>
-    
+
       <div className="flex flex-col flex-1">
         {/* <InvoiceDataTable
           columns={InvoiceDataColumn({ actions,handleModalOpen })}
           handleModalOpen={handleModalOpen}
         /> */}
-        <PaymentCard 
-        handleModalOpen={handleModalOpen}/>
+        <PaymentCard
+          handleModalOpen={handleModalOpen}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+        />
         <CustomDialog open={openModal}
           onOpenChange={handleModalClose}
           title={modalConfig.title}
           description={modalConfig.description}
           modalType={modalType}
           headerAlignment="start"
-          titleClassname="text-xl p-3" 
+          titleClassname="text-xl p-3"
           withHeaderBorder={modalType === 'delete'}
           size={getModalSize()}
-          >
-            {modalConfig.content}
+        >
+          {modalConfig.content}
         </CustomDialog>
       </div>
     </>

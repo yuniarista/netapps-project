@@ -69,7 +69,7 @@ export default function MapInput({ setValue, watch, label, helperText }) {
         </MapContainer>
       </div>
       <p className="text-xs text-slate-500">
-        {helperText || "Adjust the pin to the exact customer location."}
+        {helperText}
       </p>
     </div>
   );

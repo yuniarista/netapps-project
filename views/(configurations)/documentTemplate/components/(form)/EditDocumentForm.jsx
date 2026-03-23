@@ -10,19 +10,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import TextInputForm from "@/components/inputcopy/textInputForm";
 import SelectInput from "@/components/inputcopy/selectInputCustom";
 import SelectInputForm from "@/components/inputcopy/selectInputForm";
 import { DialogClose } from "@/components/ui/dialog";
+import { Eye } from "lucide-react";
+import { useState } from "react";
 
 
 export default function EditDocumentForm({ handleModalClose, loading }) {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewData, setPreviewData] = useState(null);
+
+
   const form = useForm({ mode: "all" });
   const {
     control,
+    getValues,
     formState: { errors },
   } = form;
+  const invoiceFile = useWatch({
+    control,
+    name: "invoice",
+  });
+  const hasFile = !!invoiceFile;
 
   const onSubmit = (data) => {
     console.log("Data Form:", data);
@@ -30,6 +42,19 @@ export default function EditDocumentForm({ handleModalClose, loading }) {
     if (handleCreate) {
       handleCreate(data);
     }
+  };
+
+    const handlePreview = () => {
+    const data = getValues();
+
+    setPreviewData({
+      invoiceNo: "INV-2026-00123",
+      ispName: data.ispName || "",
+      template: data.template || "",
+      description: data.description || "",
+    });
+
+    setIsPreviewOpen(true);
   };
 
   const statusValues = [
@@ -79,13 +104,34 @@ export default function EditDocumentForm({ handleModalClose, loading }) {
             errors={errors}
             control={control}
           />
-          <InputFileForm
-            name="invoice"
-            label="Invoice File"
-            errors={errors}
-            control={control}
-            helperText="Supports HTML with optional JS (sandboxed)"
-          />
+
+          <div className="space-y-2">
+            <div className="flex flex-row gap-2 items-start">
+              <div className="flex-1">
+                <InputFileForm
+                  name="invoice"
+                  label="Invoice File"
+                  errors={errors}
+                  control={control}
+                  helperText="Supports HTML with optional JS"
+                />
+              </div>
+
+              {hasFile && (
+                <Button
+                  className="mt-5 px-3"
+                  size="md"
+                  variant="outline"
+                  type="button"
+                  onClick={handlePreview}
+                  disabled={loading}
+                >
+                  <Eye className="h-4 w-4 text-primary" />
+                  Preview
+                </Button>
+              )}
+            </div>
+          </div>
         </CardContent>
 
         <CardFooter className="w-full flex items-center justify-end space-x-4 p-4">

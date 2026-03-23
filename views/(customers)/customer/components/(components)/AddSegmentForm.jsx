@@ -14,6 +14,7 @@ import {
   RadioGroup,
   RadioGroupItem
 } from "@/components/ui/radio-group";
+import TextInputForm from "@/components/inputcopy/textInputForm";
 
 export default function AddSegmentForm({ handleModalClose, loading, onSuccess }) {
 
@@ -24,13 +25,22 @@ export default function AddSegmentForm({ handleModalClose, loading, onSuccess })
     }
   });
 
+  const { control, formState: { errors }, handleSubmit, setValue, watch } = form;
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSuccess)}
         className="space-y-6"
       >
-        <FormField
+        <TextInputForm
+          name="segmentName"
+          label="Segment Name"
+          placeholder="Segment Name"
+          control={control}
+          errors={errors}
+        />
+        {/* <FormField
           control={form.control}
           name="segmentName"
           render={({ field }) => (
@@ -47,32 +57,32 @@ export default function AddSegmentForm({ handleModalClose, loading, onSuccess })
               </FormControl>
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           control={form.control}
           name="segmentType"
           render={({ field }) => (
-            <FormItem className="pt-4">
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className=""
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="personal" id="personal" />
-                    <label htmlFor="personal" className="text-sm">
-                      Individual (Personal)
-                    </label>
-                  </div>
+            <FormItem>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className=""
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="personal" id="personal" />
+                  <label htmlFor="personal" className="text-sm">
+                    Individual (Personal)
+                  </label>
+                </div>
 
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="company" id="company" />
-                    <label htmlFor="company" className="text-sm">
-                      Business (Company)
-                    </label>
-                  </div>
-                </RadioGroup>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="company" id="company" />
+                  <label htmlFor="company" className="text-sm">
+                    Business (Company)
+                  </label>
+                </div>
+              </RadioGroup>
             </FormItem>
           )}
         />

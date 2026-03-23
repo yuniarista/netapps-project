@@ -48,7 +48,7 @@ export default function SelectDropdown({
           <Button
             variant={triggerVariant}
             className={cn(
-              "flex h-9 w-full items-center rounded-[8px] gap-2 border border-slate-200 bg-white px-3 py-2 text-sm text-[#18181B]",
+              "flex h-9 w-auto items-center rounded-[8px] gap-2 border border-slate-200 bg-white px-3 py-2 text-sm text-[#18181B]",
               "outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
               iconPosition === "right" ? "justify-between" : "justify-start",
               className,

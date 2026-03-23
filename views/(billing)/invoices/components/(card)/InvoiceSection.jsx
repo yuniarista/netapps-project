@@ -8,8 +8,9 @@ import IconifyIcon from "@/components/icon";
 import { Checkbox } from "@/components/ui/checkbox";
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import PaymentList from "../(list)/PaymentList";
+import InvoiceListData from "../(component)/InvoiceListData";
 
-export default function PaymentCard({
+export default function InvoiceSection({
   uri,
   data,
   setData,
@@ -124,7 +125,7 @@ export default function PaymentCard({
 
       {openSections.allInvoice && (
         <section>
-          <PaymentList selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
+          <InvoiceListData selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
         </section>
       )}
     </div>

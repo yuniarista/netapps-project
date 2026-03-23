@@ -14,27 +14,61 @@ import {
 import SelectDropdown from "@/components/inputcopy/selectDropdown";
 import { size } from "zod";
 
-const DocumentDataColumn = ({ actions }) => {
+const DocumentDataColumn = ({ actions, selectedRows, setSelectedRows }) => {
   return [
     {
       id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
+      size: 50, // Diperkecil karena hanya berisi checkbox
+      header: ({ table }) => {
+        const pageRows = table.getRowModel().rows;
+        const allSelected =
+          pageRows.length > 0
+            ? pageRows.every((row) => !!selectedRows[row.original.id])
+            : false;
+        const someSelected = pageRows.some(
+          (row) => !!selectedRows[row.original.id]
+        );
+        return (
+          <Checkbox
+            checked={allSelected}
+            indeterminate={!allSelected && someSelected}
+            onCheckedChange={(checked) => {
+              setSelectedRows((prev) => {
+                const updated = { ...prev };
+                pageRows.forEach((row) => {
+                  if (checked) {
+                    updated[row.original.id] = row.original;
+                  } else {
+                    delete updated[row.original.id];
+                  }
+                });
+                return updated;
+              });
+            }}
+          />
+        );
+      },
+      cell: ({ row }) => {
+        const original = row.original;
+        return (
+          <Checkbox
+            checked={!!selectedRows[original.id]}
+            onCheckedChange={(checked) => {
+              setSelectedRows((prev) => {
+                const updated = { ...prev };
+                if (checked) {
+                  updated[original.id] = original;
+                } else {
+                  delete updated[original.id];
+                }
+                return updated;
+              });
+            }}
+          />
+        );
+      },
       enableSorting: false,
-      enableHiding: false,
-      size: 10,
+      enableHiding: false
     },
     {
       accessorKey: "name",

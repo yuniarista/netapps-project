@@ -1,6 +1,5 @@
 "use client";
-import CustomCard from "@/components/card/customCard";
-import Card from "../(card)/InvoicesCard";
+
 import { useState } from "react";
 import { DateRangePicker } from "@/components/datePicker/rangeDatePicker";
 import { Separator } from "@/components/ui/separator";
@@ -12,6 +11,7 @@ import { getModalConfig } from "@/utils/getModalConfig";
 import { invoiceModalConfig } from "../../configs/invoiceModalConfig";
 import InvoiceDataTable from "../(table)/InvoiceTable";
 import { size } from "zod";
+import StatsInvoice from "../(component)/StatsInvoice";
 
 export default function InvoicesPage() {
   const [date, setDate] = useState({ from: undefined, to: undefined });
@@ -41,18 +41,18 @@ export default function InvoicesPage() {
   } = useInvoiceHooks();
 
   const modalConfig = getModalConfig(
-      modalType,
-      invoiceModalConfig({
-        form,
-        loading,
-        response,
-        setResponse,
-        alertOpen,
-        setAlertOpen,
-        selectedRows,
-        setSelectedRows,
-      }),
-    );
+    modalType,
+    invoiceModalConfig({
+      form,
+      loading,
+      response,
+      setResponse,
+      alertOpen,
+      setAlertOpen,
+      selectedRows,
+      setSelectedRows,
+    }),
+  );
 
   const actions = invoiceActionConfig(
     (type, item) => {
@@ -61,8 +61,8 @@ export default function InvoicesPage() {
     ["delete", "detail"],
   );
 
-  const getModalSize =() => {
-    switch(modalType) {
+  const getModalSize = () => {
+    switch (modalType) {
       case `detail`:
         return `sm`;
     }
@@ -79,7 +79,7 @@ export default function InvoicesPage() {
               performance and collection status.
             </p>
           </div>
-          <div className="">
+          <div>
             <DateRangePicker
               date={date}
               handleSelect={setDate}
@@ -88,14 +88,14 @@ export default function InvoicesPage() {
           </div>
         </div>
         <div>
-          <Card />
+          <StatsInvoice />
         </div>
       </div>
       <Separator />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 pt-2">
         <InvoiceDataTable
-          columns={InvoiceDataColumn({ actions,handleModalOpen })}
+          columns={InvoiceDataColumn({ actions, handleModalOpen })}
           handleModalOpen={handleModalOpen}
         />
         <CustomDialog open={openModal}
@@ -104,11 +104,11 @@ export default function InvoicesPage() {
           description={modalConfig.description}
           modalType={modalType}
           headerAlignment="start"
-          titleClassname="text-xl p-3" 
+          titleClassname="text-xl p-3"
           withHeaderBorder={modalType === 'delete'}
           size={getModalSize()}
-          >
-            {modalConfig.content}
+        >
+          {modalConfig.content}
         </CustomDialog>
       </div>
     </>

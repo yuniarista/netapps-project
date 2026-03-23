@@ -1,13 +1,10 @@
 import IconifyIcon from "@/components/icon";
 import { Button } from "@/components/ui/button";
-import { CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import PaymentStatus from "../(card)/PaymentStatus";
-import { Watch } from "react-hook-form";
 
-export default function InvoiceDetail({data}) {
-  if(!data) return null;
-  
+export default function InvoiceDetail({ data }) {
+  if (!data) return null;
   // const PaymentDetails = {
   //   id: "1",
   //   name: "Ni Putu Angelina Giovany",
@@ -26,117 +23,90 @@ export default function InvoiceDetail({data}) {
 
   // const items = Watch("PaymentDetails") || [];
   // const subTotal = items.reduce((acc, item) => acc + (Number(item.total) || 0), 0);
-  const subTotal = Number(data.total) || 0;
-  const tax = subTotal * 0.11;
-  const grandTotal = (subTotal + tax);
+  // const subTotal = Number(data.total) || 0;
+  // const taxRate = 11; 
+  // const taxMultiplier = taxRate / 100;
+  // const tax = subTotal * 0.11;
+  // const grandTotal = (subTotal + tax);
+
+  const items = data.invoiceItems || [];
+  const totalDiscount = items.reduce((acc, item) => {
+    return acc + (Number(item.price || 0) - Number(item.total || 0));
+  }, 0);
+  const subTotal = items.reduce((acc, item) => acc + Number(item.total || 0), 0);
+  const taxRate = 11;
+  const tax = subTotal * (taxRate / 100);
+  const grandTotal = subTotal + tax;
+
+  const InfoItem = ({ icon, label, children }) => (
+    <div>
+      <span className="font-semibold text-sm">{label}</span>
+      <div className="flex items-center gap-2 py-1 text-xs">
+        {icon && <IconifyIcon icon={icon} className="w-4 h-4 text-muted-foreground shrink-0" />}
+        <span>{children}</span>
+      </div>
+    </div>
+  );
 
   return (
-    <>
-      <div className="items-start">
-        <PaymentStatus type={data.type} date={data.date} />
-        <div className="py-2">
-          <h3 className="font-semibold">Customer Information</h3>
-        </div>
-        <div>
-          <span className="font-semibold text-sm">Customer Name</span>
-          <div className="flex flex-row text-xs py-1 gap-2">
-            <IconifyIcon
-              icon="lucide:user-round"
-              className="w-4 h-4 text-muted-foreground"
-            />
-            <span>{data.customerName}</span>
-          </div>
-        </div>
-        <div className="py-2">
-          <span className="font-semibold text-sm">Address</span>
-          <div className="flex flex-row text-xs py-1 gap-2 items-center">
-            <IconifyIcon
-              icon="lucide:map-pin"
-              className="w-4 h-4 items-center shrink-0 text-muted-foreground"
-            />
-            <span>{data.address}</span>
-          </div>
-        </div>
-        <div className="flex flex-row space-x-6">
-          <div>
-            <div className="space-x-1">
-              <span className="font-semibold text-sm">Phone</span>
-              <span className="text-xs border border-primary px-2 rounded-md bg-blue-100 text-primary">
-                Sent
-              </span>
-            </div>
+    <div className="space-y-4">
+      <PaymentStatus type={data.type} date={data.date} />
 
-            <div className="flex flex-row text-xs py-1 gap-2">
-              <IconifyIcon
-                icon="lucide:phone"
-                className="w-4 h-4 items-center text-muted-foreground"
-              />
-              <span>{data.phone}</span>
-            </div>
+      <section>
+        <h3 className="font-semibold mb-2">Customer Information</h3>
+        <InfoItem label="Customer Name" icon="lucide:user-round">{data.customerName}</InfoItem>
+        <InfoItem label="Address" icon="lucide:map-pin">{data.address}</InfoItem>
+        <div className="flex gap-6">
+          <InfoItem label="Phone" icon="lucide:phone">{data.phone} <span className="text-xs border px-1.5 rounded-md bg-blue-100 text-primary">Sent</span></InfoItem>
+          <InfoItem label="Email" icon="lucide:mail">{data.email}</InfoItem>
+        </div>
+      </section>
+
+      <Separator />
+
+      <section>
+        <h3 className="font-semibold mb-2">Billing Information</h3>
+        <div className="flex justify-between text-xs mb-3">
+          {[{ l: "Invoice Date", v: data.invoice },
+          { l: "Billing Type", v: data.billingType },
+          { l: "Billing Period", v: data.period }].map((i, k) => (
+            <div key={k}><span className="font-semibold">{i.l}</span><p>{i.v}</p></div>
+          ))}
+        </div>
+
+        <div className="text-xs space-y-1">
+          <div className="flex justify-between">
+            <span className="font-semibold">Package</span>
+            <span>{data.package}</span>
           </div>
-          <div>
-            <span className="font-semibold text-sm">Email</span>
-            <div className="flex flex-row text-xs py-1 gap-2">
-              <IconifyIcon
-                icon="lucide:mail"
-                className="w-4 h-4 items-center text-muted-foreground"
-              />
-              <span>{data.email}</span>
-            </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Sub Total</span>
+            <span>Rp {subTotal.toLocaleString("id-ID")}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Disc</span>
+            <span>Rp {totalDiscount.toLocaleString("id-ID")}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Tax ({taxRate}%)</span>
+            <span>Rp {tax.toLocaleString("id-ID")}</span>
+          </div>
+          <div className="flex justify-between border-t border-dashed pt-1 mt-1">
+            <span className="font-semibold">Total</span>
+            <span>Rp {grandTotal.toLocaleString("id-ID")}</span>
           </div>
         </div>
-        <Separator className="mt-6" />
-        <div className="py-2 mt-4">
-          <h3 className="font-semibold">Billing Information</h3>
-        </div>
-        <div className="flex flex-row justify-between text-xs">
-          <div>
-            <span className="font-semibold">Invoice Date</span>
-            <p>{data.invoice}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Billing Type</span>
-            <p>{data.billingType}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Billing Period</span>
-            <p>{data.period}</p>
-          </div>
-        </div>
-        <div className="flex flex-col text-xs py-2">
-          <div>
-            <div className=" flex py-1 justify-between">
-              <span className="font-semibold">Package</span>
-              <span>{data.package}</span>
-            </div>
-            <div className="flex py-1 justify-between gap-6 space-x-10">
-              <span className="font-semibold">Sub Total</span>
-              <span>Rp {subTotal.toLocaleString("id-ID")}</span>
-            </div>
-            <div className="flex py-1 justify-between">
-              <span className="font-semibold">Disc</span>
-              <span>-</span>
-            </div>
-            <div className="flex py-1 justify-between">
-              <span className="font-semibold">Tax 11%</span>
-              <span>Rp {tax.toLocaleString("id-ID")}</span>
-            </div>
-            <div className="flex py-1 justify-between border-t border-dashed">
-              <span className="font-semibold">Total</span>
-              <span>Rp {grandTotal.toLocaleString("id-ID")}</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-end gap-4 mt-2">
-          <Button type="button" variant="outline">
-            Cancel
-          </Button>
-          <Button type="button" variant="primary">
-            <IconifyIcon icon="lucide:pencil" className="w-4 h-4"/>
-            Edit Invoice
-          </Button>
-        </div>
+      </section>
+
+      <div className="flex justify-end gap-4 mt-2">
+        <Button type="button" variant="outline">
+          Cancel
+        </Button>
+        <Button type="button" variant="primary">
+          <IconifyIcon icon="lucide:pencil" className="w-4 h-4" />
+          Edit Invoice
+        </Button>
       </div>
-    </>
+    </div>
   );
 }

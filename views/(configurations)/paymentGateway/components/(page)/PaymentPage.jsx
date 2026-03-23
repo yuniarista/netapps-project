@@ -1,17 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { getModalConfig } from "@/utils/getModalConfig";
-import { useDocumentHooks} from "../../hooks/useDocumentHooks";
-import { documentModalConfig } from "../../configs/documentModalConfig";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CustomDialog from "@/components/dialog/basicDialog";
-import documentActionConfig from "../../configs/documentActionConfig";
-import DocumentDataColumn from "../(table)/DocumentDataColumn";
-import DocumentDataTable from "../(table)/DocumentDataTable";
 
-export default function DocumentPage() {
-  const {
+import { getModalConfig } from "@/utils/getModalConfig";
+import CustomDialog from "@/components/dialog/basicDialog";
+import PageHeader from "@/components/pageHeader";
+import { PanelRight } from "lucide-react";
+import PaymentInfo from "../(components)/PaymentInfo";
+import TransactionSettings from "../(components)/TransactionSettings";
+import { paymentModalConfig } from "../../configs/PaymentModalConfig";
+import { usePaymentHooks } from "../../hooks/usePaymentHooks";
+
+export default function PaymentPage() {
+   const {
     form,
     setForm,
     openModal,
@@ -34,39 +34,50 @@ export default function DocumentPage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
-  } = useDocumentHooks();
+  } = usePaymentHooks();
 
   const modalConfig = getModalConfig(
     modalType,
-    documentModalConfig({
+    paymentModalConfig({
       form,
       loading,
       response,
       setResponse,
       alertOpen,
+      selectedData: form,
       setAlertOpen,
       selectedRows,
       setSelectedRows,
     }),
   );
 
-  const actions = documentActionConfig(
-    (type, item) => {
-      handleModalOpen(type, item);
-    },
-    ["update", "delete"],
-  );
+//   const actions = paymentActionConfig(
+//     (type, item) => {
+//       handleModalOpen(type, item);
+//     },
+//     ["update", "delete"],
+//   );
 
   return (
     <div>
-      <DocumentDataTable
-        columns={DocumentDataColumn({
-          actions,
-          selectedRows,      
-          setSelectedRows,
+      <PageHeader
+        icon={<PanelRight className="w-4 h-4 text-gray-600" />}
+        title="Payment Gateway"
+      />
+
+      <div className="p-4">
+        <div className="flex flex-col gap-4 max-w-lg">
+          <PaymentInfo onEdit={() => handleModalOpen("update")} />
+          <TransactionSettings onEdit={() => handleModalOpen("edit")} />
+        </div>
+      </div>
+
+      {/* <TelegramDataTable
+        columns={TelegramDataColumn({
+          actions
         })}
         handleModalOpen={handleModalOpen}
-      />
+      /> */}
       <CustomDialog
         open={openModal}
         onOpenChange={handleModalClose}
@@ -74,8 +85,8 @@ export default function DocumentPage() {
         modalType={modalType}
         headerAlignment="start"
         titleClassname="text-xl p-3"
+        size="600"
         withHeaderBorder={modalType === 'delete'}
-        size="lg"
       >
         {modalConfig.content}
       </CustomDialog>

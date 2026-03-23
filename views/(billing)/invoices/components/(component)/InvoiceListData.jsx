@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { getBillingStyle } from "@/views/(billing)/invoices/configs/billingStyle";
 import { useState } from "react";
 
-export default function PaymentList({ selectedRows, setSelectedRows }) {
+export default function InvoiceListData({ selectedRows, setSelectedRows }) {
   const ListData = [
     {
       id: 1,
