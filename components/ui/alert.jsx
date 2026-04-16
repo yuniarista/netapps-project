@@ -17,7 +17,8 @@ const alertVariants = cva(
         destructive: "bg-[#DC26261A] border border-[#DC2626] text-[#DC2626]",
         success: "bg-[#47D28A1A] border border-[#47D28A] text-[#47D28A]",
         warning: "bg-[#FFC0211A] border border-[#FFC021] text-[#09090B]",
-        info: "bg-[#2F86EB1A] border border-[#2F86EB] text-[#09090B]"
+        info: "bg-[#2F86EB1A] border border-[#2F86EB] text-[#09090B]",
+        muted: "bg-[#F1F5F9] border border-[#E2E8F0] text-[#64748B]"
       }
     },
     defaultVariants: {
@@ -53,7 +54,8 @@ const AlertDescription = React.forwardRef(({ className, ...props }, ref) => {
     destructive: "text-[#DC2626]",
     success: "text-[#09090B]",
     warning: "text-[#09090B]",
-    info: "text-[#09090B]"
+    info: "text-[#09090B]",
+    muted: "text-[#64748B]"
   };
 
   return (

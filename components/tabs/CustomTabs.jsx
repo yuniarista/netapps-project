@@ -9,7 +9,7 @@ export default function CustomTabs({ tabs = [] }) {
   const pathname = usePathname();
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full">
       <div className="flex items-center gap-2">
         {tabs.map((tab) => {
           const isActive = pathname === tab.path;

@@ -13,7 +13,7 @@ export default function customersLayout({ children }) {
         },
         {
             label: "Potential Customers",
-            path: "/potentialCustomers",
+            path: "/potential-customers",
         },
         {
             label: "Customers Segments",

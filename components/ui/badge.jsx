@@ -17,6 +17,9 @@ const badgeVariants = cva(
         outline: "text-foreground",
         "outlined-active": "bg-[#22C55E] text-white border-transparent hover:bg-green-600 ",
         "outlined-inactive": "bg-red-500 text-white border-transparent hover:bg-red-600",
+        completed: "bg-green-500 text-white border-transparent hover:bg-green-600",
+        "in-progress": "bg-blue-500 text-white border-transparent hover:bg-blue-600",
+        scheduled: "bg-purple-500 text-white border-transparent hover:bg-purple-600",
       },
     },
     defaultVariants: {

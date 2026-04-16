@@ -113,9 +113,20 @@ const dummyMenu = [
     ],
   },
   {
-    name: "Technical Support",
-    url: "/technical-support",
+    groupName: "Technical Support",
     icon: "lucide:headset",
+    features: [
+      { name: "Work Order", url: "/work-orders" },
+      { name: "Installations", url: "/installations" },
+    ],
+  },
+  {
+    groupName: "Technician Support",
+    icon: "lucide:headset",
+    features: [
+      { name: "Jobs", url: "/jobs" },
+      { name: "History", url: "/history" },
+    ],
   },
   {
     name: "Report",
