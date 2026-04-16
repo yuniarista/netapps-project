@@ -3,7 +3,8 @@
 import {
   flexRender,
   getCoreRowModel,
-  useReactTable
+  useReactTable,
+  getExpandedRowModel,
 } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
@@ -14,20 +15,37 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@/components/ui/table";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 import LoadingCircle from "../loadingCircle";
 import { FilterData } from "@/libs/function";
 import { cn } from "@/lib/utils";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import {
+  restrictToVerticalAxis,
+  restrictToFirstScrollableAncestor,
+} from "@dnd-kit/modifiers";
+import { DraggableRow } from "../../views/faq/components/(component)/dragableRow";
 
 export default function DataTableComponent({
   uri,
@@ -45,11 +63,11 @@ export default function DataTableComponent({
   setColumnFilters,
   withoutRowsFilter = false,
   withoutRowsSelected = false,
-  withoutPagination = false
+  withoutPagination = false,
 }) {
   const [manipulatedData, setManipulatedData] = useState(data);
   const [presentedData, setPresentedData] = useState(
-    Array.isArray(data?.data) ? data.data : []
+    Array.isArray(data?.data) ? data.data : [],
   );
 
   const [loading, setLoading] = useState(false);
@@ -60,11 +78,13 @@ export default function DataTableComponent({
   const safeData = Array.isArray(presentedData)
     ? presentedData
     : // handle 0 / "0" / null / undefined sebagai empty
-    presentedData === 0 || presentedData === "0" || !presentedData
+      presentedData === 0 || presentedData === "0" || !presentedData
       ? []
       : // kalau object tunggal, kamu bisa pilih mau [] atau [object]
-      // di sini kita kosongkan biar konsisten
-      [];
+        // di sini kita kosongkan biar konsisten
+        [];
+
+  const [expanded, setExpanded] = useState({});
 
   const table = useReactTable({
     data: safeData,
@@ -73,12 +93,15 @@ export default function DataTableComponent({
       pagination,
       sorting,
       columnFilters,
-      rowSelection: selectedRows
+      rowSelection: selectedRows,
+      expanded,
       // rowSelection: Object.fromEntries(
       //   Object.keys(selectedRows).map((id) => [id, true])
       // )
     },
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     // onRowSelectionChange: () => { },
     onRowSelectionChange: setSelectedRows,
     getRowId: (row) => row.id,
@@ -88,21 +111,21 @@ export default function DataTableComponent({
     pageCount: totalPage,
     manualFiltering: true,
     manualPagination: true,
-    manualSorting: true
+    manualSorting: true,
   });
 
   const fetchData = async ({
     pageIndex = 0,
-    pageLimit = pagination.pageLimit
+    pageLimit = pagination.pageLimit,
   }) => {
     const result = await FilterData({
       uri,
       setLoading,
       paginationModel: {
         pageIndex: pageIndex + 1,
-        pageLimit: pageLimit
+        pageLimit: pageLimit,
       },
-      filterParams
+      filterParams,
     });
     setManipulatedData(result);
     setPresentedData(result?.data);
@@ -117,29 +140,43 @@ export default function DataTableComponent({
     {
       icon: "flowbite:chevron-double-left-outline",
       onClick: () => refetchData(0),
-      disabled: !table.getCanPreviousPage()
+      disabled: !table.getCanPreviousPage(),
     },
     {
       icon: "flowbite:angle-left-outline",
       onClick: () => refetchData(table.getState().pagination.pageIndex - 1),
-      disabled: !table.getCanPreviousPage()
+      disabled: !table.getCanPreviousPage(),
     },
     {
       icon: "flowbite:angle-right-outline",
       onClick: () => refetchData(table.getState().pagination.pageIndex + 1),
-      disabled: !table.getCanNextPage()
+      disabled: !table.getCanNextPage(),
     },
     {
       icon: "flowbite:chevron-double-right-outline",
       onClick: () => refetchData(totalPage - 1),
-      disabled: !table.getCanNextPage()
-    }
+      disabled: !table.getCanNextPage(),
+    },
   ];
 
   useEffect(() => {
     setManipulatedData(data);
     setPresentedData(data?.data);
   }, [data]);
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = safeData.findIndex((item) => item.id === active.id);
+      const newIndex = safeData.findIndex((item) => item.id === over.id);
+
+      // Update state lokal (ini akan langsung merubah urutan di UI)
+      const newData = arrayMove(safeData, oldIndex, newIndex);
+      setPresentedData(newData);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -163,56 +200,58 @@ export default function DataTableComponent({
           </div>
         )}
         <div className="rounded-[8px] border overflow-x-auto">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} style={{ width: `${header.getSize()}px` }}>
-                      {!header.isPlaceholder &&
-                        flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className={cn(
-                        "h-14",
-                        cell.column.id === "actions" ? "text-center" : "text-left"
-                      )}
-                        style={{ width: `${cell.column.getSize()}px` }}
+          <DndContext
+            id="dnd-context"
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            modifiers={[
+              restrictToVerticalAxis,
+              restrictToFirstScrollableAncestor,
+            ]}
+          >
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead
+                        key={header.id}
+                        style={{ width: `${header.getSize()}px` }}
                       >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
+                        {!header.isPlaceholder &&
+                          flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                      </TableHead>
                     ))}
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.length ? (
+                  <SortableContext
+                    items={safeData.map((d) => d.id)}
+                    strategy={verticalListSortingStrategy}
                   >
-                    No results.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                    {table.getRowModel().rows.map((row) => (
+                      <DraggableRow key={row.id} row={row} />
+                    ))}
+                  </SortableContext>
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </DndContext>
         </div>
       </div>
 
@@ -221,7 +260,7 @@ export default function DataTableComponent({
         <div
           className={cn(
             "text-muted-foreground flex-1 text-xs",
-            withoutRowsSelected ? "hidden" : ""
+            withoutRowsSelected ? "hidden" : "",
           )}
         >
           {Object.values(table.getState().rowSelection).length} of {totalData}{" "}
@@ -260,7 +299,7 @@ export default function DataTableComponent({
         <div
           className={cn(
             "flex items-center gap-x-2",
-            withoutPagination ? "hidden" : ""
+            withoutPagination ? "hidden" : "",
           )}
         >
           {/* <span className="text-sm text-muted-foreground">
@@ -280,16 +319,16 @@ export default function DataTableComponent({
           <Button
             variant="outline"
             size="sm"
-          // onClick={onClick}
-          // disabled={disabled}
+            // onClick={onClick}
+            // disabled={disabled}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-          // onClick={onClick}
-          // disabled={disabled}
+            // onClick={onClick}
+            // disabled={disabled}
           >
             Next
           </Button>

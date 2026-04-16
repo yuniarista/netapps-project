@@ -1,8 +1,5 @@
 import {
-  ChevronLeft,
   PanelLeft,
-  PanelLeftClose,
-  PanelLeftOpen,
   PanelRight,
 } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -10,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { SidebarTrigger, useSidebar } from "../components/ui/sidebar";
 import { Separator } from "./ui/separator";
+import React from "react";
 
 export default function PageHeader({
+  children,
   icon,
   title,
   showBackButton = false,
@@ -19,19 +18,20 @@ export default function PageHeader({
   search = null, // = { placeholder, value, onChange }
   rightSection = null, // JSX bebas
 }) {
-  // const { toggleSidebar, open } = useSidebar();
-
   return (
-    <div className="p-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div className="w-full flex items-center space-x-3">
         <SidebarTrigger
           iconOpen={<PanelRight className="h-6 w-6" />}
           iconClose={<PanelLeft className="h-6 w-6" />}
         />
         <Separator orientation="vertical" className="h-3" />
-        <Label className="font-medium text-sm text-muted-foreground **whitespace-nowrap**">
-          {title}
-        </Label>
+        <div className="flex gap-2">
+          <Label className="font-medium text-sm text-muted-foreground **whitespace-nowrap**">
+            {title}
+          </Label>
+          <div className="flex-1 overflow-hidden">{children}</div>
+        </div>
       </div>
 
       {search && (

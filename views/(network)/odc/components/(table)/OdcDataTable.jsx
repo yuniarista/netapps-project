@@ -145,7 +145,7 @@ export default function OdcDataTable({ columns, handleModalOpen }) {
             </div>
 
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
-              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:display-none">
+              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hidden-x">
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
                     "Area/Region",

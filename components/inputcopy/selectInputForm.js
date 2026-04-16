@@ -5,7 +5,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import {
@@ -14,15 +14,18 @@ import {
   SelectItem,
   SelectSeparator,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 import IconifyIcon from "../icon";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import BaseModal from "./inputBaseModal";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 export default function SelectInputForm({
+  secondName,
+  onChangeCustom,
   name,
   label,
   control,
@@ -32,6 +35,9 @@ export default function SelectInputForm({
   isHidden = false,
   options = [],
   optionName,
+  optionValue = "_id" || "value" || "id",
+  optionImage,
+  optionIcon,
   isMultiple = false,
   multipleData = [],
   errors,
@@ -57,7 +63,7 @@ export default function SelectInputForm({
                     const selected = options?.find(
                       (option) =>
                         (option.value ?? option.id)?.toString() ===
-                        selectedValue?.toString()
+                        selectedValue?.toString(),
                     );
                     if (selected) {
                       field.onChange(selected?.value ?? selected?.id);
@@ -74,19 +80,35 @@ export default function SelectInputForm({
                   </SelectTrigger>
                   <SelectContent>
                     {options.map((option) => {
-                      const valueStr = (option.value || option.id).toString();
-                      const isSelected = field.value?.toString() === valueStr;
-
                       return (
                         <SelectItem
-                          key={valueStr}
-                          value={valueStr}
+                          key={option[optionValue]}
+                          value={option[optionValue]}
                           className={cn(
-                            "flex items-center justify-between py-2 px-3 rounded-[5px] transition-colors",
-                            isSelected ? "bg-muted text-slate-900" : "hover:bg-slate-50"
+                            "capitalize",
+                            isMultiple &&
+                              multipleData?.includes(option[optionValue])
+                              ? "bg-gray-200"
+                              : "",
                           )}
                         >
-                          {option[optionName]}
+                          <div className="flex items-center gap-x-2">
+                            {optionImage && (
+                              <Image
+                                alt={option[optionName]}
+                                src={option[optionImage]}
+                                width={16}
+                                height={12}
+                                className="object-contain"
+                              />
+                            )}
+                            {optionIcon && (
+                              <IconifyIcon icon={option[optionIcon]} />
+                            )}
+                            {secondName
+                              ? `${option[optionName]} - ${option[secondName]}`
+                              : option[optionName]}
+                          </div>
                         </SelectItem>
                       );
                     })}
@@ -102,7 +124,7 @@ export default function SelectInputForm({
                           }}
                           className="flex items-center gap-2 px-2 py-2 text-sm text-primary font-medium cursor-pointer hover:bg-blue-50 rounded-md transition-all"
                         >
-                        <Plus className="w-4 h-4" />
+                          <Plus className="w-4 h-4" />
                           Add new {label?.toLowerCase() || "item"}
                         </div>
                       </>
@@ -123,17 +145,11 @@ export default function SelectInputForm({
           title={`Add ${label}`}
           footer={
             <>
-              <Button
-                variant="secondary"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
                 Cancel
               </Button>
 
-              <Button
-                type="submit"
-                form="add-select-form"
-              >
+              <Button type="submit" form="add-select-form">
                 Add
               </Button>
             </>
@@ -142,7 +158,6 @@ export default function SelectInputForm({
           {renderModalContent(() => setIsModalOpen(false))}
         </BaseModal>
       )}
-
     </div>
   );
 }

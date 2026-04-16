@@ -87,11 +87,13 @@ const dummyMenu = [
     groupName: "Network",
     icon: "lucide:network",
     features: [
+      { name: "Check Coverage", url: "/check-coverage" },
       { name: "POP", url: "/pop" },
       { name: "BSC", url: "/bsc" },
       { name: "ODC", url: "/odc" },
+      { name: "ODP", url: "/odp" },
       { name: "Homepass ID", url: "/homepass-id" },
-      { name: "Check Coverage", url: "/check-coverage" },
+      { name: "Pre-Sales", url: "/pre-sales" },
     ],
   },
   {
@@ -121,6 +123,11 @@ const dummyMenu = [
     name: "Report",
     url: "/reports",
     icon: "lucide:layers",
+  },
+  {
+    name: "FAQ",
+    url: "/faq",
+    icon: "lucide:clipboard-list",
   },
   {
     name: "Employee",

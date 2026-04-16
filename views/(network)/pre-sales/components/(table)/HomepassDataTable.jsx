@@ -128,7 +128,7 @@ export default function HomepassDataTable({ columns, handleModalOpen }) {
     },
   ];
 
-  const hasData = 0;
+  const hasData = dummyData.length > 0;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -146,126 +146,6 @@ export default function HomepassDataTable({ columns, handleModalOpen }) {
 
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
               <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:display-none">
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "Area/Region",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto outline"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "POP",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto outline"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "BSC",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto outline"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "ODC",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto outline"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
-                <SelectDropdown
-                  triggerLabel={renderLabelWithCount(
-                    "ODP",
-                    areaOptions.map((i) => i.value),
-                  )}
-                  asBadge={getActiveCount(areaOptions.map((i) => i.value)) > 0}
-                  icon={CirclePlus}
-                  iconPosition="left"
-                  className="w-auto outline"
-                  showSearch
-                  showClear
-                  borderType="dashed"
-                  badgeVariant="outline"
-                  sections={generateFilterSection(areaOptions, false)}
-                  onClear={() =>
-                    setActiveFilters((prev) =>
-                      prev.filter(
-                        (f) =>
-                          !areaOptions.map((i) => i.value).includes(f.value),
-                      ),
-                    )
-                  }
-                />
-
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
                     "Status",

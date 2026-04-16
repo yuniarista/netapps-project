@@ -2,7 +2,7 @@
 
 import { getModalConfig } from "@/utils/getModalConfig";
 import CustomDialog from "@/components/dialog/basicDialog";
-import {HomepassModalConfig} from "../../configs/HomepassModalConfig";
+import { HomepassModalConfig } from "../../configs/HomepassModalConfig";
 import { useHomepassState } from "../../hooks/useHomepassHooks";
 import homepassActionConfig from "../../configs/HomepassActionConfig";
 import HomepassDataTable from "../(table)/HomepassDataTable";
@@ -32,6 +32,9 @@ export default function PreSalesPage() {
     setSelectedRows,
     filterParams,
     setFilterParams,
+    isCoverageModalOpen,
+    handleCloseCoverage,
+    handleOpenCoverage,
   } = useHomepassState();
 
   const modalConfig = getModalConfig(
@@ -45,6 +48,10 @@ export default function PreSalesPage() {
       setAlertOpen,
       selectedRows,
       setSelectedRows,
+      handleModalClose,
+      isCoverageModalOpen,
+      handleCloseCoverage,
+      handleOpenCoverage,
     }),
   );
 

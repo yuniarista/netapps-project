@@ -143,8 +143,8 @@ export default function BscDataTable({ columns, handleModalOpen }) {
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
             </div>
 
-            <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
-              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:display-none">
+            <div className="flex flex-nowrap items-center gap-2 ">
+              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hidden-x">
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
                     "Area/Region",
@@ -220,18 +220,17 @@ export default function BscDataTable({ columns, handleModalOpen }) {
                     )
                   }
                 />
-
-                <CustomButton
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-1 border-none text-primary"
-                  onClick={handleResetAll}
-                >
-                  Reset <X className="h-3.5 w-3.5 text-primary" />
-                </CustomButton>
               </div>
+              <CustomButton
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1 border-none text-primary"
+                onClick={handleResetAll}
+              >
+                Reset <X className="h-3.5 w-3.5 text-primary" />
+              </CustomButton>
 
-              <div className="flex flex-nowrap gap-2">
+              <div className="flex flex-nowrap gap-2 max-w-28 overflow-x-auto scrollbar-hidden-x">
                 {activeFilters
                   .filter((filter) => filter.showBadge === true)
                   .map((filter) => (

@@ -18,6 +18,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import CustomDialog from "@/components/dialog/basicDialog";
+import { useHomepassState } from "../../hooks/useHomepassHooks";
+import { getModalConfig } from "@/utils/getModalConfig";
+import { HomepassModalConfig } from "../../configs/HomepassModalConfig";
+import CoverageMapForm from "./coverageMapForm";
 const MapInput = dynamic(() => import("@/components/inputcopy/mapInput"), {
   ssr: false,
   loading: () => (
@@ -27,12 +32,99 @@ const MapInput = dynamic(() => import("@/components/inputcopy/mapInput"), {
   ),
 });
 
-export default function AddHomepassForm({ handleModalClose, loading }) {
+const preSalesLeads = [
+  {
+    id: "lead-1",
+    name: "Maudy Ayunda",
+    lat: -8.7117408,
+    lng: 115.1773656,
+    status: "not_covered",
+  },
+  {
+    id: "lead-2",
+    name: "Jhon Doe",
+    lat: -8.72,
+    lng: 115.18,
+    status: "covered",
+  },
+  {
+    id: "lead-3",
+    name: "Wahsurr",
+    lat: -8.504348,
+    lng: 115.027842,
+    status: "covered",
+  },
+];
+
+const odpData = [
+  {
+    id: "odp-1",
+    name: "ODP-KUTA-01",
+    homepasses: [
+      {
+        id: "hp-1-1",
+        hpName: "HP-KUTA-01A",
+        address: "Jl. Kuta No. 1",
+        lat: -8.7119,
+        lng: 115.178,
+        status: "available",
+      },
+      {
+        id: "hp-1-2",
+        hpName: "HP-KUTA-01B",
+        address: "Jl. Kuta No. 2",
+        lat: -8.7121,
+        lng: 115.1785,
+        status: "available",
+      },
+    ],
+  },
+  {
+    id: "odp-2",
+    name: "ODP-KUTA-02",
+    homepasses: [
+      {
+        id: "hp-2-1",
+        hpName: "HP-KUTA-02A",
+        address: "Jl. Kuta No. 5",
+        lat: -8.7115,
+        lng: 115.1765,
+        status: "occupied",
+      },
+    ],
+  },
+  {
+    id: "odp-3",
+    name: "ODP-Tabanan-03",
+    homepasses: [
+      {
+        id: "hp-3-1",
+        hpName: "HP-TABANAN-03A",
+        address: "Jl. Serma Arda No. 3",
+        lat: -8.504348,
+        lng: 115.027842,
+        status: "occupied",
+      },
+    ],
+  },
+];  
+
+export default function AddHomepassForm({ handleModalClose, loading, isCoverageModalOpen, handleOpenCoverage, handleCloseCoverage }) {
   const [openSections, setOpenSections] = useState({
     general: true,
     contactDetails: true,
     network: true,
   });
+
+  const { openModal, modalType, handleModalOpen } = useHomepassState(odpData);
+
+  const modalConfig = getModalConfig(
+    modalType,
+    HomepassModalConfig({
+      odpData,
+      preSalesLeads,
+    }),
+  );
 
   const form = useForm({
     mode: "all",
@@ -158,6 +250,7 @@ export default function AddHomepassForm({ handleModalClose, loading }) {
                       variant="primary"
                       type="button"
                       className="w-full"
+                      onClick={handleOpenCoverage}
                     >
                       Check Coverage
                     </CustomButton>
@@ -257,7 +350,6 @@ export default function AddHomepassForm({ handleModalClose, loading }) {
             )}
           </section>
         </CardContent>
-
         <div className="flex items-center justify-end space-x-3 pt-4">
           <DialogClose asChild>
             <Button type="button" variant="outline" disabled={loading}>
@@ -268,6 +360,23 @@ export default function AddHomepassForm({ handleModalClose, loading }) {
             {loading ? "Submitting..." : "Create"}
           </Button>
         </div>
+        <CustomDialog
+          open={isCoverageModalOpen}
+          onOpenChange={handleCloseCoverage}
+          title="Real-time Coverage Check"
+          modalType="coverage"
+          size="3xl"
+        >
+          <CoverageMapForm
+            odpData={odpData}
+            preSalesLeads={preSalesLeads}
+            onSelectHomepass={(hp) => {
+              setValue("homepass", hp.hpName);
+              setValue("odp", hp.parentODPName);
+              handleCloseCoverage(); 
+            }}
+          />
+        </CustomDialog>
       </form>
     </Form>
   );
