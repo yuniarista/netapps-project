@@ -145,8 +145,8 @@ export default function OdpDataTable({ columns, handleModalOpen }) {
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
             </div>
 
-            <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-hidden-x">
-              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:display-none">
+            <div className="flex flex-nowrap items-center gap-2">
+              <div className="flex gap-2 max-w-xs overflow-x-auto scrollbar-hide-x">
                 <SelectDropdown
                   triggerLabel={renderLabelWithCount(
                     "Area/Region",

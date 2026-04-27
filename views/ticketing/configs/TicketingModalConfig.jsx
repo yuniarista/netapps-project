@@ -1,14 +1,12 @@
-import { Button } from "@/components/ui/button";
-import AddHomepassForm from "../components/(form)/AddHomepassForm";
-import CoverageMapForm from "../components/(form)/coverageMapForm";
+import AddFaqForm from "../components/(form)/AddFaqForm";
 import DeleteForm from "../components/(form)/deleteForm";
-import { DialogClose } from "@radix-ui/react-dialog";
 
-export const HomepassModalConfig = ({
+export const TicketingModalConfig = ({
   form,
   loading,
   response,
   setResponse,
+  formOptions,
   alertOpen,
   setAlertOpen,
   handleCreate,
@@ -23,12 +21,13 @@ export const HomepassModalConfig = ({
 }) => {
   return {
     add: {
-      title: "Create Pre-Sales",
+      title: "Create FAQ",
       content: (
-        <AddHomepasmensForm
+        <AddFaqForm
           loading={loading}
           response={response}
           setResponse={setResponse}
+          formOptions={formOptions}
           handleCreate={handleCreate}
           handleModalClose={handleModalClose}
           isCoverageModalOpen={isCoverageModalOpen}

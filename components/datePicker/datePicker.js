@@ -5,7 +5,7 @@ import { CalendarIcon } from "lucide-react";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ import {
   endOfWeek,
   format,
   startOfDay,
-  startOfWeek
+  startOfWeek,
 } from "date-fns";
 import { BasicCalendar } from "../calendar/calendar";
 
@@ -25,7 +25,7 @@ export function DatePicker({
   isRange = 0,
   onChange,
   defaultValue,
-  rangeFormat = "month"
+  rangeFormat = "month",
 }) {
   const [date, setDate] = React.useState(defaultValue);
   const [month, setMonth] = React.useState(date ?? new Date());
@@ -46,17 +46,17 @@ export function DatePicker({
     } else if (rangeFormat === "week") {
       return `${format(
         startOfWeek(date, { weekStartsOn: 0 }),
-        "dd"
+        "dd",
       )} - ${format(
         endOfWeek(date, {
-          weekStartsOn: 0
+          weekStartsOn: 0,
         }),
-        "dd MMM yyyy"
+        "dd MMM yyyy",
       )}`;
     }
 
     return format(date, "dd MMMM yyyy");
-  }, [date, isRange]);
+  }, [date, isRange, rangeFormat]);
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -66,7 +66,7 @@ export function DatePicker({
             variant="outline"
             className={cn(
               "w-full justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              !date && "text-muted-foreground",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4 " />

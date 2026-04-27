@@ -13,7 +13,6 @@ import {
 import { cn } from "@/lib/utils";
 
 import { TriangleAlert, X } from "lucide-react";
-import { Separator } from "../ui/separator";
 
 const CustomDialog = ({
   open,
@@ -34,12 +33,12 @@ const CustomDialog = ({
   const isModal = isDelete || isForm;
 
   const sizeClasses = {
-    sm: "max-w-sm",      // ~384px
-    md: "max-w-md",      // ~448px
-    lg: "max-w-lg",      // ~512px
-    xl: "max-w-xl",      // ~576px
-    "600": "max-w-[600px]", 
-    "3xl": "max-w-[800px]",  
+    sm: "max-w-sm", // ~384px
+    md: "max-w-md", // ~448px
+    lg: "max-w-lg", // ~512px
+    xl: "max-w-xl", // ~576px
+    600: "max-w-[600px]",
+    "3xl": "max-w-[800px]",
   };
 
   const positionClass = isModal
@@ -54,7 +53,10 @@ const CustomDialog = ({
           "transition-all duration-300",
           isModal
             ? "max-w-sm gap-0 p-0 rounded-md border border-zinc-200"
-            : cn("rounded-md rounded-l-none border-l-0 gap-4 p-7", sizeClasses[size] || sizeClasses["3xl"]),
+            : cn(
+                "rounded-md rounded-l-none border-l-0 gap-4 p-7",
+                sizeClasses[size] || sizeClasses["3xl"],
+              ),
           className,
         )}
       >
@@ -67,10 +69,12 @@ const CustomDialog = ({
               `text-${headerAlignment}`,
             )}
           >
-            <div className="flex flex-col gap-2">
-        {isDelete ? <TriangleAlert className="w-6 h-6 text-red-500 font-light mr-2" /> : "" } {title}
-        <span className="text-xs font-normal tracking-normal text-muted-foreground">{description}</span>
-              </div>  
+            {isDelete ? (
+              <TriangleAlert className="w-6 h-6 text-red-500 font-light mr-2" />
+            ) : (
+              ""
+            )}{" "}
+            {title}
           </DialogTitle>
 
           <button

@@ -2,11 +2,21 @@
 
 import * as React from "react";
 import { CalendarIcon } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { BasicCalendar } from "../calendar/calendar";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import TimePicker from "./timePicker";
 
 export default function DatePickerForm({
@@ -33,8 +43,8 @@ export default function DatePickerForm({
     });
 
     if (showTime) {
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
 
       return `${datePart} . ${hours}:${minutes}`;
     }
@@ -70,22 +80,24 @@ export default function DatePickerForm({
                       "w-full justify-start text-left font-normal h-9 border-slate-300 focus:ring-1 focus:ring-blue-500",
                       !field.value && "text-muted-foreground",
                       errors[name] && "border-destructive",
-                      disabled && "bg-slate-100 text-slate-400"
+                      disabled && "bg-slate-100 text-slate-400",
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
                     <span className="truncate">
-                      {field.value ? formatDate(field.value) : (placeholder || `Pilih ${label}`)}
+                      {field.value
+                        ? formatDate(field.value)
+                        : placeholder || `Pilih ${label}`}
                     </span>
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent 
-                  className="w-auto p-0 border-0 z-50 flex flex-row" 
-                  align="start"
+                <PopoverContent
+                  className="w-auto p-0 border-0 z-50 flex flex-row "
+                  align="center"
                   side="top"
                   sideOffset={8}
                   avoidCollisions={true}
-                  onWheel={(e) => e.stopPropagation()} 
+                  onWheel={(e) => e.stopPropagation()}
                 >
                   <BasicCalendar
                     mode="single"
@@ -98,10 +110,7 @@ export default function DatePickerForm({
                   />
 
                   {showTime && field.value && (
-                    <TimePicker
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
+                    <TimePicker value={field.value} onChange={field.onChange} />
                   )}
                 </PopoverContent>
               </Popover>
