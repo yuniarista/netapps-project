@@ -6,8 +6,7 @@ import { cn } from "@/lib/utils";
 import { getBillingStyle } from "@/views/(billing)/invoices/configs/billingStyle";
 import { useState } from "react";
 
-export default function List({ status }) {
-  const [selectedItem, setSelectedItem] = useState([]);
+export default function PaymentList({ selectedRows, setSelectedRows }) {
   const ListData = [
     {
       id: 1,
@@ -27,9 +26,9 @@ export default function List({ status }) {
     },
   ];
 
-  const handleListClick = (id) => {
-    setSelectedItem((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+  const handleToggle = (id) => {
+    setSelectedRows((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
@@ -39,12 +38,12 @@ export default function List({ status }) {
         {ListData.map((item) => {
           const type = item.status?.toLocaleLowerCase() || "unpaid";
           const style = getBillingStyle(type);
-          const isChecked = selectedItem.includes(item.id);
+          const isChecked = selectedRows.includes(item.id);
 
           return (
             <div
               key={item.id}
-              onClick={() => handleListClick(item.id)}
+              onClick={() => handleToggle(item.id)}
               className={cn(
                 "border-b text-xs cursor-pointer hover:bg-muted transition-colors py-4",
                 isChecked && "bg-muted/50",
@@ -54,7 +53,7 @@ export default function List({ status }) {
               <div className="flex flex-row gap-2 items-start px-3">
                 <Checkbox
                   checked={isChecked}
-                  onCheckedChange={() => handleListClick(item.id)}
+                  onCheckedChange={() => handleToggle(item.id)}
                   onClick={(e) => e.stopPropagation()}
                   className="mt-1" 
                 />

@@ -1,7 +1,7 @@
-import PaymentPage from "@/views/(configurations)/paymentGateaway/components/(page)/PaymentPage";
+import PaymentPage from "@/views/(configurations)/paymentGateway/components/(page)/page";
 
-export default function page() {
-    return(
-        <PaymentPage />
-    )
+export default function PagePayment() {
+  return (
+    <PaymentPage />
+  );
 }

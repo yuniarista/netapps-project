@@ -61,7 +61,9 @@ export default function DocumentPage() {
     <div>
       <DocumentDataTable
         columns={DocumentDataColumn({
-          actions
+          actions,
+          selectedRows,      
+          setSelectedRows,
         })}
         handleModalOpen={handleModalOpen}
       />

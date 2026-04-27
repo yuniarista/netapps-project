@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { 
   FormControl, 
-  FormField, // Menggunakan FormField agar konsisten dengan TextInputForm
+  FormField,
   FormItem, 
   FormLabel, 
   FormMessage 
@@ -54,20 +54,24 @@ export default function InputFileForm({
             <div
               onClick={() => !disabled && fileInputRef.current?.click()}
               className={cn(
-                "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer",
+                "flex items-center h-9 gap-3 px-3 border rounded-[5px] bg-white transition-all cursor-pointer overflow-hidden",
                 error
                   ? "border-red-500"
                   : "border-slate-300 focus-within:ring-1 focus-within:ring-primary",
-                disabled && "opacity-50 cursor-not-allowed",
+                disabled && "opacity-50 bg-white cursor-not-allowed",
               )}
             >
-              <span className="text-[#2563eb] text-[14px] font-medium hover:underline shrink-0">
+              <span className={cn("text-[#2563eb] text-[14px] font-medium hover:underline shrink-0",
+                disabled && "text-muted-foreground",
+              )}>
                 {value ? "Change file" : "Choose file"}
               </span>
 
-              <span className="text-[14px] truncate flex-1 text-slate-600">
-                {value ? value.name : "No file chosen"}
-              </span>
+              <div className="flex-1 w-20"> 
+                <span className="text-[14px] block truncate text-slate-600">
+                  {value ? value.name : "No file chosen"}
+                </span>
+              </div>
 
               {value && (
                 <button

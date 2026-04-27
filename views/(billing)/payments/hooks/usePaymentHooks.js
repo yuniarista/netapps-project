@@ -11,7 +11,7 @@ export const usePaymentHooks = (initialData = []) => {
     pageIndex: 0,
     pageLimit: 10
   });
-  const [selectedRows, setSelectedRows] = useState({});
+  const [selectedRows, setSelectedRows] = useState([]);
   const [filterParams, setFilterParams] = useState([]);
   const [alertOpen, setAlertOpen] = useState(!!response?.status);
 

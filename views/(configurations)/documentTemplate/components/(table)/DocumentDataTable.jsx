@@ -10,9 +10,28 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronDown, PanelRight, Plus, Search, Settings2, Trash2 } from "lucide-react";
 
-export default function DocumentDataTable({ columns, handleModalOpen }) {
+export default function DocumentDataTable({ 
+  uri,
+  data,
+  setData,
+  columns,
+  setLoading,
+  handleModalOpen,
+  filterParams,
+  setFilterParams,
+  selectedRows,
+  setSelectedRows,
+  nameFilter,
+  setNameFilter,
+  sortDataBy,
+  setSortDataBy,
+  paginationModel,
+  setPaginationModel,
+  dashboardAccessPermissions
+ }) {
   const dummyData = [
     {
+      id:"1",
       name: "NetApps",
       templateName: "Invoice SAI",
       description: "Instalation Fee",
@@ -21,6 +40,7 @@ export default function DocumentDataTable({ columns, handleModalOpen }) {
       status: "Active",
     },
     {
+      id:"2",
       name: "PT Maju Mundur",
       templateName: "Invoice A",
       description: "tes",
@@ -29,6 +49,7 @@ export default function DocumentDataTable({ columns, handleModalOpen }) {
       status: "Inactive",
     },
     {
+      id:"3",
       name: "CV Sukses Selalu",
       templateName: "Invoice A",
       description: "tes",
@@ -66,7 +87,7 @@ const filterSections = [
           label: "Delete",
           value: "delete",
           icon: Trash2,
-          onClick: () => confirm("Are you sure?")
+          onClick: () => handleModalOpen("delete")
         },
       ]
     }
@@ -101,44 +122,25 @@ const filterSections = [
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
-                {/* <Select>
-                  {/* value={sortDataBy}
-              // onValueChange={async (val) => {
-              //   setSortDataBy(val);
-              //   setFilterParams([
-              //     { key: "search", value: nameFilter },
-              //     {
-              //       key: !!val ? `order[${val.split("-")[0]}]` : "",
-              //       value: val.split("-")[1] ?? ""
-              //     }
-              //   ]);
-              //   const result = await FilterData({
-              //     uri,
-              //     setLoading,
-              //     paginationModel: {
-              //       pageIndex: paginationModel.pageIndex + 1,
-              //       pageLimit: paginationModel.pageLimit
-              //     },
-              //     filterParams: getFilterParams(nameFilter, val)
-              //   });
-              //   setData(result);
-              // }} */}
-                {/* <SelectTrigger className="w-40" icon={Settings2} iconPosition="left" iconClassName="text-primary">
-                    <SelectValue placeholder="Filter By" />
-                  </SelectTrigger>
-                  <SelectContent> */}
-                {/* {sortableFieldList.map((item) => (
-                  <SelectItem
-                    key={item.label}
-                    value={`${item.value.sortDataBy}-${item.value.sortType}`}
-                  >
-                    {item.label}
-                  </SelectItem>
-                ))} */}
-                {/* </SelectContent>
-                </Select> */}
-
+              <div className="ml-auto flex flex-nowrap items-center gap-2 flex-shrink-0">
+                <div className="flex flex-nowrap gap-2">
+                  {/* {activeFilters
+                    .filter((filter) => filter.showBadge === true)
+                    .map((filter) => (
+                      <CustomButton
+                        key={filter.value}
+                        variant="secondary"
+                        size="sm"
+                        className="flex items-center gap-1 whitespace-nowrap flex-shrink-0 h-8 rounded-full bg-slate-100 border-none px-3"
+                        onClick={() => handleRemoveFilter(filter.value)}
+                      >
+                        <span className="text-[13px] text-slate-700">
+                          {filter.label}
+                        </span>
+                        <X className="h-3.5 w-3.5 text-primary" />
+                      </CustomButton>
+                    ))} */}
+                </div>
                 {/* <Select>
                   <SelectTrigger className="w-40" iconClassName="text-primary">
                     <SelectValue placeholder="Bulk Delete" />
@@ -158,14 +160,11 @@ const filterSections = [
                 <SelectDropdown
                   triggerLabel="Bulk Action"
                   sections={bulkActionSections}
-                  showSectionLabelSeparator={false}
-                  showSectionSeparator={false}
                   badgeVariant="outline"
                 />
 
                 <CustomButton
                   variant="primary"
-                  type="button"
                   size="md"
                   onClick={() => handleModalOpen("add")}
                 >
@@ -183,6 +182,8 @@ const filterSections = [
                   totalData: dummyData.length
                 }}
                 pagination={{ pageIndex: 0, pageLimit: 10 }}
+                selectedRows={selectedRows}
+                setSelectedRows={setSelectedRows}
               />
             </div>
           </div>

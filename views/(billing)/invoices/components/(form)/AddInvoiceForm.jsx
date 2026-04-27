@@ -49,15 +49,15 @@ export default function AddInvoiceForm({
     billDetails: true,
   });
 
-    const form = useForm({
-      mode: "all",
-      defaultValues: {
-        invoiceItems: [
-          { name: "Web Development", price: 5000000, disc: 10, total: 4500000 },
-          { name: "UI/UX Design", price: 2000000, disc: "-", total: 2000000 },
-        ],
-      },
-    });
+  const form = useForm({
+    mode: "all",
+    defaultValues: {
+      invoiceItems: [
+        { name: "Web Development", price: 5000000, disc: 10, total: 4500000 },
+        { name: "UI/UX Design", price: 2000000, disc: "", total: 2000000 },
+      ],
+    },
+  });
 
   const {
     control,
@@ -102,10 +102,17 @@ export default function AddInvoiceForm({
   );
 
   const items = watch("invoiceItems") || [];
+  const totalDiscount = items.reduce((acc, item) => {
+    const price = Number(item.price) || 0;
+    const total = Number(item.total) || 0;
+    return acc + (price - total);
+  }, 0);
   const subTotal = items.reduce((acc, item) => acc + (Number(item.total) || 0), 0);
+  const taxRate = 11; 
+  const taxMultiplier = taxRate / 100;
   const tax = subTotal * 0.11;
-  const grandTotal = (subTotal + tax);
-  
+  const grandTotal = subTotal + tax;
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -233,25 +240,25 @@ export default function AddInvoiceForm({
                   setValue={setValue}
                 />
                 <Separator />
-                <div className="flex flex-col items-end text-sm">
-                  <div className="">
-                  <div className=" flex p-1 justify-between border-b">
-                    <span>Discount</span>
-                    <span className="font-semibold">Rp 0.00</span>
-                  </div>
-                  <div className="flex p-1 justify-between border-b gap-6 space-x-10">
-                    <span>Sub Total</span>
-                    <span className="font-semibold">Rp {subTotal.toLocaleString("id-ID")}</span>
-                  </div>
-                  <div className="flex p-1 justify-between border-b">
-                    <span>Tax 11%</span>
-                    <span className="font-semibold">Rp {tax.toLocaleString("id-ID")}</span>
-                  </div>
-                  <div className="flex p-1 justify-between border-b font-semibold">
-                    <span>Total</span>
-                    <span className="font-semibold">Rp {grandTotal.toLocaleString("id-ID")}</span>
-                  </div>
 
+                <div className="flex flex-col items-end text-sm">
+                  <div className="w-full max-w-[300px] space-y-2">
+                    <div className="flex p-1 justify-between border-b">
+                      <span>Discount</span>
+                      <span className="font-semibold">- Rp {totalDiscount.toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex p-1 justify-between border-b gap-6 space-x-10">
+                      <span>Sub Total</span>
+                      <span className="font-semibold">Rp {subTotal.toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex p-1 justify-between border-b">
+                      <span>Tax ({taxRate}%)</span>
+                      <span className="font-semibold">Rp {tax.toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex p-1 justify-between border-b font-semibold">
+                      <span>Total</span>
+                      <span className="font-semibold">Rp {grandTotal.toLocaleString("id-ID")}</span>
+                    </div>
                   </div>
                 </div>
 
