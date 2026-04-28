@@ -129,7 +129,8 @@ export default function InputText({
   layout = "vertical",
   type,
   endAdornment = null,
-  readOnly = false
+  readOnly = false,
+  className
 }) {
   const isDestructive = variant === "destructive";
   const isHorizontal = layout === "horizontal";
@@ -170,7 +171,7 @@ export default function InputText({
             disabled && "bg-white border-slate-300 cursor-not-allowed",
             readOnly && "bg-slate-50 text-slate-900 cursor-not-allowed",
             isDestructive && !disabled && "border-red-500 focus-visible:ring-red-500",
-            !isDestructive && !disabled && "border-slate-300 focus-visible:ring-primary"
+            !isDestructive && !disabled && "border-slate-300 focus-visible:ring-primary", className
           )}
           type={type ?? "text"}
           readOnly={readOnly}

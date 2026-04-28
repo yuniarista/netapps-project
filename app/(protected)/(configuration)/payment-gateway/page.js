@@ -1,4 +1,4 @@
-import PaymentPage from "@/views/(configurations)/paymentGateway/components/(page)/PaymentPage";
+import PaymentPage from "@/views/(configurations)/paymentGateway/components/(page)/page";
 
 export default function PagePayment() {
   return (
